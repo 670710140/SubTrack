@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="th" class="h-full bg-slate-900 text-slate-100">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SubTrack - ระบบจัดการและติดตามค่าบริการสมาชิก</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Prompt & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Prompt', 'Inter', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Custom Scrollbar for better UI */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1e293b;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #475569;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #64748b;
+    }
+  </style>
+</head>
+<body class="h-full font-sans antialiased bg-slate-900 text-slate-100 flex flex-col md:flex-row overflow-x-hidden">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-3 max-w-sm pointer-events-none"></div>
+
+  <!-- Sidebar Navigation -->
+  <aside class="w-full md:w-64 bg-slate-950 border-r border-slate-800 flex flex-col shrink-0 z-20">
+    <div class="p-5 border-b border-slate-800 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
+          <i data-lucide="repeat" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h1 class="font-bold text-lg leading-tight tracking-wide text-white">SubTrack</h1>
+          <p class="text-xs text-slate-400">ระบบจัดการสมาชิก</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Navigation Menu (HCI: Consistency & Recognition) -->
+    <nav class="flex-1 p-4 space-y-1.5 overflow-y-auto">
+      <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all bg-indigo-600/10 text-indigo-400 border border-indigo-500/20">
+        <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
+        <span>ภาพรวม (Dashboard)</span>
+      </button>
+
+      <button onclick="switchTab('summary')" id="nav-summary" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
+        <i data-lucide="pie-chart" class="w-5 h-5"></i>
+        <span>สรุปค่าใช้จ่าย</span>
+      </button>
+
+      <button onclick="switchTab('calendar')" id="nav-calendar" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
+        <i data-lucide="calendar" class="w-5 h-5"></i>
+        <span>ปฏิทินและ Sync</span>
+      </button>
+
+      <button onclick="switchTab('notifications')" id="nav-notifications" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
+        <i data-lucide="bell" class="w-5 h-5"></i>
+        <span class="flex-1 text-left">การแจ้งเตือน</span>
+        <span id="nav-notif-badge" class="bg-amber-500/20 text-amber-400 text-xs px-2 py-0.5 rounded-full font-semibold border border-amber-500/30">0</span>
+      </button>
+
+      <button onclick="switchTab('guide')" id="nav-guide" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
+        <i data-lucide="book-open" class="w-5 h-5"></i>
+        <span>คู่มือการยกเลิก</span>
+      </button>
+    </nav>
+
+    <!-- Sidebar Bottom User / Quick Action -->
+    <div class="p-4 border-t border-slate-800 bg-slate-950/50">
+      <button onclick="openModal('add-modal')" class="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-medium py-2.5 px-4 rounded-xl transition shadow-lg shadow-indigo-600/20 active:scale-95">
+        <i data-lucide="plus-circle" class="w-5 h-5"></i>
+        <span>เพิ่มรายการใหม่</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto bg-slate-900">
+    
+    <!-- Top Header -->
+    <header class="h-16 border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-10 px-6 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <h2 id="page-title" class="text-xl font-bold text-white">ภาพรวมบริการสมาชิก</h2>
+        <span class="text-xs text-slate-400 border-l border-slate-700 pl-3 hidden sm:inline" id="current-date-display">--</span>
+      </div>
+
+      <div class="flex items-center space-x-4">
+        <!-- Notification Dropdown Toggle -->
+        <div class="relative">
+          <button onclick="toggleNotifDropdown()" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 relative transition">
+            <i data-lucide="bell" class="w-5 h-5"></i>
+            <span id="header-notif-ping" class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-amber-500 rounded-full animate-ping hidden"></span>
+            <span id="header-notif-dot" class="absolute top-1.5 right-1.5 w-2.5 h-2.5 bg-amber-500 rounded-full hidden"></span>
+          </button>
+
+          <!-- Notification Dropdown Menu -->
+          <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-80 md:w-96 bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl z-50 p-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-700">
+              <h4 class="font-semibold text-sm text-white">การแจ้งเตือนยอดชำระที่ใกล้ถึง</h4>
+              <button onclick="switchTab('notifications'); toggleNotifDropdown()" class="text-xs text-indigo-400 hover:underline">ตั้งค่า</button>
+            </div>
+            <div id="notif-dropdown-list" class="space-y-2 mt-3 max-h-64 overflow-y-auto pr-1">
+              <!-- Populated via JS -->
+            </div>
+          </div>
+        </div>
+
+        <!-- User Profile Avatar -->
+        <div class="flex items-center space-x-3 border-l border-slate-800 pl-4">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120" alt="User Avatar" class="w-9 h-9 rounded-full object-cover border border-indigo-500/40">
+          <div class="hidden sm:block text-left">
+            <div class="text-xs font-semibold text-slate-200">สมชาย สายประหยัด</div>
+            <div class="text-[10px] text-slate-400">Standard Plan</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Contents -->
+    <div class="p-4 md:p-8 flex-1 space-y-6">
+
+      <!-- ================= 1. DASHBOARD VIEW ================= -->
+      <section id="tab-dashboard" class="space-y-6">
+        
+        <!-- Key Metrics Cards (System Status) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl shadow-sm">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-xs font-medium">ค่าใช้จ่ายรวมรายเดือน</span>
+              <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg"><i data-lucide="wallet" class="w-4 h-4"></i></div>
+            </div>
+            <div class="text-2xl font-bold text-white" id="stat-monthly-total">฿0.00</div>
+            <p class="text-xs text-slate-400 mt-1">คำนวณจากทุกรายการแบบรายเดือน</p>
+          </div>
+
+          <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl shadow-sm">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-xs font-medium">ประมาณการต่อปี</span>
+              <div class="p-2 bg-violet-500/10 text-violet-400 rounded-lg"><i data-lucide="trending-up" class="w-4 h-4"></i></div>
+            </div>
+            <div class="text-2xl font-bold text-white" id="stat-yearly-total">฿0.00</div>
+            <p class="text-xs text-slate-400 mt-1">ประมาณการรวม 12 เดือน</p>
+          </div>
+
+          <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl shadow-sm">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-xs font-medium">ต้องชำระใน 7 วันนี้</span>
+              <div class="p-2 bg-amber-500/10 text-amber-400 rounded-lg"><i data-lucide="clock" class="w-4 h-4"></i></div>
+            </div>
+            <div class="text-2xl font-bold text-amber-400" id="stat-due-soon">0 รายการ</div>
+            <p class="text-xs text-slate-400 mt-1" id="stat-due-soon-amount">ยอดรวม ฿0</p>
+          </div>
+
+          <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl shadow-sm">
+            <div class="flex items-center justify-between text-slate-400 mb-2">
+              <span class="text-xs font-medium">จำนวนบริการที่ใช้งาน</span>
+              <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg"><i data-lucide="check-circle" class="w-4 h-4"></i></div>
+            </div>
+            <div class="text-2xl font-bold text-white" id="stat-active-count">0 รายการ</div>
+            <p class="text-xs text-slate-400 mt-1"> active subscriptions</p>
+          </div>
+        </div>
+
+        <!-- Filter & Search Toolbar (HCI: User Control & Freedom) -->
+        <div class="flex flex-col md:flex-row gap-4 items-center justify-between bg-slate-800/40 p-4 rounded-2xl border border-slate-800">
+          <div class="relative w-full md:w-80">
+            <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 text-slate-400"></i>
+            <input type="text" id="search-input" oninput="renderSubscriptions()" placeholder="ค้นหาชื่อบริการ..." class="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3 w-full md:w-auto">
+            <!-- Category Filter -->
+            <select id="category-filter" onchange="renderSubscriptions()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="ALL">ทุกหมวดหมู่</option>
+              <option value="Entertainment">ความบันเทิง (Streaming)</option>
+              <option value="Music">เพลงและพอดแคสต์</option>
+              <option value="Productivity">ซอฟต์แวร์/การทำงาน</option>
+              <option value="Storage">คลาวด์และพื้นที่เก็บข้อมูล</option>
+              <option value="Utility">ยูทิลิตี้และเครื่องมือ</option>
+            </select>
+
+            <!-- Status Filter -->
+            <select id="status-filter" onchange="renderSubscriptions()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="ALL">ทุกสถานะ</option>
+              <option value="Active">เปิดใช้งานอยู่ (Active)</option>
+              <option value="Due Soon">ใกล้ถึงวันชำระ (Due Soon)</option>
+              <option value="Cancelled">ยกเลิกแล้ว (Cancelled)</option>
+            </select>
+            
+            <button onclick="openModal('add-modal')" class="bg-indigo-600 hover:bg-indigo-500 text-white text-sm font-medium px-4 py-2 rounded-xl transition flex items-center gap-2 shadow-md">
+              <i data-lucide="plus" class="w-4 h-4"></i>
+              <span>เพิ่มบริการ</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Subscriptions Card Grid -->
+        <div id="subscriptions-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Populated dynamically via JavaScript -->
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="hidden text-center py-16 bg-slate-800/30 rounded-2xl border border-dashed border-slate-700">
+          <i data-lucide="inbox" class="w-12 h-12 text-slate-500 mx-auto mb-3"></i>
+          <h3 class="text-slate-300 font-semibold">ไม่พบรายการสมัครสมาชิก</h3>
+          <p class="text-slate-500 text-sm mt-1">ลองเปลี่ยนคำค้นหาหรือเพิ่มรายการสมาชิกใหม่</p>
+        </div>
+
+      </section>
+
+      <!-- ================= 2. MONTHLY EXPENSE SUMMARY ================= -->
+      <section id="tab-summary" class="hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- Category Breakdown Chart -->
+          <div class="lg:col-span-1 bg-slate-800/80 border border-slate-700/60 p-6 rounded-2xl">
+            <h3 class="font-bold text-base text-white mb-1">สัดส่วนค่าใช้จ่ายตามหมวดหมู่</h3>
+            <p class="text-xs text-slate-400 mb-4">แสดงเปอร์เซ็นต์ค่าใช้จ่ายต่อเดือน</p>
+            <div class="relative flex items-center justify-center p-4">
+              <canvas id="categoryChart" class="max-h-64"></canvas>
+            </div>
+          </div>
+
+          <!-- Monthly Comparison Chart -->
+          <div class="lg:col-span-2 bg-slate-800/80 border border-slate-700/60 p-6 rounded-2xl flex flex-col justify-between">
+            <div>
+              <h3 class="font-bold text-base text-white mb-1">การเปรียบเทียบค่าใช้จ่ายแต่ละบริการ</h3>
+              <p class="text-xs text-slate-400 mb-4">เรียงลำดับจากบริการที่มีราคาสูงสุดไปต่ำสุด (บาท/เดือน)</p>
+            </div>
+            <div class="relative w-full h-72">
+              <canvas id="barChart"></canvas>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Detailed Breakdown Table -->
+        <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl overflow-hidden shadow-lg">
+          <div class="p-5 border-b border-slate-700/80 flex items-center justify-between">
+            <h3 class="font-bold text-base text-white">ตารางสรุปรายละเอียดค่าใช้จ่ายทั้งหมด</h3>
+            <span class="text-xs text-slate-400">อัปเดตอัตโนมัติ</span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm text-slate-300">
+              <thead class="bg-slate-900/60 text-xs text-slate-400 uppercase tracking-wider">
+                <tr>
+                  <th class="py-3.5 px-6">ชื่อบริการ</th>
+                  <th class="py-3.5 px-6">หมวดหมู่</th>
+                  <th class="py-3.5 px-6">รอบบิล</th>
+                  <th class="py-3.5 px-6">วันชำระถัดไป</th>
+                  <th class="py-3.5 px-6 text-right">ราคา/รอบ</th>
+                  <th class="py-3.5 px-6 text-right">คิดเป็น/เดือน</th>
+                </tr>
+              </thead>
+              <tbody id="summary-table-body" class="divide-y divide-slate-700/50">
+                <!-- Dynamic Content -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 3. CALENDAR & INTEGRATION ================= -->
+      <section id="tab-calendar" class="hidden space-y-6">
+        <div class="bg-slate-800/80 border border-slate-700/60 p-6 rounded-2xl">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+            <div>
+              <h3 class="font-bold text-lg text-white">ปฏิทินรอบชำระเงินประจำเดือน</h3>
+              <p class="text-xs text-slate-400 mt-1">วางแผนการเงินร่วมกับกิจกรรมอื่น และซิงค์ลงปฏิทินมือถือ</p>
+            </div>
+            
+            <div class="flex items-center space-x-3">
+              <button onclick="downloadICSFile()" class="bg-slate-700 hover:bg-slate-600 text-white text-xs font-medium px-3.5 py-2 rounded-xl transition flex items-center gap-2">
+                <i data-lucide="download" class="w-4 h-4"></i>
+                <span>ดาวน์โหลดไฟล์ .ICS</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Calendar Days Grid -->
+          <div id="calendar-view" class="bg-slate-900/80 rounded-2xl p-4 border border-slate-800">
+            <!-- Calendar header & grid generated by JS -->
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. NOTIFICATIONS SETTINGS ================= -->
+      <section id="tab-notifications" class="hidden space-y-6">
+        <div class="max-w-3xl mx-auto space-y-6">
+          <div class="bg-slate-800/80 border border-slate-700/60 p-6 rounded-2xl">
+            <h3 class="font-bold text-lg text-white mb-1">ตั้งค่าระบบแจ้งเตือนการชำระเงิน</h3>
+            <p class="text-xs text-slate-400 mb-6">กำหนดช่วงเวลาและช่องทางที่ต้องการรับการแจ้งเตือนล่วงหน้าเพื่อป้องกันการโดนตัดเงินโดยไม่ตั้งใจ</p>
+
+            <form id="notif-settings-form" onsubmit="saveNotificationSettings(event)" class="space-y-6">
+              
+              <!-- Lead Time Settings -->
+              <div>
+                <label class="block text-sm font-semibold text-slate-200 mb-2">แจ้งเตือนล่วงหน้ากี่วัน?</label>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                  <label class="cursor-pointer">
+                    <input type="radio" name="lead-days" value="1" class="peer hidden">
+                    <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl text-center text-sm font-medium peer-checked:border-indigo-500 peer-checked:bg-indigo-600/10 peer-checked:text-indigo-400 hover:bg-slate-800 transition">1 วันล่วงหน้า</div>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="radio" name="lead-days" value="3" checked class="peer hidden">
+                    <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl text-center text-sm font-medium peer-checked:border-indigo-500 peer-checked:bg-indigo-600/10 peer-checked:text-indigo-400 hover:bg-slate-800 transition">3 วันล่วงหน้า</div>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="radio" name="lead-days" value="5" class="peer hidden">
+                    <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl text-center text-sm font-medium peer-checked:border-indigo-500 peer-checked:bg-indigo-600/10 peer-checked:text-indigo-400 hover:bg-slate-800 transition">5 วันล่วงหน้า</div>
+                  </label>
+                  <label class="cursor-pointer">
+                    <input type="radio" name="lead-days" value="7" class="peer hidden">
+                    <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl text-center text-sm font-medium peer-checked:border-indigo-500 peer-checked:bg-indigo-600/10 peer-checked:text-indigo-400 hover:bg-slate-800 transition">7 วันล่วงหน้า</div>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Notification Time -->
+              <div>
+                <label class="block text-sm font-semibold text-slate-200 mb-2">เวลาที่ต้องการให้แจ้งเตือน</label>
+                <input type="time" id="notif-time" value="09:00" class="bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              </div>
+
+              <!-- Channel Toggles -->
+              <div class="space-y-4 pt-4 border-t border-slate-700">
+                <h4 class="text-sm font-semibold text-slate-200">ช่องทางการแจ้งเตือน</h4>
+                
+                <div class="flex items-center justify-between p-3.5 bg-slate-900/60 rounded-xl border border-slate-800">
+                  <div class="flex items-center space-x-3">
+                    <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg"><i data-lucide="bell" class="w-5 h-5"></i></div>
+                    <div>
+                      <div class="text-sm font-medium text-slate-200">In-App Notification</div>
+                      <div class="text-xs text-slate-400">แจ้งเตือนภายในแอปพลิเคชันแถบด้านบน</div>
+                    </div>
+                  </div>
+                  <input type="checkbox" checked class="w-5 h-5 accent-indigo-600 rounded cursor-pointer">
+                </div>
+
+                <div class="flex items-center justify-between p-3.5 bg-slate-900/60 rounded-xl border border-slate-800">
+                  <div class="flex items-center space-x-3">
+                    <div class="p-2 bg-violet-500/10 text-violet-400 rounded-lg"><i data-lucide="smartphone" class="w-5 h-5"></i></div>
+                    <div>
+                      <div class="text-sm font-medium text-slate-200">Push Notification (มือถือ)</div>
+                      <div class="text-xs text-slate-400">การแจ้งเตือนบนหน้าจอสมาร์ทโฟน</div>
+                    </div>
+                  </div>
+                  <input type="checkbox" checked class="w-5 h-5 accent-indigo-600 rounded cursor-pointer">
+                </div>
+
+                <div class="flex items-center justify-between p-3.5 bg-slate-900/60 rounded-xl border border-slate-800">
+                  <div class="flex items-center space-x-3">
+                    <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg"><i data-lucide="mail" class="w-5 h-5"></i></div>
+                    <div>
+                      <div class="text-sm font-medium text-slate-200">E-mail Notification</div>
+                      <div class="text-xs text-slate-400">ส่งอีเมลสรุปเตือนล่วงหน้าไปที่ somchai@email.com</div>
+                    </div>
+                  </div>
+                  <input type="checkbox" class="w-5 h-5 accent-indigo-600 rounded cursor-pointer">
+                </div>
+              </div>
+
+              <div class="flex justify-end pt-2">
+                <button type="submit" class="bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-6 py-2.5 rounded-xl transition shadow-md">
+                  บันทึกการตั้งค่า
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 5. CANCELLATION GUIDE ================= -->
+      <section id="tab-guide" class="hidden space-y-6">
+        <div class="bg-slate-800/80 border border-slate-700/60 p-6 rounded-2xl">
+          <div class="mb-6">
+            <h3 class="font-bold text-lg text-white">คู่มือแนะนำขั้นตอนการยกเลิกบริการ (Cancellation Guide)</h3>
+            <p class="text-xs text-slate-400 mt-1">ค้นหาวิธียกเลิกบริการอย่างง่ายดายทีละขั้นตอน เพื่อป้องกันการโดนตัดเงินต่อเนื่อง</p>
+          </div>
+
+          <!-- Guide Search & Cards -->
+          <div id="guide-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <!-- Dynamically generated guides -->
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ================= ADD / EDIT SUBSCRIPTION MODAL ================= -->
+  <div id="add-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-md shadow-2xl p-6 relative my-8">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-slate-700">
+        <h3 id="modal-title" class="font-bold text-lg text-white">เพิ่มรายการสมัครสมาชิกใหม่</h3>
+        <button onclick="closeModal('add-modal')" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Form Presets (Quick select) -->
+      <div class="mt-4">
+        <label class="block text-xs font-semibold text-slate-400 mb-1.5">เลือกบริการยอดนิยมแบบรวดเร็ว</label>
+        <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
+          <button type="button" onclick="applyPreset('Netflix', 'Entertainment', 419, '#E50914')" class="shrink-0 text-xs px-3 py-1.5 bg-slate-700/60 hover:bg-slate-700 rounded-lg text-slate-200 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-red-600"></span> Netflix
+          </button>
+          <button type="button" onclick="applyPreset('YouTube Premium', 'Entertainment', 179, '#FF0000')" class="shrink-0 text-xs px-3 py-1.5 bg-slate-700/60 hover:bg-slate-700 rounded-lg text-slate-200 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-red-500"></span> YouTube Premium
+          </button>
+          <button type="button" onclick="applyPreset('Spotify', 'Music', 139, '#1DB954')" class="shrink-0 text-xs px-3 py-1.5 bg-slate-700/60 hover:bg-slate-700 rounded-lg text-slate-200 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Spotify
+          </button>
+          <button type="button" onclick="applyPreset('iCloud+', 'Storage', 99, '#007AFF')" class="shrink-0 text-xs px-3 py-1.5 bg-slate-700/60 hover:bg-slate-700 rounded-lg text-slate-200 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-blue-500"></span> iCloud+
+          </button>
+          <button type="button" onclick="applyPreset('ChatGPT Plus', 'Productivity', 700, '#10A37F')" class="shrink-0 text-xs px-3 py-1.5 bg-slate-700/60 hover:bg-slate-700 rounded-lg text-slate-200 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-teal-500"></span> ChatGPT
+          </button>
+        </div>
+      </div>
+
+      <form id="subscription-form" onsubmit="handleFormSubmit(event)" class="space-y-4 mt-4">
+        <input type="hidden" id="sub-id">
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">ชื่อบริการ <span class="text-red-400">*</span></label>
+          <input type="text" id="sub-name" required placeholder="เช่น Netflix, Adobe Creative Cloud" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">หมวดหมู่</label>
+            <select id="sub-category" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="Entertainment">ความบันเทิง</option>
+              <option value="Music">เพลงและพอดแคสต์</option>
+              <option value="Productivity">ซอฟต์แวร์/ทำงาน</option>
+              <option value="Storage">คลาวด์/พื้นที่</option>
+              <option value="Utility">ยูทิลิตี้</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">รอบการเรียกเก็บเงิน</label>
+            <select id="sub-cycle" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="Monthly">รายเดือน (Monthly)</option>
+              <option value="Yearly">รายปี (Yearly)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">ราคาค่าสมัคร (บาท) <span class="text-red-400">*</span></label>
+            <input type="number" id="sub-price" required step="0.01" min="0" placeholder="0.00" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">วันเรียกเก็บเงินถัดไป <span class="text-red-400">*</span></label>
+            <input type="date" id="sub-next-date" required class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">ธีมสีไอคอน</label>
+            <input type="color" id="sub-color" value="#6366f1" class="w-full h-10 p-1 bg-slate-900 border border-slate-700 rounded-xl cursor-pointer">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">สถานะสมาชิก</label>
+            <select id="sub-status" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+              <option value="Active">เปิดใช้งานอยู่ (Active)</option>
+              <option value="Cancelled">ยกเลิกแล้ว (Cancelled)</option>
+            </select>
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-300 mb-1">หมายเหตุเพิ่มเติม (ถ้ามี)</label>
+          <input type="text" id="sub-notes" placeholder="เช่น แชร์กับครอบครัว 4 คน" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        </div>
+
+        <div class="flex justify-end gap-3 pt-4 border-t border-slate-700">
+          <button type="button" onclick="closeModal('add-modal')" class="px-4 py-2 bg-slate-700 hover:bg-slate-600 rounded-xl text-sm font-medium text-slate-200 transition">ยกเลิก</button>
+          <button type="submit" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-sm font-medium text-white transition shadow-lg shadow-indigo-600/30">บันทึกข้อมูล</button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ================= CANCELLATION GUIDE STEP MODAL ================= -->
+  <div id="guide-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-lg shadow-2xl p-6 relative my-8">
+      <div class="flex items-center justify-between pb-4 border-b border-slate-700">
+        <div class="flex items-center space-x-3">
+          <div id="guide-modal-icon" class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white">N</div>
+          <h3 id="guide-modal-title" class="font-bold text-lg text-white">วิธียกเลิกบริการ</h3>
+        </div>
+        <button onclick="closeModal('guide-modal')" class="text-slate-400 hover:text-white p-1 rounded-lg">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="mt-4 space-y-4">
+        <p class="text-xs text-slate-400">ทำตามขั้นตอนต่อไปนี้เพื่อทำการยกเลิกบริการป้องกันไม่ให้โดนตัดเงินในรอบบิลถัดไป:</p>
+        
+        <ol id="guide-modal-steps" class="space-y-3 text-sm text-slate-200 list-decimal list-inside bg-slate-900/60 p-4 rounded-xl border border-slate-700/50">
+          <!-- Step items via JS -->
+        </ol>
+
+        <div class="bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl flex items-start gap-2 text-xs text-amber-300">
+          <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0 mt-0.5"></i>
+          <span>หลังจากยกเลิกแล้ว คุณยังคงสามารถใช้งานได้จนกว่าจะถึงวันหมดอายุรอบบิลปัจจุบัน</span>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between gap-3 pt-5 border-t border-slate-700 mt-6">
+        <a id="guide-modal-link" href="#" target="_blank" class="text-xs text-indigo-400 hover:text-indigo-300 flex items-center gap-1 font-medium">
+          <span>ไปยังหน้ายกเลิกอย่างเป็นทางการ</span>
+          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+        </a>
+        <button id="guide-modal-cancel-btn" class="px-4 py-2 bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 rounded-xl text-xs font-semibold transition">
+          ทำเครื่องหมายว่ายกเลิกแล้ว
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // Initial Sample Data (Realistic Thai User Subscriptions)
+    let subscriptions = [
+      {
+        id: 'sub-1',
+        name: 'Netflix',
+        category: 'Entertainment',
+        price: 419,
+        cycle: 'Monthly',
+        nextDate: getFutureDate(3), // Due in 3 days
+        status: 'Active',
+        color: '#E50914',
+        notes: 'แพ็กเกจ Premium 4K'
+      },
+      {
+        id: 'sub-2',
+        name: 'YouTube Premium',
+        category: 'Entertainment',
+        price: 179,
+        cycle: 'Monthly',
+        nextDate: getFutureDate(12),
+        status: 'Active',
+        color: '#FF0000',
+        notes: 'ฟังเพลงแบบไม่มีโฆษณา'
+      },
+      {
+        id: 'sub-3',
+        name: 'Spotify Family',
+        category: 'Music',
+        price: 209,
+        cycle: 'Monthly',
+        nextDate: getFutureDate(1), // Due tomorrow
+        status: 'Active',
+        color: '#1DB954',
+        notes: 'หารกับเพื่อน 6 คน'
+      },
+      {
+        id: 'sub-4',
+        name: 'iCloud+ 200GB',
+        category: 'Storage',
+        price: 99,
+        cycle: 'Monthly',
+        nextDate: getFutureDate(20),
+        status: 'Active',
+        color: '#007AFF',
+        notes: 'สำรองข้อมูลรูปภาพ iPhone'
+      },
+      {
+        id: 'sub-5',
+        name: 'Adobe Creative Cloud',
+        category: 'Productivity',
+        price: 1150,
+        cycle: 'Monthly',
+        nextDate: getFutureDate(5),
+        status: 'Active',
+        color: '#FF0000',
+        notes: 'ใช้ Photoshop / Premiere'
+      },
+      {
+        id: 'sub-6',
+        name: 'Disney+ Hotstar',
+        category: 'Entertainment',
+        price: 799,
+        cycle: 'Yearly',
+        nextDate: getFutureDate(45),
+        status: 'Active',
+        color: '#113CCF',
+        notes: 'แพ็กเกจ รายปี'
+      }
+    ];
+
+    // Predefined Guides Data
+    const CANCELLATION_GUIDES = [
+      {
+        name: 'Netflix',
+        color: '#E50914',
+        link: 'https://www.netflix.com/youraccount',
+        steps: [
+          'เข้าสู่ระบบผ่านเว็บ Netflix.com บนเบราว์เซอร์',
+          'คลิกที่รูปโปรไฟล์ที่มุมขวาบน แล้วเลือก "บัญชี" (Account)',
+          'ในหัวข้อ "การสมัครสมาชิกและการชำระเงิน" คลิกปุ่ม "ยกเลิกการเป็นสมาชิก" (Cancel Membership)',
+          'กดยืนยันการยกเลิกในหน้าถัดไป'
+        ]
+      },
+      {
+        name: 'YouTube Premium',
+        color: '#FF0000',
+        link: 'https://www.youtube.com/paid_memberships',
+        steps: [
+          'เปิดแอป YouTube หรือเข้าเว็บไซต์ youtube.com',
+          'แตะที่รูปโปรไฟล์ เลือก "การซื้อและการสมัครสมาชิก" (Purchases and memberships)',
+          'เลือกการสมัครสมาชิก YouTube Premium',
+          'แตะ "ยกเลิกการสมัครสมาชิก" (Deactivate) และเลือกเหตุผล'
+        ]
+      },
+      {
+        name: 'Spotify',
+        color: '#1DB954',
+        link: 'https://www.spotify.com/account/overview/',
+        steps: [
+          'เข้าสู่ระบบที่ spotify.com/account',
+          'ใต้หัวข้อ "แผนของคุณ" (Your plan) ให้คลิก "เปลี่ยนแผน" (Change plan)',
+          'เลื่อนลงไปที่ "ยกเลิก Spotify" แล้วคลิก "ยกเลิก พรีเมียม"',
+          'กดยืนยันเพื่อเปลี่ยนกลับเป็นแบบใช้งานฟรี'
+        ]
+      },
+      {
+        name: 'iCloud+ / Apple Subscriptions',
+        color: '#007AFF',
+        link: 'https://support.apple.com/HT202039',
+        steps: [
+          'เปิด "การตั้งค่า" (Settings) บน iPhone/iPad',
+          'แตะที่ชื่อของคุณ (Apple ID) ด้านบนสุด',
+          'เลือก "การสมัครรับ" (Subscriptions)',
+          'เลือกบริการที่ต้องการยกเลิก แล้วแตะ "ยกเลิกการสมัครรับ"'
+        ]
+      },
+      {
+        name: 'Adobe Creative Cloud',
+        color: '#FF0000',
+        link: 'https://account.adobe.com/plans',
+        steps: [
+          'เข้าสู่ระบบที่ account.adobe.com/plans',
+          'เลือก "จัดการแผน" (Manage plan) สำหรับแผนที่ต้องการยกเลิก',
+          'เลือก "ยกเลิกแผนของคุณ" (Cancel your plan)',
+          'ระบุเหตุผลและกดยืนยันขั้นตอนจนเสร็จสิ้น'
+        ]
+      },
+      {
+        name: 'ChatGPT Plus',
+        color: '#10A37F',
+        link: 'https://chatgpt.com/',
+        steps: [
+          'เข้าสู่ระบบ ChatGPT แล้วคลิกที่ชื่อโปรไฟล์ที่มุมซ้ายล่าง',
+          'เลือก "My Plan" หรือ "Settings"',
+          'คลิกที่ "Manage my subscription"',
+          'ระบบจะนำไปยังหน้า Stripe ให้คลิก "Cancel Plan"'
+        ]
+      }
+    ];
+
+    // Global Chart Instances
+    let categoryChartInstance = null;
+    let barChartInstance = null;
+
+    // Helper: Calculate Date relative to today
+    function getFutureDate(daysFromNow) {
+      const d = new Date();
+      d.setDate(d.getDate() + daysFromNow);
+      return d.toISOString().split('T')[0];
+    }
+
+    // Helper: Format THB Currency
+    function formatTHB(amount) {
+      return new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', maximumFractionDigits: 2 }).format(amount);
+    }
+
+    // Initialize App
+    document.addEventListener('DOMContentLoaded', () => {
+      lucide.createIcons();
+      updateDateDisplay();
+      renderSubscriptions();
+      renderGuides();
+      checkUpcomingNotifications();
+      
+      // Set default date input in modal to today
+      document.getElementById('sub-next-date').value = new Date().toISOString().split('T')[0];
+    });
+
+    function updateDateDisplay() {
+      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', calendar: 'buddhist' };
+      const todayStr = new Date().toLocaleDateString('th-TH', options);
+      document.getElementById('current-date-display').innerText = todayStr;
+    }
+
+    // Navigation Switcher (HCI: User Freedom & System Status)
+    function switchTab(tabId) {
+      const tabs = ['dashboard', 'summary', 'calendar', 'notifications', 'guide'];
+      tabs.forEach(id => {
+        const el = document.getElementById(`tab-${id}`);
+        const navEl = document.getElementById(`nav-${id}`);
+        if (id === tabId) {
+          el.classList.remove('hidden');
+          navEl.className = "nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all bg-indigo-600/10 text-indigo-400 border border-indigo-500/20";
+        } else {
+          el.classList.add('hidden');
+          navEl.className = "nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all text-slate-400 hover:bg-slate-800/60 hover:text-slate-200";
+        }
+      });
+
+      // Tab specific initializations
+      if (tabId === 'summary') {
+        renderSummaryCharts();
+        renderSummaryTable();
+      } else if (tabId === 'calendar') {
+        renderCalendar();
+      }
+
+      // Dynamic Title
+      const titles = {
+        dashboard: 'ภาพรวมบริการสมาชิก',
+        summary: 'สรุปค่าใช้จ่ายรายเดือน',
+        calendar: 'ปฏิทินวันเรียกรวบเก็บเงิน',
+        notifications: 'การตั้งค่าระบบแจ้งเตือน',
+        guide: 'คู่มือแนะนำการยกเลิกบริการ'
+      };
+      document.getElementById('page-title').innerText = titles[tabId];
+    }
+
+    // Render Subscriptions Grid
+    function renderSubscriptions() {
+      const search = document.getElementById('search-input').value.toLowerCase();
+      const catFilter = document.getElementById('category-filter').value;
+      const statusFilter = document.getElementById('status-filter').value;
+
+      const grid = document.getElementById('subscriptions-grid');
+      const emptyState = document.getElementById('empty-state');
+      grid.innerHTML = '';
+
+      let filtered = subscriptions.filter(sub => {
+        const matchesSearch = sub.name.toLowerCase().includes(search);
+        const matchesCat = catFilter === 'ALL' || sub.category === catFilter;
+        
+        let subComputedStatus = sub.status;
+        const daysLeft = getDaysUntil(sub.nextDate);
+        if (sub.status === 'Active' && daysLeft <= 7 && daysLeft >= 0) {
+          subComputedStatus = 'Due Soon';
+        }
+
+        const matchesStatus = statusFilter === 'ALL' || subComputedStatus === statusFilter;
+        return matchesSearch && matchesCat && matchesStatus;
+      });
+
+      if (filtered.length === 0) {
+        emptyState.classList.remove('hidden');
+      } else {
+        emptyState.classList.add('hidden');
+      }
+
+      filtered.forEach(sub => {
+        const daysLeft = getDaysUntil(sub.nextDate);
+        let badgeHTML = '';
+        
+        if (sub.status === 'Cancelled') {
+          badgeHTML = `<span class="bg-slate-700/60 text-slate-400 border border-slate-600 text-[11px] px-2.5 py-0.5 rounded-full font-medium">ยกเลิกแล้ว</span>`;
+        } else if (daysLeft <= 7 && daysLeft >= 0) {
+          badgeHTML = `<span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[11px] px-2.5 py-0.5 rounded-full font-semibold flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> อีก ${daysLeft === 0 ? 'วันนี้' : daysLeft + ' วัน'}</span>`;
+        } else {
+          badgeHTML = `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] px-2.5 py-0.5 rounded-full font-medium">เปิดใช้งาน</span>`;
+        }
+
+        const monthlyEquivalent = sub.cycle === 'Yearly' ? (sub.price / 12) : sub.price;
+
+        const card = document.createElement('div');
+        card.className = "bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 flex flex-col justify-between hover:border-slate-600 transition group shadow-sm";
+        card.innerHTML = `
+          <div>
+            <div class="flex items-start justify-between gap-3 mb-3">
+              <div class="flex items-center space-x-3">
+                <div class="w-11 h-11 rounded-xl flex items-center justify-center font-bold text-white text-lg shadow-md" style="background-color: ${sub.color}">
+                  ${sub.name.charAt(0)}
+                </div>
+                <div>
+                  <h4 class="font-bold text-slate-100 text-base group-hover:text-indigo-400 transition">${sub.name}</h4>
+                  <span class="text-xs text-slate-400">${getCategoryLabel(sub.category)}</span>
+                </div>
+              </div>
+              ${badgeHTML}
+            </div>
+
+            <div class="mt-4 pt-4 border-t border-slate-700/50 space-y-2">
+              <div class="flex justify-between items-baseline">
+                <span class="text-xs text-slate-400">ค่าบริการ (${sub.cycle === 'Monthly' ? 'รายเดือน' : 'รายปี'})</span>
+                <span class="text-lg font-extrabold text-white">฿${sub.price.toLocaleString()}</span>
+              </div>
+              ${sub.cycle === 'Yearly' ? `<div class="text-right text-[11px] text-slate-400">(เฉลี่ย ฿${monthlyEquivalent.toFixed(0)}/เดือน)</div>` : ''}
+
+              <div class="flex justify-between text-xs pt-1">
+                <span class="text-slate-400">วันตัดบิลถัดไป:</span>
+                <span class="font-medium text-slate-200">${formatThaiDate(sub.nextDate)}</span>
+              </div>
+              ${sub.notes ? `<div class="text-xs text-slate-400 bg-slate-900/40 p-2 rounded-lg mt-2 italic">"${sub.notes}"</div>` : ''}
+            </div>
+          </div>
+
+          <div class="mt-5 pt-3 border-t border-slate-700/40 flex items-center justify-between text-xs">
+            <button onclick="addToGoogleCalendar('${sub.id}')" class="text-slate-400 hover:text-indigo-400 transition flex items-center gap-1">
+              <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+              <span>ลงปฏิทิน</span>
+            </button>
+            <div class="flex items-center space-x-2">
+              <button onclick="editSubscription('${sub.id}')" class="p-1.5 text-slate-400 hover:text-slate-200 hover:bg-slate-700 rounded-lg transition" title="แก้ไข">
+                <i data-lucide="edit-2" class="w-4 h-4"></i>
+              </button>
+              <button onclick="deleteSubscription('${sub.id}')" class="p-1.5 text-slate-400 hover:text-red-400 hover:bg-slate-700 rounded-lg transition" title="ลบ">
+                <i data-lucide="trash-2" class="w-4 h-4"></i>
+              </button>
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+
+      lucide.createIcons();
+      updateDashboardStats();
+    }
+
+    // Dashboard Key Metrics Calculation
+    function updateDashboardStats() {
+      let monthlyTotal = 0;
+      let activeCount = 0;
+      let dueSoonCount = 0;
+      let dueSoonTotal = 0;
+
+      subscriptions.forEach(sub => {
+        if (sub.status === 'Active') {
+          activeCount++;
+          const monthlyPrice = sub.cycle === 'Yearly' ? sub.price / 12 : sub.price;
+          monthlyTotal += monthlyPrice;
+
+          const daysLeft = getDaysUntil(sub.nextDate);
+          if (daysLeft <= 7 && daysLeft >= 0) {
+            dueSoonCount++;
+            dueSoonTotal += sub.price;
+          }
+        }
+      });
+
+      document.getElementById('stat-monthly-total').innerText = formatTHB(monthlyTotal);
+      document.getElementById('stat-yearly-total').innerText = formatTHB(monthlyTotal * 12);
+      document.getElementById('stat-due-soon').innerText = `${dueSoonCount} รายการ`;
+      document.getElementById('stat-due-soon-amount').innerText = `ยอดรวม ${formatTHB(dueSoonTotal)}`;
+      document.getElementById('stat-active-count').innerText = `${activeCount} รายการ`;
+    }
+
+    // Modal Control Functions (HCI: User Control & Freedom)
+    function openModal(id) {
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.add('hidden');
+      if (id === 'add-modal') {
+        document.getElementById('subscription-form').reset();
+        document.getElementById('sub-id').value = '';
+        document.getElementById('modal-title').innerText = 'เพิ่มรายการสมัครสมาชิกใหม่';
+      }
+    }
+
+    function applyPreset(name, category, price, color) {
+      document.getElementById('sub-name').value = name;
+      document.getElementById('sub-category').value = category;
+      document.getElementById('sub-price').value = price;
+      document.getElementById('sub-color').value = color;
+    }
+
+    // Form Submit Handler (CRUD)
+    function handleFormSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('sub-id').value;
+      const name = document.getElementById('sub-name').value;
+      const category = document.getElementById('sub-category').value;
+      const cycle = document.getElementById('sub-cycle').value;
+      const price = parseFloat(document.getElementById('sub-price').value);
+      const nextDate = document.getElementById('sub-next-date').value;
+      const color = document.getElementById('sub-color').value;
+      const status = document.getElementById('sub-status').value;
+      const notes = document.getElementById('sub-notes').value;
+
+      if (id) {
+        // Edit Existing
+        const index = subscriptions.findIndex(s => s.id === id);
+        if (index !== -1) {
+          subscriptions[index] = { id, name, category, cycle, price, nextDate, color, status, notes };
+          showToast('แก้ไขรายการสำเร็จ', 'success');
+        }
+      } else {
+        // Add New
+        const newSub = {
+          id: 'sub-' + Date.now(),
+          name, category, cycle, price, nextDate, color, status, notes
+        };
+        subscriptions.push(newSub);
+        showToast('เพิ่มรายการใหม่สำเร็จ', 'success');
+      }
+
+      closeModal('add-modal');
+      renderSubscriptions();
+      checkUpcomingNotifications();
+    }
+
+    function editSubscription(id) {
+      const sub = subscriptions.find(s => s.id === id);
+      if (!sub) return;
+
+      document.getElementById('sub-id').value = sub.id;
+      document.getElementById('sub-name').value = sub.name;
+      document.getElementById('sub-category').value = sub.category;
+      document.getElementById('sub-cycle').value = sub.cycle;
+      document.getElementById('sub-price').value = sub.price;
+      document.getElementById('sub-next-date').value = sub.nextDate;
+      document.getElementById('sub-color').value = sub.color;
+      document.getElementById('sub-status').value = sub.status;
+      document.getElementById('sub-notes').value = sub.notes || '';
+
+      document.getElementById('modal-title').innerText = 'แก้ไขรายการสมาชิก';
+      openModal('add-modal');
+    }
+
+    function deleteSubscription(id) {
+      if (confirm('คุณแน่ใจหรือไม่ว่าต้องการลบรายการนี้?')) {
+        subscriptions = subscriptions.filter(s => s.id !== id);
+        renderSubscriptions();
+        checkUpcomingNotifications();
+        showToast('ลบรายการเรียบร้อยแล้ว', 'info');
+      }
+    }
+
+    // Check Notifications & In-App Alerts (HCI: Visibility of System Status)
+    function checkUpcomingNotifications() {
+      const upcoming = subscriptions.filter(s => {
+        const days = getDaysUntil(s.nextDate);
+        return s.status === 'Active' && days <= 7 && days >= 0;
+      });
+
+      const badge = document.getElementById('nav-notif-badge');
+      const ping = document.getElementById('header-notif-ping');
+      const dot = document.getElementById('header-notif-dot');
+      const list = document.getElementById('notif-dropdown-list');
+
+      badge.innerText = upcoming.length;
+      if (upcoming.length > 0) {
+        ping.classList.remove('hidden');
+        dot.classList.remove('hidden');
+      } else {
+        ping.classList.add('hidden');
+        dot.classList.add('hidden');
+      }
+
+      list.innerHTML = '';
+      if (upcoming.length === 0) {
+        list.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">ไม่มีรายการที่ต้องชำระในเร็วๆ นี้</div>`;
+        return;
+      }
+
+      upcoming.forEach(sub => {
+        const days = getDaysUntil(sub.nextDate);
+        const item = document.createElement('div');
+        item.className = "p-2.5 bg-slate-900/80 rounded-xl border border-slate-700/60 flex items-center justify-between";
+        item.innerHTML = `
+          <div class="flex items-center space-x-3">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-xs" style="background-color: ${sub.color}">
+              ${sub.name.charAt(0)}
+            </div>
+            <div>
+              <div class="text-xs font-semibold text-slate-200">${sub.name}</div>
+              <div class="text-[11px] text-amber-400 font-medium">จะเรียกเก็บเงินในอีก ${days === 0 ? 'วันนี้' : days + ' วัน'}</div>
+            </div>
+          </div>
+          <div class="text-xs font-bold text-white">฿${sub.price.toLocaleString()}</div>
+        `;
+        list.appendChild(item);
+      });
+    }
+
+    function toggleNotifDropdown() {
+      const dropdown = document.getElementById('notif-dropdown');
+      dropdown.classList.toggle('hidden');
+    }
+
+    function saveNotificationSettings(e) {
+      e.preventDefault();
+      showToast('บันทึกการตั้งค่าการแจ้งเตือนสำเร็จ', 'success');
+    }
+
+    // Chart Rendering (Summary Section)
+    function renderSummaryCharts() {
+      // 1. Doughnut Chart: Categories
+      const categories = ['Entertainment', 'Music', 'Productivity', 'Storage', 'Utility'];
+      const categoryTotals = categories.map(cat => {
+        return subscriptions
+          .filter(s => s.category === cat && s.status === 'Active')
+          .reduce((sum, s) => sum + (s.cycle === 'Yearly' ? s.price / 12 : s.price), 0);
+      });
+
+      const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+      if (categoryChartInstance) categoryChartInstance.destroy();
+
+      categoryChartInstance = new Chart(categoryCtx, {
+        type: 'doughnut',
+        data: {
+          labels: ['ความบันเทิง', 'เพลง/พอดแคสต์', 'ซอฟต์แวร์/งาน', 'คลาวด์/พื้นที่', 'ยูทิลิตี้'],
+          datasets: [{
+            data: categoryTotals,
+            backgroundColor: ['#6366f1', '#10b981', '#f59e0b', '#3b82f6', '#ec4899'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { family: 'Prompt', size: 11 } } }
+          }
+        }
+      });
+
+      // 2. Bar Chart: Services Comparison
+      const activeSubs = subscriptions.filter(s => s.status === 'Active');
+      const serviceNames = activeSubs.map(s => s.name);
+      const serviceMonthlyPrices = activeSubs.map(s => s.cycle === 'Yearly' ? s.price / 12 : s.price);
+
+      const barCtx = document.getElementById('barChart').getContext('2d');
+      if (barChartInstance) barChartInstance.destroy();
+
+      barChartInstance = new Chart(barCtx, {
+        type: 'bar',
+        data: {
+          labels: serviceNames,
+          datasets: [{
+            label: 'ค่าใช้จ่ายคิดเป็นรายเดือน (บาท)',
+            data: serviceMonthlyPrices,
+            backgroundColor: '#6366f1',
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: { ticks: { color: '#94a3b8' }, grid: { color: '#334155' } },
+            x: { ticks: { color: '#94a3b8' }, grid: { display: false } }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+    }
+
+    function renderSummaryTable() {
+      const tbody = document.getElementById('summary-table-body');
+      tbody.innerHTML = '';
+
+      subscriptions.forEach(sub => {
+        const monthly = sub.cycle === 'Yearly' ? (sub.price / 12) : sub.price;
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-800/40 transition";
+        tr.innerHTML = `
+          <td class="py-3.5 px-6 font-medium text-white flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full" style="background-color: ${sub.color}"></span>
+            ${sub.name}
+          </td>
+          <td class="py-3.5 px-6">${getCategoryLabel(sub.category)}</td>
+          <td class="py-3.5 px-6">${sub.cycle === 'Monthly' ? 'รายเดือน' : 'รายปี'}</td>
+          <td class="py-3.5 px-6">${formatThaiDate(sub.nextDate)}</td>
+          <td class="py-3.5 px-6 text-right">฿${sub.price.toLocaleString()}</td>
+          <td class="py-3.5 px-6 text-right font-semibold text-indigo-400">฿${monthly.toFixed(2)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Calendar Integration View
+    function renderCalendar() {
+      const calView = document.getElementById('calendar-view');
+      calView.innerHTML = '';
+
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = today.getMonth();
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      const monthNames = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
+
+      let html = `
+        <div class="text-center font-bold text-white text-base mb-4">
+          ${monthNames[month]} ${year + 543}
+        </div>
+        <div class="grid grid-cols-7 gap-2 text-center text-xs font-semibold text-slate-400 mb-2">
+          <div>อา</div><div>จ</div><div>อ</div><div>พ</div><div>พฤ</div><div>ศ</div><div>ส</div>
+        </div>
+        <div class="grid grid-cols-7 gap-2">
+      `;
+
+      for (let i = 0; i < firstDay; i++) {
+        html += `<div class="h-20 bg-slate-950/30 rounded-xl"></div>`;
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+        const daySubs = subscriptions.filter(s => s.nextDate === dateStr && s.status === 'Active');
+
+        const isToday = day === today.getDate();
+
+        html += `
+          <div class="h-24 bg-slate-800/60 border ${isToday ? 'border-indigo-500 bg-indigo-950/20' : 'border-slate-700/50'} rounded-xl p-1.5 flex flex-col justify-between overflow-hidden">
+            <span class="text-xs font-bold ${isToday ? 'text-indigo-400' : 'text-slate-400'}">${day}</span>
+            <div class="space-y-1 overflow-y-auto max-h-16">
+              ${daySubs.map(s => `
+                <div class="text-[10px] bg-slate-700 p-1 rounded font-medium text-white truncate" style="border-left: 3px solid ${s.color}" title="${s.name} - ฿${s.price}">
+                  ${s.name} (฿${s.price})
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      html += `</div>`;
+      calView.innerHTML = html;
+    }
+
+    // Google Calendar Link Generation
+    function addToGoogleCalendar(subId) {
+      const sub = subscriptions.find(s => s.id === subId);
+      if (!sub) return;
+
+      const title = encodeURIComponent(`ชำระค่าบริการ: ${sub.name}`);
+      const details = encodeURIComponent(`ยอดที่ต้องชำระ: ฿${sub.price} (${sub.cycle === 'Monthly' ? 'รายเดือน' : 'รายปี'})\nหมวดหมู่: ${getCategoryLabel(sub.category)}`);
+      
+      const startDate = sub.nextDate.replace(/-/g, '');
+      const dates = `${startDate}/${startDate}`;
+
+      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${dates}`;
+      window.open(url, '_blank');
+    }
+
+    // Download ICS File
+    function downloadICSFile() {
+      let icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//SubTrack App//TH\n";
+
+      subscriptions.forEach(sub => {
+        if (sub.status === 'Active') {
+          const dateStr = sub.nextDate.replace(/-/g, '');
+          icsContent += "BEGIN:VEVENT\n";
+          icsContent += `SUMMARY:ชำระค่าบริการ ${sub.name}\n`;
+          icsContent += `DESCRIPTION:ยอดชำระ ฿${sub.price}\n`;
+          icsContent += `DTSTART;VALUE=DATE:${dateStr}\n`;
+          icsContent += `DTEND;VALUE=DATE:${dateStr}\n`;
+          icsContent += "END:VEVENT\n";
+        }
+      });
+
+      icsContent += "END:VCALENDAR";
+
+      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+      const link = document.createElement('a');
+      link.href = window.URL.createObjectURL(blob);
+      link.setAttribute('download', 'subscriptions_schedule.ics');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      showToast('ดาวน์โหลดไฟล์ปฏิทิน .ICS เรียบร้อยแล้ว', 'success');
+    }
+
+    // Render Cancellation Guides
+    function renderGuides() {
+      const list = document.getElementById('guide-list');
+      list.innerHTML = '';
+
+      CANCELLATION_GUIDES.forEach((guide, idx) => {
+        const card = document.createElement('div');
+        card.className = "bg-slate-800/80 border border-slate-700/60 rounded-2xl p-5 flex flex-col justify-between hover:border-slate-600 transition";
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center space-x-3 mb-3">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white text-base shadow" style="background-color: ${guide.color}">
+                ${guide.name.charAt(0)}
+              </div>
+              <h4 class="font-bold text-white text-base">${guide.name}</h4>
+            </div>
+            <p class="text-xs text-slate-400 mb-4 line-clamp-2">${guide.steps[0]}</p>
+          </div>
+
+          <button onclick="openGuideModal(${idx})" class="w-full py-2 bg-slate-700/60 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition flex items-center justify-center gap-1.5">
+            <span>ดูวิธียกเลิกอย่างละเอียด</span>
+            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+          </button>
+        `;
+        list.appendChild(card);
+      });
+
+      lucide.createIcons();
+    }
+
+    function openGuideModal(idx) {
+      const guide = CANCELLATION_GUIDES[idx];
+      document.getElementById('guide-modal-title').innerText = `วิธียกเลิกบริการ ${guide.name}`;
+      
+      const iconEl = document.getElementById('guide-modal-icon');
+      iconEl.innerText = guide.name.charAt(0);
+      iconEl.style.backgroundColor = guide.color;
+
+      const stepsList = document.getElementById('guide-modal-steps');
+      stepsList.innerHTML = guide.steps.map(s => `<li>${s}</li>`).join('');
+
+      document.getElementById('guide-modal-link').href = guide.link;
+
+      const cancelBtn = document.getElementById('guide-modal-cancel-btn');
+      cancelBtn.onclick = () => {
+        markAsCancelledByName(guide.name);
+        closeModal('guide-modal');
+      };
+
+      openModal('guide-modal');
+    }
+
+    function markAsCancelledByName(serviceName) {
+      const sub = subscriptions.find(s => s.name.toLowerCase().includes(serviceName.toLowerCase()));
+      if (sub) {
+        sub.status = 'Cancelled';
+        renderSubscriptions();
+        showToast(`อัปเดตสถานะ ${sub.name} เป็น "ยกเลิกแล้ว"`, 'info');
+      } else {
+        showToast(`ไม่พบการสมัครสมาชิก ${serviceName} ในระบบของคุณ`, 'info');
+      }
+    }
+
+    // Utility Helpers
+    function getDaysUntil(dateStr) {
+      const target = new Date(dateStr);
+      const today = new Date();
+      today.setHours(0,0,0,0);
+      target.setHours(0,0,0,0);
+      const diffTime = target - today;
+      return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    }
+
+    function formatThaiDate(dateStr) {
+      const d = new Date(dateStr);
+      return d.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' });
+    }
+
+    function getCategoryLabel(cat) {
+      const labels = {
+        'Entertainment': 'ความบันเทิง',
+        'Music': 'เพลง/พอดแคสต์',
+        'Productivity': 'ซอฟต์แวร์/การทำงาน',
+        'Storage': 'คลาวด์/พื้นที่',
+        'Utility': 'ยูทิลิตี้'
+      };
+      return labels[cat] || cat;
+    }
+
+    // Custom Toast Messages (HCI: Feedback)
+    function showToast(message, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const toast = document.createElement('div');
+      
+      const bgColors = {
+        success: 'bg-emerald-600 text-white',
+        info: 'bg-indigo-600 text-white',
+        warning: 'bg-amber-600 text-white'
+      };
+
+      toast.className = `${bgColors[type]} px-4 py-3 rounded-xl shadow-xl text-xs font-medium flex items-center space-x-2 transition-all duration-300 pointer-events-auto opacity-0 translate-y-2`;
+      toast.innerHTML = `
+        <i data-lucide="info" class="w-4 h-4 shrink-0"></i>
+        <span>${message}</span>
+      `;
+
+      container.appendChild(toast);
+      lucide.createIcons();
+
+      setTimeout(() => {
+        toast.classList.remove('opacity-0', 'translate-y-2');
+      }, 100);
+
+      setTimeout(() => {
+        toast.classList.add('opacity-0', 'translate-y-2');
+        setTimeout(() => toast.remove(), 300);
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
