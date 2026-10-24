@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SubTrack - ระบบจัดการและติดตามค่าบริการสมาชิก</title>
+  <title>SubTrack - ระบบจัดการและติดตามค่าบริการสมาชิก (Interactive SubTrack)</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -41,7 +41,7 @@
   </script>
 
   <style>
-    /* Custom Scrollbar for better UX */
+    /* Custom Scrollbar */
     ::-webkit-scrollbar {
       width: 6px;
       height: 6px;
@@ -57,7 +57,7 @@
       background: #475569;
     }
 
-    /* Mobile active touch states */
+    /* HCI Active Touch Feedback States */
     .touch-active:active {
       transform: scale(0.97);
       opacity: 0.9;
@@ -67,11 +67,21 @@
     .pb-safe-nav {
       padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
     }
+
+    /* Smooth accordion animation */
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+    }
+    .accordion-content.open {
+      max-height: 500px;
+    }
   </style>
 </head>
 <body class="h-full font-sans antialiased bg-slate-900 text-slate-100 flex flex-col md:flex-row overflow-x-hidden">
 
-  <!-- Toast & Push Notification Alert Simulation Banner -->
+  <!-- Toast Container -->
   <div id="toast-container" class="fixed top-4 right-4 left-4 sm:left-auto sm:w-96 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
 
   <!-- Mobile Top Header Bar -->
@@ -89,7 +99,6 @@
     </div>
 
     <div class="flex items-center space-x-2">
-      <!-- Notification Icon Button -->
       <button onclick="toggleNotifDropdown()" class="p-2 text-slate-300 hover:text-white rounded-lg relative min-w-[44px] min-h-[44px] flex items-center justify-center">
         <i data-lucide="bell" class="w-5 h-5"></i>
         <span id="mobile-notif-dot" class="absolute top-2 right-2 w-2.5 h-2.5 bg-amber-500 rounded-full hidden"></span>
@@ -102,10 +111,10 @@
     </div>
   </header>
 
-  <!-- Sidebar Navigation Overlay (Mobile Backdrop) -->
+  <!-- Sidebar Overlay -->
   <div id="sidebar-backdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-950/80 z-40 hidden md:hidden transition-opacity"></div>
 
-  <!-- Sidebar Navigation (Responsive: Collapsible Drawer on iPad/Mobile, Fixed on Desktop) -->
+  <!-- Responsive Sidebar Drawer -->
   <aside id="sidebar" class="fixed md:static inset-y-0 left-0 w-72 md:w-64 bg-slate-950 border-r border-slate-800 flex flex-col shrink-0 z-40 -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
     <div class="p-5 border-b border-slate-800 hidden md:flex items-center justify-between">
       <div class="flex items-center space-x-3">
@@ -114,7 +123,7 @@
         </div>
         <div>
           <h1 class="font-bold text-lg leading-tight tracking-wide text-white">SubTrack</h1>
-          <p class="text-xs text-slate-400">ระบบจัดการสมาชิก</p>
+          <p class="text-xs text-slate-400">ระบบจัดการบริการสมาชิก</p>
         </div>
       </div>
     </div>
@@ -141,23 +150,23 @@
 
       <button onclick="switchTab('summary')" id="nav-summary" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
         <i data-lucide="pie-chart" class="w-5 h-5 shrink-0"></i>
-        <span>สรุปค่าใช้จ่าย</span>
+        <span>สรุปและวิเคราะห์ค่าใช้จ่าย</span>
       </button>
 
       <button onclick="switchTab('calendar')" id="nav-calendar" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
         <i data-lucide="calendar" class="w-5 h-5 shrink-0"></i>
-        <span>ปฏิทินรอบบิล</span>
+        <span>ปฏิทินรอบชำระ</span>
       </button>
 
       <button onclick="switchTab('notifications')" id="nav-notifications" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
         <i data-lucide="bell" class="w-5 h-5 shrink-0"></i>
-        <span class="flex-1 text-left">การแจ้งเตือน</span>
+        <span class="flex-1 text-left">ระบบแจ้งเตือน</span>
         <span id="nav-notif-badge" class="bg-amber-500/20 text-amber-400 text-xs px-2 py-0.5 rounded-full font-semibold border border-amber-500/30">0</span>
       </button>
 
       <button onclick="switchTab('guide')" id="nav-guide" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
         <i data-lucide="book-open" class="w-5 h-5 shrink-0"></i>
-        <span>คู่มือแนะนำการยกเลิก</span>
+        <span>คู่มือยกเลิกบริการ</span>
       </button>
     </nav>
 
@@ -170,7 +179,7 @@
     </div>
   </aside>
 
-  <!-- Mobile Bottom Navigation Bar (HCI UX Rule: Thumb Zone Reachability) -->
+  <!-- Mobile Bottom Navigation Bar -->
   <div class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-950/95 border-t border-slate-800 z-30 backdrop-blur-lg px-2 py-1 flex items-center justify-around shadow-2xl">
     <button onclick="switchTab('dashboard')" id="bnav-dashboard" class="bnav-item flex flex-col items-center justify-center py-2 px-3 text-indigo-400 min-w-[60px] min-h-[50px]">
       <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
@@ -205,7 +214,7 @@
       </div>
 
       <div class="flex items-center space-x-4">
-        <!-- Notification Dropdown Toggle -->
+        <!-- Notification Dropdown -->
         <div class="relative">
           <button onclick="toggleNotifDropdown()" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 relative transition min-w-[44px] min-h-[44px] flex items-center justify-center">
             <i data-lucide="bell" class="w-5 h-5"></i>
@@ -213,10 +222,10 @@
             <span id="header-notif-dot" class="absolute top-2 right-2 w-2.5 h-2.5 bg-amber-500 rounded-full hidden"></span>
           </button>
 
-          <!-- Notification Dropdown Menu -->
+          <!-- Dropdown Menu -->
           <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-80 md:w-96 bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl z-50 p-4">
             <div class="flex items-center justify-between pb-3 border-b border-slate-700">
-              <h4 class="font-semibold text-sm text-white">ยอดชำระที่ใกล้ถึง</h4>
+              <h4 class="font-semibold text-sm text-white">ยอดชำระที่ใกล้ถึงใน 7 วัน</h4>
               <button onclick="switchTab('notifications'); toggleNotifDropdown()" class="text-xs text-indigo-400 hover:underline">ตั้งค่าการแจ้งเตือน</button>
             </div>
             <div id="notif-dropdown-list" class="space-y-2 mt-3 max-h-64 overflow-y-auto pr-1">
@@ -225,12 +234,13 @@
           </div>
         </div>
 
-        <!-- User Profile Avatar -->
         <div class="flex items-center space-x-3 border-l border-slate-800 pl-4">
-          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=120" alt="User Avatar" class="w-9 h-9 rounded-full object-cover border border-indigo-500/40">
+          <div class="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-sm">
+            ST
+          </div>
           <div class="hidden lg:block text-left">
-            <div class="text-xs font-semibold text-slate-200">สมชาย สายประหยัด</div>
-            <div class="text-[10px] text-slate-400">Standard User</div>
+            <div class="text-xs font-semibold text-slate-200">ผู้ใช้งาน SubTrack</div>
+            <div class="text-[10px] text-slate-400">Pro Subscription</div>
           </div>
         </div>
       </div>
@@ -242,7 +252,7 @@
       <!-- ================= 1. DASHBOARD VIEW ================= -->
       <section id="tab-dashboard" class="space-y-6">
         
-        <!-- Metrics Cards (Adaptive Grid: 1 col on mobile, 2 on tablet, 4 on desktop) -->
+        <!-- Metrics Cards -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
           <div class="bg-slate-800/80 border border-slate-700/60 p-4 sm:p-5 rounded-2xl shadow-sm">
             <div class="flex items-center justify-between text-slate-400 mb-2">
@@ -250,7 +260,7 @@
               <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg"><i data-lucide="wallet" class="w-4 h-4"></i></div>
             </div>
             <div class="text-2xl font-bold text-white" id="stat-monthly-total">฿0.00</div>
-            <p class="text-[11px] text-slate-400 mt-1">คำนวณจากทุกบริการที่มีสถานะใช้งาน</p>
+            <p class="text-[11px] text-slate-400 mt-1">จากบริการที่มีสถานะใช้งานเปิดอยู่</p>
           </div>
 
           <div class="bg-slate-800/80 border border-slate-700/60 p-4 sm:p-5 rounded-2xl shadow-sm">
@@ -268,7 +278,7 @@
               <div class="p-2 bg-amber-500/10 text-amber-400 rounded-lg"><i data-lucide="clock" class="w-4 h-4"></i></div>
             </div>
             <div class="text-2xl font-bold text-amber-400" id="stat-due-soon">0 รายการ</div>
-            <p class="text-[11px] text-slate-400 mt-1" id="stat-due-soon-amount">ยอดรวม ฿0</p>
+            <p class="text-[11px] text-slate-400 mt-1" id="stat-due-soon-amount">ยอดรวม ฿0.00</p>
           </div>
 
           <div class="bg-slate-800/80 border border-slate-700/60 p-4 sm:p-5 rounded-2xl shadow-sm">
@@ -277,7 +287,7 @@
               <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg"><i data-lucide="check-circle" class="w-4 h-4"></i></div>
             </div>
             <div class="text-2xl font-bold text-white" id="stat-active-count">0 รายการ</div>
-            <p class="text-[11px] text-slate-400 mt-1"> Active Subscriptions</p>
+            <p class="text-[11px] text-slate-400 mt-1">Active Subscriptions</p>
           </div>
         </div>
 
@@ -291,24 +301,25 @@
           <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2.5 w-full md:w-auto">
             <select id="category-filter" onchange="renderSubscriptions()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
               <option value="ALL">ทุกหมวดหมู่</option>
-              <option value="Entertainment">ความบันเทิง (Streaming)</option>
-              <option value="Music">เพลงและพอดแคสต์</option>
-              <option value="Productivity">ซอฟต์แวร์/การทำงาน</option>
-              <option value="Storage">คลาวด์และพื้นที่เก็บข้อมูล</option>
-              <option value="AI">ปัญญาประดิษฐ์ (AI)</option>
-              <option value="Utility">ยูทิลิตี้</option>
+              <option value="Entertainment">Entertainment (ความบันเทิง)</option>
+              <option value="Music">Music (เพลง)</option>
+              <option value="Work/SaaS">Work/SaaS (ทำงาน)</option>
+              <option value="Storage">Storage (คลาวด์)</option>
+              <option value="Health">Health (สุขภาพ)</option>
+              <option value="Utilities">Utilities (ยูทิลิตี้)</option>
+              <option value="Other">Other (อื่นๆ)</option>
             </select>
 
             <select id="status-filter" onchange="renderSubscriptions()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
               <option value="ALL">ทุกสถานะ</option>
-              <option value="Active">เปิดใช้งานอยู่ (Active)</option>
-              <option value="Due Soon">ใกล้ถึงวันชำระ (Due Soon)</option>
+              <option value="Active">เปิดใช้งาน (Active)</option>
+              <option value="Due Soon">ใกล้ชำระใน 7 วัน</option>
               <option value="Cancelled">ยกเลิกแล้ว (Cancelled)</option>
             </select>
           </div>
         </div>
 
-        <!-- Subscriptions Grid (1 Col Mobile, 2 Col Tablet, 3 Col Desktop) -->
+        <!-- Subscriptions Grid -->
         <div id="subscriptions-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
           <!-- Populated via JavaScript -->
         </div>
@@ -322,35 +333,34 @@
 
       </section>
 
-      <!-- ================= 2. NOTIFICATION CENTER ================= -->
+      <!-- ================= 2. NOTIFICATION CENTER & SIMULATOR ================= -->
       <section id="tab-notifications" class="hidden space-y-6">
         <div class="max-w-4xl mx-auto space-y-6">
           
-          <!-- Simulation Interactive Tester Box -->
-          <div class="bg-gradient-to-r from-indigo-900/50 to-violet-900/50 border border-indigo-500/30 p-5 rounded-2xl">
+          <!-- Interactive Simulator Box -->
+          <div class="bg-gradient-to-r from-indigo-900/60 to-violet-900/60 border border-indigo-500/40 p-5 rounded-2xl shadow-lg">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div>
                 <div class="flex items-center space-x-2">
-                  <span class="px-2 py-0.5 bg-indigo-500/20 text-indigo-300 text-xs rounded-full font-semibold border border-indigo-500/30">HCI Interactive Feature</span>
-                  <h3 class="font-bold text-base text-white">ทดสอบระบบแจ้งเตือนเสมือนจริง</h3>
+                  <span class="px-2.5 py-0.5 bg-indigo-500/20 text-indigo-300 text-xs rounded-full font-semibold border border-indigo-500/30">Interactive Simulator</span>
+                  <h3 class="font-bold text-base text-white">ทดสอบการส่งสัญญาณแจ้งเตือนระบบ</h3>
                 </div>
-                <p class="text-xs text-slate-300 mt-1">กดปุ่มด้านขวาเพื่อทดลองส่งสัญญาณ Push Notification พร้อมเสียงแจ้งเตือนจำลอง</p>
+                <p class="text-xs text-slate-300 mt-1">ระบบจะส่งสัญญาณผ่าน **Web Browser Notification API** (ขอ Permission) + เสียง Synthesizer สังเคราะห์ + เพิ่มลง In-App Notification Log</p>
               </div>
-              <button onclick="triggerNotificationTest()" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg touch-active min-h-[44px]">
+              <button onclick="triggerTestNotification()" class="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white text-xs font-bold px-5 py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-lg touch-active min-h-[44px] shrink-0">
                 <i data-lucide="bell-ring" class="w-4 h-4"></i>
-                <span>ทดลองส่งแจ้งเตือน</span>
+                <span>Test Notification Now</span>
               </button>
             </div>
           </div>
 
           <!-- Notification Settings Form -->
           <div class="bg-slate-800/80 border border-slate-700/60 p-5 sm:p-6 rounded-2xl">
-            <h3 class="font-bold text-lg text-white mb-1">ตั้งค่าการแจ้งเตือนเตือนล่วงหน้า</h3>
+            <h3 class="font-bold text-lg text-white mb-1">ตั้งค่าการแจ้งเตือนล่วงหน้า</h3>
             <p class="text-xs text-slate-400 mb-6">กำหนดระยะเวลาการเตือนเพื่อป้องกันการลืมชำระเงินและการถูกหักเงินโดยไม่ตั้งใจ</p>
 
             <form id="notif-settings-form" onsubmit="saveNotificationSettings(event)" class="space-y-6">
               
-              <!-- Lead Days -->
               <div>
                 <label class="block text-sm font-semibold text-slate-200 mb-2">แจ้งเตือนล่วงหน้ากี่วัน?</label>
                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
@@ -373,22 +383,20 @@
                 </div>
               </div>
 
-              <!-- Notification Time -->
               <div>
                 <label class="block text-sm font-semibold text-slate-200 mb-2">เวลาที่ต้องการให้แจ้งเตือน</label>
                 <input type="time" id="notif-time" value="09:00" class="bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
               </div>
 
-              <!-- Channel Toggles -->
               <div class="space-y-3 pt-4 border-t border-slate-700">
-                <h4 class="text-sm font-semibold text-slate-200">ช่องทางการแจ้งเตือน</h4>
+                <h4 class="text-sm font-semibold text-slate-200">ช่องทางการแจ้งเตือนที่รองรับ</h4>
                 
                 <div class="flex items-center justify-between p-3.5 bg-slate-900/60 rounded-xl border border-slate-800">
                   <div class="flex items-center space-x-3">
                     <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg"><i data-lucide="bell" class="w-5 h-5"></i></div>
                     <div>
                       <div class="text-sm font-medium text-slate-200">In-App Notification</div>
-                      <div class="text-[11px] text-slate-400">แสดงแถบแจ้งเตือนภายในแอปพลิเคชัน</div>
+                      <div class="text-[11px] text-slate-400">แสดงรายการแจ้งเตือนภายในหน้าเว็บและ Dropdown</div>
                     </div>
                   </div>
                   <input type="checkbox" id="chk-inapp" checked class="w-5 h-5 accent-indigo-600 rounded cursor-pointer min-w-[24px]">
@@ -398,8 +406,8 @@
                   <div class="flex items-center space-x-3">
                     <div class="p-2 bg-violet-500/10 text-violet-400 rounded-lg"><i data-lucide="smartphone" class="w-5 h-5"></i></div>
                     <div>
-                      <div class="text-sm font-medium text-slate-200">Push Notification (อุปกรณ์มือถือ)</div>
-                      <div class="text-[11px] text-slate-400">ส่งแจ้งเตือนเด้งบนหน้าจอสมาร์ทโฟน/แท็บเล็ต</div>
+                      <div class="text-sm font-medium text-slate-200">Browser / Push Notification</div>
+                      <div class="text-[11px] text-slate-400">ส่งแจ้งเตือนเด้งระดับระบบปฏิบัติการ (OS Notification)</div>
                     </div>
                   </div>
                   <input type="checkbox" id="chk-push" checked class="w-5 h-5 accent-indigo-600 rounded cursor-pointer min-w-[24px]">
@@ -410,10 +418,10 @@
                     <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg"><i data-lucide="mail" class="w-5 h-5"></i></div>
                     <div>
                       <div class="text-sm font-medium text-slate-200">E-mail Notification</div>
-                      <div class="text-[11px] text-slate-400">ส่งอีเมลสรุปเตือนไปยัง somchai@email.com</div>
+                      <div class="text-[11px] text-slate-400">จำลองส่งสรุปรายการเตือนไปยังอีเมลของคุณ</div>
                     </div>
                   </div>
-                  <input type="checkbox" id="chk-email" class="w-5 h-5 accent-indigo-600 rounded cursor-pointer min-w-[24px]">
+                  <input type="checkbox" id="chk-email" checked class="w-5 h-5 accent-indigo-600 rounded cursor-pointer min-w-[24px]">
                 </div>
               </div>
 
@@ -428,8 +436,11 @@
 
           <!-- Notification History Log -->
           <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl">
-            <h4 class="font-bold text-sm text-slate-200 mb-3">ประวัติการแจ้งเตือนล่าสุด (Notification Log)</h4>
-            <div id="notif-history-log" class="space-y-2 max-h-48 overflow-y-auto">
+            <div class="flex items-center justify-between mb-3">
+              <h4 class="font-bold text-sm text-slate-200">ประวัติการแจ้งเตือนในระบบ (In-App Log)</h4>
+              <button onclick="clearNotifLogs()" class="text-xs text-slate-400 hover:text-red-400 transition">ล้างประวัติ</button>
+            </div>
+            <div id="notif-history-log" class="space-y-2 max-h-56 overflow-y-auto pr-1">
               <!-- JS Injected -->
             </div>
           </div>
@@ -437,59 +448,70 @@
         </div>
       </section>
 
-      <!-- ================= 3. CALENDAR INTEGRATION ================= -->
+      <!-- ================= 3. CALENDAR & EXPORT ================= -->
       <section id="tab-calendar" class="hidden space-y-6">
         <div class="bg-slate-800/80 border border-slate-700/60 p-4 sm:p-6 rounded-2xl">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
             <div>
               <h3 class="font-bold text-lg text-white">ปฏิทินรอบชำระเงินประจำเดือน</h3>
-              <p class="text-xs text-slate-400 mt-1">วางแผนการเงินร่วมกับกิจกรรมอื่น และ Export ไปยัง Apple / Google Calendar</p>
+              <p class="text-xs text-slate-400 mt-1">แสดงวันครบกำหนดชำระพร้อม Badge บริการ และ Export ไฟล์ .ICS สำหรับ Google / Apple Calendar</p>
             </div>
             
-            <button onclick="downloadICSFile()" class="w-full sm:w-auto bg-slate-700 hover:bg-slate-600 text-white text-xs font-medium px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-2 touch-active min-h-[44px]">
+            <button onclick="exportToICS()" class="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg touch-active min-h-[44px]">
               <i data-lucide="download" class="w-4 h-4"></i>
-              <span>ส่งออกไฟล์ .ICS ทุกรายการ</span>
+              <span>Export to .ics (iCalendar)</span>
             </button>
           </div>
 
-          <!-- Responsive Calendar Display Container -->
+          <!-- Responsive Calendar Grid -->
           <div id="calendar-view" class="bg-slate-900/80 rounded-2xl p-3 sm:p-5 border border-slate-800">
-            <!-- Calendar header & grid generated by JS -->
+            <!-- Calendar JS Rendered -->
           </div>
         </div>
       </section>
 
-      <!-- ================= 4. MONTHLY EXPENSE SUMMARY ================= -->
+      <!-- ================= 4. EXPENSE SUMMARY & ANALYTICS ================= -->
       <section id="tab-summary" class="hidden space-y-6">
+        
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
           <!-- Category Chart -->
-          <div class="lg:col-span-1 bg-slate-800/80 border border-slate-700/60 p-5 sm:p-6 rounded-2xl">
-            <h3 class="font-bold text-base text-white mb-1">ค่าใช้จ่ายแยกตามหมวดหมู่</h3>
-            <p class="text-xs text-slate-400 mb-4">สัดส่วนค่าบริการรายเดือน (บาท)</p>
-            <div class="relative flex items-center justify-center min-h-[220px]">
+          <div class="lg:col-span-1 bg-slate-800/80 border border-slate-700/60 p-5 sm:p-6 rounded-2xl flex flex-col justify-between">
+            <div>
+              <h3 class="font-bold text-base text-white mb-1">สัดส่วนตามหมวดหมู่</h3>
+              <p class="text-xs text-slate-400 mb-4">ค่าใช้จ่ายต่อเดือนแบ่งตามหมวดหมู่ (บาท)</p>
+            </div>
+            <div class="relative flex items-center justify-center min-h-[220px] max-h-[260px]">
               <canvas id="categoryChart"></canvas>
             </div>
           </div>
 
-          <!-- Services Comparison Chart -->
+          <!-- 6-Month Projected Bar Chart -->
           <div class="lg:col-span-2 bg-slate-800/80 border border-slate-700/60 p-5 sm:p-6 rounded-2xl flex flex-col justify-between">
             <div>
-              <h3 class="font-bold text-base text-white mb-1">เปรียบเทียบราคาต่อบริการ</h3>
-              <p class="text-xs text-slate-400 mb-4">เรียงลำดับราคาคิดเป็นรายเดือน (บาท/เดือน)</p>
+              <h3 class="font-bold text-base text-white mb-1">ประมาณการค่าใช้จ่าย 6 เดือนข้างหน้า</h3>
+              <p class="text-xs text-slate-400 mb-4">6-Month Projected Spending Trend (THB)</p>
             </div>
             <div class="relative w-full h-64 sm:h-72">
-              <canvas id="barChart"></canvas>
+              <canvas id="projectionChart"></canvas>
             </div>
           </div>
 
         </div>
 
-        <!-- Detailed Breakdown Table (Scrollable on Mobile) -->
+        <!-- Category Progress Percentage Breakdown -->
+        <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl">
+          <h3 class="font-bold text-sm text-white mb-4">เปอร์เซ็นต์ค่าใช้จ่ายตามหมวดหมู่</h3>
+          <div id="category-progress-bars" class="space-y-3">
+            <!-- Dynamic progress bars -->
+          </div>
+        </div>
+
+        <!-- Detailed Breakdown Table -->
         <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl overflow-hidden shadow-lg">
           <div class="p-4 sm:p-5 border-b border-slate-700/80 flex items-center justify-between">
-            <h3 class="font-bold text-sm sm:text-base text-white">รายละเอียดค่าใช้จ่ายทั้งหมด</h3>
-            <span class="text-[11px] text-slate-400">อัปเดตอัตโนมัติ</span>
+            <h3 class="font-bold text-sm sm:text-base text-white">ตารางสรุปรายละเอียดทุกบริการ</h3>
+            <span class="text-[11px] text-slate-400">คำนวณอัตโนมัติ</span>
           </div>
           <div class="overflow-x-auto">
             <table class="w-full text-left text-xs sm:text-sm text-slate-300 min-w-[600px]">
@@ -500,7 +522,7 @@
                   <th class="py-3 px-4 sm:px-6">รอบบิล</th>
                   <th class="py-3 px-4 sm:px-6">วันชำระถัดไป</th>
                   <th class="py-3 px-4 sm:px-6 text-right">ราคา/รอบ</th>
-                  <th class="py-3 px-4 sm:px-6 text-right">คิดเป็น/เดือน</th>
+                  <th class="py-3 px-4 sm:px-6 text-right">เฉลี่ย/เดือน</th>
                 </tr>
               </thead>
               <tbody id="summary-table-body" class="divide-y divide-slate-700/50">
@@ -509,27 +531,28 @@
             </table>
           </div>
         </div>
+
       </section>
 
-      <!-- ================= 5. CANCELLATION GUIDE ================= -->
+      <!-- ================= 5. CANCELLATION GUIDES ================= -->
       <section id="tab-guide" class="hidden space-y-6">
         <div class="bg-slate-800/80 border border-slate-700/60 p-4 sm:p-6 rounded-2xl">
           <div class="mb-6">
-            <h3 class="font-bold text-lg text-white">คู่มือแนะนำขั้นตอนการยกเลิกบริการ (Cancellation Guide)</h3>
-            <p class="text-xs text-slate-400 mt-1">แนะนำขั้นตอนการตรวจสอบและยกเลิกบริการอย่างเป็นลำดับเพื่อป้องกันการโดนตัดเงินต่อเนื่อง</p>
+            <h3 class="font-bold text-lg text-white">คู่มือแนะนำขั้นตอนการยกเลิกบริการ (Step-by-Step Cancellation Guide)</h3>
+            <p class="text-xs text-slate-400 mt-1">แนะนำขั้นตอนการยกเลิกบริการที่ใช้งานบ่อยเพื่อป้องกันการถูกตัดเงินในรอบถัดไป</p>
           </div>
 
           <!-- Guide Search Bar -->
           <div class="mb-5">
             <div class="relative max-w-md">
               <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 text-slate-400"></i>
-              <input type="text" id="guide-search" oninput="renderGuides()" placeholder="ค้นหาคู่มือนามบริการ เช่น Netflix, Adobe..." class="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
+              <input type="text" id="guide-search" oninput="renderGuides()" placeholder="ค้นหาคู่มือนามบริการ เช่น Netflix, Spotify..." class="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
             </div>
           </div>
 
-          <!-- Guide Cards Grid -->
-          <div id="guide-list" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-            <!-- Dynamic guides -->
+          <!-- Expandable Accordion Guides List -->
+          <div id="guide-accordion-list" class="space-y-3">
+            <!-- Dynamic guides accordion -->
           </div>
         </div>
       </section>
@@ -548,24 +571,21 @@
         </button>
       </div>
 
-      <!-- Form Presets (Quick Select) -->
+      <!-- Quick Preset Selection Buttons -->
       <div class="mt-4">
         <label class="block text-xs font-semibold text-slate-400 mb-1.5">เลือกบริการยอดนิยมแบบรวดเร็ว</label>
         <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
           <button type="button" onclick="applyPreset('Netflix', 'Entertainment', 419, '#E50914')" class="shrink-0 text-xs px-3 py-2 bg-slate-700/60 hover:bg-slate-700 rounded-xl text-slate-200 flex items-center gap-1.5 min-h-[36px]">
-            <span class="w-2 h-2 rounded-full bg-red-600"></span> Netflix
-          </button>
-          <button type="button" onclick="applyPreset('YouTube Premium', 'Entertainment', 179, '#FF0000')" class="shrink-0 text-xs px-3 py-2 bg-slate-700/60 hover:bg-slate-700 rounded-xl text-slate-200 flex items-center gap-1.5 min-h-[36px]">
-            <span class="w-2 h-2 rounded-full bg-red-500"></span> YouTube
+            <span class="w-2.5 h-2.5 rounded-full bg-red-600"></span> Netflix
           </button>
           <button type="button" onclick="applyPreset('Spotify', 'Music', 139, '#1DB954')" class="shrink-0 text-xs px-3 py-2 bg-slate-700/60 hover:bg-slate-700 rounded-xl text-slate-200 flex items-center gap-1.5 min-h-[36px]">
-            <span class="w-2 h-2 rounded-full bg-emerald-500"></span> Spotify
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Spotify
           </button>
-          <button type="button" onclick="applyPreset('ChatGPT Plus', 'AI', 700, '#10A37F')" class="shrink-0 text-xs px-3 py-2 bg-slate-700/60 hover:bg-slate-700 rounded-xl text-slate-200 flex items-center gap-1.5 min-h-[36px]">
-            <span class="w-2 h-2 rounded-full bg-teal-500"></span> ChatGPT
+          <button type="button" onclick="applyPreset('Adobe CC', 'Work/SaaS', 1150, '#FF0000')" class="shrink-0 text-xs px-3 py-2 bg-slate-700/60 hover:bg-slate-700 rounded-xl text-slate-200 flex items-center gap-1.5 min-h-[36px]">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Adobe CC
           </button>
           <button type="button" onclick="applyPreset('iCloud+', 'Storage', 99, '#007AFF')" class="shrink-0 text-xs px-3 py-2 bg-slate-700/60 hover:bg-slate-700 rounded-xl text-slate-200 flex items-center gap-1.5 min-h-[36px]">
-            <span class="w-2 h-2 rounded-full bg-blue-500"></span> iCloud+
+            <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> iCloud+
           </button>
         </div>
       </div>
@@ -575,19 +595,20 @@
 
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">ชื่อบริการ <span class="text-red-400">*</span></label>
-          <input type="text" id="sub-name" required placeholder="เช่น Netflix, Adobe Creative Cloud" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
+          <input type="text" id="sub-name" required placeholder="เช่น Netflix, Adobe, Fitness Gym" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
         </div>
 
         <div class="grid grid-cols-2 gap-2.5">
           <div>
             <label class="block text-xs font-semibold text-slate-300 mb-1">หมวดหมู่</label>
             <select id="sub-category" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs sm:text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-              <option value="Entertainment">ความบันเทิง</option>
-              <option value="Music">เพลง/พอดแคสต์</option>
-              <option value="Productivity">ซอฟต์แวร์/ทำงาน</option>
-              <option value="Storage">คลาวด์/พื้นที่</option>
-              <option value="AI">ปัญญาประดิษฐ์ (AI)</option>
-              <option value="Utility">ยูทิลิตี้</option>
+              <option value="Entertainment">Entertainment</option>
+              <option value="Music">Music</option>
+              <option value="Work/SaaS">Work/SaaS</option>
+              <option value="Storage">Storage</option>
+              <option value="Health">Health</option>
+              <option value="Utilities">Utilities</option>
+              <option value="Other">Other</option>
             </select>
           </div>
 
@@ -614,7 +635,7 @@
 
         <div class="grid grid-cols-2 gap-2.5">
           <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">ธีมสีไอคอน</label>
+            <label class="block text-xs font-semibold text-slate-300 mb-1">สีประจำบริการ</label>
             <input type="color" id="sub-color" value="#6366f1" class="w-full h-11 p-1 bg-slate-900 border border-slate-700 rounded-xl cursor-pointer">
           </div>
           <div>
@@ -628,7 +649,7 @@
 
         <div>
           <label class="block text-xs font-semibold text-slate-300 mb-1">หมายเหตุเพิ่มเติม (ถ้ามี)</label>
-          <input type="text" id="sub-notes" placeholder="เช่น แชร์กับครอบครัว 4 คน" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
+          <input type="text" id="sub-notes" placeholder="เช่น บัตรเครดิต KBank / แชร์กับเพื่อน 4 คน" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
         </div>
 
         <div class="flex justify-end gap-2.5 pt-3 border-t border-slate-700">
@@ -640,47 +661,27 @@
     </div>
   </div>
 
-  <!-- ================= MODAL: CANCELLATION GUIDE DETAILS ================= -->
-  <div id="guide-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-lg shadow-2xl p-5 sm:p-6 relative my-8">
+  <!-- ================= MODAL: EVENT DETAILS ================= -->
+  <div id="details-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-sm shadow-2xl p-5 relative my-auto">
       <div class="flex items-center justify-between pb-3 border-b border-slate-700">
-        <div class="flex items-center space-x-3">
-          <div id="guide-modal-icon" class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-sm">N</div>
-          <h3 id="guide-modal-title" class="font-bold text-base sm:text-lg text-white">วิธียกเลิกบริการ</h3>
-        </div>
-        <button onclick="closeModal('guide-modal')" class="text-slate-400 hover:text-white p-2 rounded-lg min-w-[44px] min-h-[44px] flex items-center justify-center">
+        <h3 class="font-bold text-base text-white">รายละเอียดการชำระเงิน</h3>
+        <button onclick="closeModal('details-modal')" class="text-slate-400 hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
-
-      <div class="mt-4 space-y-4">
-        <p class="text-xs text-slate-300">ทำตามขั้นตอนต่อไปนี้เพื่อทำการยกเลิกบริการและป้องกันไม่ให้โดนตัดเงินในรอบบิลถัดไป:</p>
-        
-        <ol id="guide-modal-steps" class="space-y-2.5 text-xs sm:text-sm text-slate-200 list-decimal list-inside bg-slate-900/80 p-4 rounded-xl border border-slate-700/60">
-          <!-- Step items via JS -->
-        </ol>
-
-        <div class="bg-amber-500/10 border border-amber-500/20 p-3 rounded-xl flex items-start gap-2 text-xs text-amber-300">
-          <i data-lucide="alert-triangle" class="w-4 h-4 shrink-0 mt-0.5"></i>
-          <span>หลังจากยกเลิกแล้ว คุณยังคงสามารถใช้งานต่อได้จนกว่าจะถึงวันหมดอายุในรอบบิลปัจจุบัน</span>
-        </div>
+      <div id="details-modal-content" class="mt-4 space-y-3 text-xs sm:text-sm text-slate-200">
+        <!-- JS Injected -->
       </div>
-
-      <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-5 border-t border-slate-700 mt-6">
-        <a id="guide-modal-link" href="#" target="_blank" class="text-xs text-indigo-400 hover:text-indigo-300 flex items-center justify-center gap-1 font-medium py-2 min-h-[44px]">
-          <span>ไปยังหน้ายกเลิกอย่างเป็นทางการ</span>
-          <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-        </a>
-        <button id="guide-modal-cancel-btn" class="px-4 py-2 bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 rounded-xl text-xs font-semibold transition touch-active min-h-[44px]">
-          ทำเครื่องหมายว่ายกเลิกแล้ว
-        </button>
+      <div class="mt-5 pt-3 border-t border-slate-700 flex justify-end">
+        <button onclick="closeModal('details-modal')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold touch-active min-h-[44px]">ตกลง</button>
       </div>
     </div>
   </div>
 
-  <!-- JAVASCRIPT APP LOGICPersistence & HCI -->
+  <!-- JAVASCRIPT APPLICATION LOGIC -->
   <script>
-    // Initial Default Data
+    // Initial Default Mock Data
     const DEFAULT_SUBSCRIPTIONS = [
       {
         id: 'sub-1',
@@ -691,43 +692,32 @@
         nextDate: getFutureDate(3),
         status: 'Active',
         color: '#E50914',
-        notes: 'แพ็กเกจ Premium 4K'
+        notes: 'แพ็กเกจ Ultra HD 4K'
       },
       {
         id: 'sub-2',
-        name: 'YouTube Premium',
-        category: 'Entertainment',
-        price: 179,
+        name: 'Spotify Premium',
+        category: 'Music',
+        price: 139,
         cycle: 'Monthly',
         nextDate: getFutureDate(12),
         status: 'Active',
-        color: '#FF0000',
-        notes: 'ไร้โฆษณา + YouTube Music'
+        color: '#1DB954',
+        notes: 'ฟังเพลงแบบไม่มีโฆษณา'
       },
       {
         id: 'sub-3',
-        name: 'Spotify Family',
-        category: 'Music',
-        price: 209,
+        name: 'Adobe Creative Cloud',
+        category: 'Work/SaaS',
+        price: 1150,
         cycle: 'Monthly',
         nextDate: getFutureDate(1),
         status: 'Active',
-        color: '#1DB954',
-        notes: 'แชร์กับสมาชิกครอบครัว'
+        color: '#FF0000',
+        notes: 'รวม Photoshop & Illustrator'
       },
       {
         id: 'sub-4',
-        name: 'ChatGPT Plus',
-        category: 'AI',
-        price: 700,
-        cycle: 'Monthly',
-        nextDate: getFutureDate(6),
-        status: 'Active',
-        color: '#10A37F',
-        notes: 'ใช้ GPT-4o และ DALL-E'
-      },
-      {
-        id: 'sub-5',
         name: 'iCloud+ 200GB',
         category: 'Storage',
         price: 99,
@@ -738,135 +728,124 @@
         notes: 'สำรองรูปภาพ iPhone'
       },
       {
-        id: 'sub-6',
-        name: 'Adobe Creative Cloud',
-        category: 'Productivity',
-        price: 1150,
+        id: 'sub-5',
+        name: 'YouTube Premium',
+        category: 'Entertainment',
+        price: 179,
         cycle: 'Monthly',
         nextDate: getFutureDate(25),
         status: 'Active',
         color: '#FF0000',
-        notes: 'ใช้สำหรับงานกราฟิก'
+        notes: 'ดูวิดีโอแบบไม่มีโฆษณาแทรก'
       }
     ];
 
-    // Guides Master Data
+    // Master Cancellation Guides Data
     const CANCELLATION_GUIDES = [
       {
         name: 'Netflix',
+        category: 'Entertainment',
         color: '#E50914',
-        link: 'https://www.netflix.com/youraccount',
+        url: 'https://www.netflix.com/youraccount',
         steps: [
-          'เข้าสู่ระบบผ่านเว็บ Netflix.com บนเบราว์เซอร์',
-          'คลิกที่รูปโปรไฟล์ที่มุมขวาบน แล้วเลือก "บัญชี" (Account)',
-          'ในหัวข้อ "การสมัครสมาชิกและการชำระเงิน" คลิกปุ่ม "ยกเลิกการเป็นสมาชิก"',
-          'กดยืนยันการยกเลิกในหน้าถัดไป'
-        ]
-      },
-      {
-        name: 'YouTube Premium',
-        color: '#FF0000',
-        link: 'https://www.youtube.com/paid_memberships',
-        steps: [
-          'เปิดแอป YouTube หรือเข้าเว็บไซต์ youtube.com',
-          'แตะที่รูปโปรไฟล์ เลือก "การซื้อและการสมัครสมาชิก"',
-          'เลือกการสมัครสมาชิก YouTube Premium',
-          'แตะ "ยกเลิกการสมัครสมาชิก" (Deactivate) และยืนยัน'
+          'เข้าสู่ระบบที่ netflix.com บนเว็บเบราว์เซอร์',
+          'คลิกไอคอนโปรไฟล์ที่มุมขวาบน เลือก "บัญชี" (Account)',
+          'ใต้หัวข้อ "การสมัครสมาชิกและการชำระเงิน" ให้คลิกปุ่ม "ยกเลิกการเป็นสมาชิก"',
+          'กดยืนยันเพื่อทำรายการยกเลิก'
         ]
       },
       {
         name: 'Spotify',
+        category: 'Music',
         color: '#1DB954',
-        link: 'https://www.spotify.com/account/overview/',
+        url: 'https://www.spotify.com/account/overview/',
         steps: [
-          'เข้าสู่ระบบที่ spotify.com/account บนเบราว์เซอร์',
-          'ใต้หัวข้อ "แผนของคุณ" (Your plan) คลิก "เปลี่ยนแผน"',
-          'เลื่อนลงไปด้านล่างสุด เลือก "ยกเลิก Spotify Premium"',
-          'กดยืนยันเพื่อเปลี่ยนเป็นแผนใช้งานฟรี'
-        ]
-      },
-      {
-        name: 'ChatGPT Plus',
-        color: '#10A37F',
-        link: 'https://chatgpt.com/',
-        steps: [
-          'เข้าสู่ระบบ ChatGPT แล้วคลิกที่ชื่อโปรไฟล์มุมซ้ายล่าง',
-          'เลือก "My Plan" หรือ "Settings"',
-          'คลิกที่ "Manage my subscription"',
-          'ระบบจะนำไปยังหน้า Stripe ให้คลิก "Cancel Plan"'
-        ]
-      },
-      {
-        name: 'iCloud+ / Apple Subscriptions',
-        color: '#007AFF',
-        link: 'https://support.apple.com/HT202039',
-        steps: [
-          'เปิด "การตั้งค่า" (Settings) บน iPhone/iPad',
-          'แตะที่ชื่อของคุณ (Apple ID) ด้านบนสุด',
-          'เลือก "การสมัครรับ" (Subscriptions)',
-          'เลือกบริการที่ต้องการยกเลิก แล้วแตะ "ยกเลิกการสมัครรับ"'
+          'เข้าสู่ระบบที่ spotify.com/account',
+          'ในหัวข้อ "แผนของคุณ" คลิก "เปลี่ยนแผน" (Change plan)',
+          'เลื่อนลงมาด้านล่างสุด แล้วเลือก "ยกเลิก Spotify Premium"',
+          'กดยืนยันการยกเลิกจนเสร็จสิ้นขั้นตอน'
         ]
       },
       {
         name: 'Adobe Creative Cloud',
+        category: 'Work/SaaS',
         color: '#FF0000',
-        link: 'https://account.adobe.com/plans',
+        url: 'https://account.adobe.com/plans',
         steps: [
           'เข้าสู่ระบบที่ account.adobe.com/plans',
-          'เลือก "จัดการแผน" (Manage plan) สำหรับแผนที่ต้องการยกเลิก',
+          'เลือก "จัดการแผน" (Manage plan) สำหรับแพ็กเกจที่ต้องการยกเลิก',
           'เลือก "ยกเลิกแผนของคุณ" (Cancel your plan)',
-          'ระบุเหตุผลและกดยืนยันขั้นตอน'
+          'ระบุเหตุผลและกดยืนยันตามขั้นตอนบนหน้าจอ'
+        ]
+      },
+      {
+        name: 'Apple / iCloud+',
+        category: 'Storage',
+        color: '#007AFF',
+        url: 'https://support.apple.com/HT202039',
+        steps: [
+          'เปิดแอป "การตั้งค่า" (Settings) บนอุปกรณ์ iOS/Mac',
+          'แตะที่ชื่อบัญชี Apple ID ของคุณด้านบนสุด',
+          'เลือก "การสมัครรับ" (Subscriptions)',
+          'เลือกบริการ iCloud+ หรือแอปที่ต้องการ แล้วแตะ "ยกเลิกการสมัครรับ"'
+        ]
+      },
+      {
+        name: 'YouTube Premium',
+        category: 'Entertainment',
+        color: '#FF0000',
+        url: 'https://www.youtube.com/paid_memberships',
+        steps: [
+          'เปิดแอป YouTube หรือเข้าเว็บไซต์ youtube.com/paid_memberships',
+          'เลือกการสมัครสมาชิก YouTube Premium',
+          'แตะ "ปิดการใช้งาน" (Deactivate)',
+          'เลือกเหตุผลและกดยืนยันการยกเลิก'
+        ]
+      },
+      {
+        name: 'Disney+ Hotstar',
+        category: 'Entertainment',
+        color: '#113CCF',
+        url: 'https://www.hotstar.com/th',
+        steps: [
+          'เข้าสู่ระบบที่ disneyplus.com หรือแอป Disney+',
+          'ไปที่หน้าโปรไฟล์ เลือก "บัญชี" (Account)',
+          'เลือกรายละเอียดการสมัครสมาชิก แล้วคลิก "ยกเลิกการสมัครสมาชิก"',
+          'กดยืนยันการทำรายการ'
         ]
       }
     ];
 
-    // State Variables
-    let subscriptions = loadSubscriptionsFromStorage();
-    let notifLogs = loadNotifLogsFromStorage();
+    // Global State
+    let subscriptions = loadSubscriptions();
+    let notificationLogs = loadNotifLogs();
     let categoryChartInstance = null;
-    let barChartInstance = null;
+    let projectionChartInstance = null;
 
-    // Helper: LocalStorage Management
-    function loadSubscriptionsFromStorage() {
+    // Helper Functions: Dates & LocalStorage
+    function loadSubscriptions() {
       const saved = localStorage.getItem('subtrack_subscriptions');
       return saved ? JSON.parse(saved) : DEFAULT_SUBSCRIPTIONS;
     }
 
-    function saveSubscriptionsToStorage() {
+    function saveSubscriptions() {
       localStorage.setItem('subtrack_subscriptions', JSON.stringify(subscriptions));
     }
 
-    function loadNotifLogsFromStorage() {
+    function loadNotifLogs() {
       const saved = localStorage.getItem('subtrack_notif_logs');
       return saved ? JSON.parse(saved) : [
-        { time: '10 นาทีที่แล้ว', message: 'ระบบซิงค์ข้อมูลสมาชิกล่าสุดเรียบร้อย' }
+        { time: new Date().toLocaleTimeString('th-TH', {hour:'2-digit', minute:'2-digit'}), message: 'ยินดีต้อนรับสู่ SubTrack ระบบพร้อมใช้งาน' }
       ];
     }
 
-    function addNotifLog(message) {
-      const timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
-      notifLogs.unshift({ time: timeStr, message });
-      if (notifLogs.length > 10) notifLogs.pop();
-      localStorage.setItem('subtrack_notif_logs', JSON.stringify(notifLogs));
-      renderNotifLogs();
+    function saveNotifLogs() {
+      localStorage.setItem('subtrack_notif_logs', JSON.stringify(notificationLogs));
     }
 
-    function renderNotifLogs() {
-      const logContainer = document.getElementById('notif-history-log');
-      if (!logContainer) return;
-      
-      logContainer.innerHTML = notifLogs.map(log => `
-        <div class="text-xs bg-slate-900/60 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
-          <span class="text-slate-300">${log.message}</span>
-          <span class="text-[10px] text-slate-500 shrink-0 ml-2">${log.time}</span>
-        </div>
-      `).join('');
-    }
-
-    // Helper: Dates & Currency
-    function getFutureDate(daysFromNow) {
+    function getFutureDate(days) {
       const d = new Date();
-      d.setDate(d.getDate() + daysFromNow);
+      d.setDate(d.getDate() + days);
       return d.toISOString().split('T')[0];
     }
 
@@ -879,8 +858,7 @@
       const today = new Date();
       today.setHours(0,0,0,0);
       target.setHours(0,0,0,0);
-      const diffTime = target - today;
-      return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return Math.ceil((target - today) / (1000 * 60 * 60 * 24));
     }
 
     function formatThaiDate(dateStr) {
@@ -888,94 +866,73 @@
       return d.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' });
     }
 
-    function getCategoryLabel(cat) {
-      const labels = {
-        'Entertainment': 'ความบันเทิง',
-        'Music': 'เพลง/พอดแคสต์',
-        'Productivity': 'ซอฟต์แวร์/งาน',
-        'Storage': 'คลาวด์/พื้นที่',
-        'AI': 'ปัญญาประดิษฐ์ (AI)',
-        'Utility': 'ยูทิลิตี้'
-      };
-      return labels[cat] || cat;
-    }
-
-    // App Initializer
+    // App Initialization
     document.addEventListener('DOMContentLoaded', () => {
       lucide.createIcons();
-      updateDateDisplay();
+      updateDateHeader();
       renderSubscriptions();
       renderGuides();
       renderNotifLogs();
-      checkUpcomingNotifications();
-      
-      // Default date field in modal
+      updateNotificationBadges();
+
+      // Set default input date
       document.getElementById('sub-next-date').value = new Date().toISOString().split('T')[0];
     });
 
-    function updateDateDisplay() {
+    function updateDateHeader() {
       const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', calendar: 'buddhist' };
-      const todayStr = new Date().toLocaleDateString('th-TH', options);
-      const displayEl = document.getElementById('current-date-display');
-      if (displayEl) displayEl.innerText = todayStr;
+      const display = document.getElementById('current-date-display');
+      if (display) display.innerText = new Date().toLocaleDateString('th-TH', options);
     }
 
-    // Responsive Sidebar Drawer Toggle
+    // Responsive Sidebar Toggle
     function toggleSidebar() {
       const sidebar = document.getElementById('sidebar');
       const backdrop = document.getElementById('sidebar-backdrop');
-      
       sidebar.classList.toggle('-translate-x-full');
       backdrop.classList.toggle('hidden');
     }
 
-    // Navigation Switcher (HCI Rule: Visual Consistency & Clear State)
+    // Navigation Switcher
     function switchTab(tabId) {
       const tabs = ['dashboard', 'summary', 'calendar', 'notifications', 'guide'];
-      
       tabs.forEach(id => {
-        const el = document.getElementById(`tab-${id}`);
-        const navEl = document.getElementById(`nav-${id}`);
-        const bnavEl = document.getElementById(`bnav-${id}`);
+        const page = document.getElementById(`tab-${id}`);
+        const nav = document.getElementById(`nav-${id}`);
+        const bnav = document.getElementById(`bnav-${id}`);
 
         if (id === tabId) {
-          el.classList.remove('hidden');
-          if (navEl) navEl.className = "nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] bg-indigo-600/10 text-indigo-400 border border-indigo-500/20";
-          if (bnavEl) bnavEl.className = "bnav-item flex flex-col items-center justify-center py-2 px-3 text-indigo-400 min-w-[60px] min-h-[50px]";
+          page.classList.remove('hidden');
+          if (nav) nav.className = "nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] bg-indigo-600/10 text-indigo-400 border border-indigo-500/20";
+          if (bnav) bnav.className = "bnav-item flex flex-col items-center justify-center py-2 px-3 text-indigo-400 min-w-[60px] min-h-[50px]";
         } else {
-          el.classList.add('hidden');
-          if (navEl) navEl.className = "nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] text-slate-400 hover:bg-slate-800/60 hover:text-slate-200";
-          if (bnavEl) bnavEl.className = "bnav-item flex flex-col items-center justify-center py-2 px-3 text-slate-400 min-w-[60px] min-h-[50px]";
+          page.classList.add('hidden');
+          if (nav) nav.className = "nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] text-slate-400 hover:bg-slate-800/60 hover:text-slate-200";
+          if (bnav) bnav.className = "bnav-item flex flex-col items-center justify-center py-2 px-3 text-slate-400 min-w-[60px] min-h-[50px]";
         }
       });
 
-      // Auto close sidebar on mobile after clicking a tab
-      const sidebar = document.getElementById('sidebar');
-      if (!sidebar.classList.contains('-translate-x-full') && window.innerWidth < 768) {
+      // Auto hide mobile sidebar after clicking tab
+      if (window.innerWidth < 768 && !document.getElementById('sidebar').classList.contains('-translate-x-full')) {
         toggleSidebar();
       }
 
-      // Tab Specific Render Operations
-      if (tabId === 'summary') {
-        renderSummaryCharts();
-        renderSummaryTable();
-      } else if (tabId === 'calendar') {
-        renderCalendar();
-      }
+      // Tab Specific Renders
+      if (tabId === 'summary') renderAnalytics();
+      if (tabId === 'calendar') renderCalendar();
 
-      // Dynamic Title Update
+      // Update Page Title
       const titles = {
         dashboard: 'ภาพรวมบริการสมาชิก',
-        summary: 'สรุปค่าใช้จ่ายรายเดือน',
+        summary: 'สรุปและวิเคราะห์ค่าใช้จ่าย',
         calendar: 'ปฏิทินรอบชำระเงิน',
-        notifications: 'การตั้งค่าระบบแจ้งเตือน',
-        guide: 'คู่มือแนะนำการยกเลิกบริการ'
+        notifications: 'ระบบแจ้งเตือนการชำระเงิน',
+        guide: 'คู่มือแนะนำขั้นตอนการยกเลิกบริการ'
       };
-      const titleEl = document.getElementById('page-title');
-      if (titleEl) titleEl.innerText = titles[tabId];
+      document.getElementById('page-title').innerText = titles[tabId];
     }
 
-    // Render Dashboard Cards Grid
+    // Render Dashboard Subscriptions
     function renderSubscriptions() {
       const search = document.getElementById('search-input').value.toLowerCase();
       const catFilter = document.getElementById('category-filter').value;
@@ -985,30 +942,29 @@
       const emptyState = document.getElementById('empty-state');
       grid.innerHTML = '';
 
-      let filtered = subscriptions.filter(sub => {
+      const filtered = subscriptions.filter(sub => {
         const matchesSearch = sub.name.toLowerCase().includes(search);
         const matchesCat = catFilter === 'ALL' || sub.category === catFilter;
-        
-        let subComputedStatus = sub.status;
-        const daysLeft = getDaysUntil(sub.nextDate);
-        if (sub.status === 'Active' && daysLeft <= 7 && daysLeft >= 0) {
-          subComputedStatus = 'Due Soon';
+
+        const days = getDaysUntil(sub.nextDate);
+        let currentStatus = sub.status;
+        if (sub.status === 'Active' && days <= 7 && days >= 0) {
+          currentStatus = 'Due Soon';
         }
 
-        const matchesStatus = statusFilter === 'ALL' || subComputedStatus === statusFilter;
+        const matchesStatus = statusFilter === 'ALL' || 
+          (statusFilter === 'Due Soon' ? (sub.status === 'Active' && days <= 7 && days >= 0) : sub.status === statusFilter);
+
         return matchesSearch && matchesCat && matchesStatus;
       });
 
-      if (filtered.length === 0) {
-        emptyState.classList.remove('hidden');
-      } else {
-        emptyState.classList.add('hidden');
-      }
+      if (filtered.length === 0) emptyState.classList.remove('hidden');
+      else emptyState.classList.add('hidden');
 
       filtered.forEach(sub => {
         const daysLeft = getDaysUntil(sub.nextDate);
         let badgeHTML = '';
-        
+
         if (sub.status === 'Cancelled') {
           badgeHTML = `<span class="bg-slate-700/60 text-slate-400 border border-slate-600 text-[11px] px-2.5 py-0.5 rounded-full font-medium">ยกเลิกแล้ว</span>`;
         } else if (daysLeft <= 7 && daysLeft >= 0) {
@@ -1017,20 +973,18 @@
           badgeHTML = `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] px-2.5 py-0.5 rounded-full font-medium">เปิดใช้งาน</span>`;
         }
 
-        const monthlyEquivalent = sub.cycle === 'Yearly' ? (sub.price / 12) : sub.price;
-
         const card = document.createElement('div');
-        card.className = "bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:border-slate-600 transition group shadow-sm";
+        card.className = "bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:border-slate-600 transition shadow-sm group";
         card.innerHTML = `
           <div>
             <div class="flex items-start justify-between gap-2 mb-3">
               <div class="flex items-center space-x-3 min-w-0">
-                <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center font-bold text-white text-base sm:text-lg shadow-md shrink-0" style="background-color: ${sub.color}">
+                <div class="w-11 h-11 rounded-xl flex items-center justify-center font-bold text-white text-lg shadow-md shrink-0" style="background-color: ${sub.color}">
                   ${sub.name.charAt(0)}
                 </div>
                 <div class="truncate">
-                  <h4 class="font-bold text-slate-100 text-sm sm:text-base group-hover:text-indigo-400 transition truncate">${sub.name}</h4>
-                  <span class="text-[11px] text-slate-400">${getCategoryLabel(sub.category)}</span>
+                  <h4 class="font-bold text-slate-100 text-base group-hover:text-indigo-400 transition truncate">${sub.name}</h4>
+                  <span class="text-[11px] text-slate-400">${sub.category}</span>
                 </div>
               </div>
               <div class="shrink-0">${badgeHTML}</div>
@@ -1039,12 +993,11 @@
             <div class="mt-4 pt-3 border-t border-slate-700/50 space-y-1.5">
               <div class="flex justify-between items-baseline">
                 <span class="text-xs text-slate-400">ค่าบริการ (${sub.cycle === 'Monthly' ? 'รายเดือน' : 'รายปี'})</span>
-                <span class="text-base sm:text-lg font-extrabold text-white">฿${sub.price.toLocaleString()}</span>
+                <span class="text-lg font-extrabold text-white">฿${parseFloat(sub.price).toLocaleString()}</span>
               </div>
-              ${sub.cycle === 'Yearly' ? `<div class="text-right text-[10px] text-slate-400">(เฉลี่ย ฿${monthlyEquivalent.toFixed(0)}/เดือน)</div>` : ''}
-
+              
               <div class="flex justify-between text-xs pt-1">
-                <span class="text-slate-400">วันเรียกเก็บถัดไป:</span>
+                <span class="text-slate-400">วันชำระถัดไป:</span>
                 <span class="font-medium text-slate-200">${formatThaiDate(sub.nextDate)}</span>
               </div>
               ${sub.notes ? `<div class="text-xs text-slate-400 bg-slate-900/40 p-2 rounded-lg mt-2 italic line-clamp-2">"${sub.notes}"</div>` : ''}
@@ -1054,7 +1007,7 @@
           <div class="mt-4 pt-3 border-t border-slate-700/40 flex items-center justify-between text-xs">
             <button onclick="addToGoogleCalendar('${sub.id}')" class="text-slate-400 hover:text-indigo-400 transition flex items-center gap-1.5 min-h-[36px] px-1">
               <i data-lucide="calendar-plus" class="w-4 h-4"></i>
-              <span>ลงปฏิทิน</span>
+              <span>ลง Google Calendar</span>
             </button>
             <div class="flex items-center space-x-1">
               <button onclick="editSubscription('${sub.id}')" class="p-2 text-slate-400 hover:text-slate-200 hover:bg-slate-700 rounded-lg transition min-w-[36px] min-h-[36px] flex items-center justify-center" title="แก้ไข">
@@ -1073,7 +1026,7 @@
       updateDashboardStats();
     }
 
-    // Dashboard Statistics Calculation
+    // Calculate Dashboard Summary Metrics
     function updateDashboardStats() {
       let monthlyTotal = 0;
       let activeCount = 0;
@@ -1122,7 +1075,7 @@
       document.getElementById('sub-color').value = color;
     }
 
-    // Form Submit Handler (CRUD Persistence)
+    // Form Submit (CRUD Persistence)
     function handleFormSubmit(e) {
       e.preventDefault();
       const id = document.getElementById('sub-id').value;
@@ -1136,11 +1089,11 @@
       const notes = document.getElementById('sub-notes').value;
 
       if (id) {
-        const index = subscriptions.findIndex(s => s.id === id);
-        if (index !== -1) {
-          subscriptions[index] = { id, name, category, cycle, price, nextDate, color, status, notes };
-          showToast('แก้ไขรายการสำเร็จ', 'success');
-          addNotifLog(`แก้ไขรายละเอียดบริการ ${name}`);
+        const idx = subscriptions.findIndex(s => s.id === id);
+        if (idx !== -1) {
+          subscriptions[idx] = { id, name, category, cycle, price, nextDate, color, status, notes };
+          showToast('แก้ไขข้อมูลบริการเรียบร้อย', 'success');
+          addNotifLog(`แก้ไขบริการ ${name}`);
         }
       } else {
         const newSub = {
@@ -1148,14 +1101,14 @@
           name, category, cycle, price, nextDate, color, status, notes
         };
         subscriptions.push(newSub);
-        showToast('เพิ่มรายการใหม่สำเร็จ', 'success');
-        addNotifLog(`เพิ่มบริการสมาชิกใหม่: ${name} (฿${price})`);
+        showToast('เพิ่มบริการใหม่เรียบร้อยแล้ว', 'success');
+        addNotifLog(`เพิ่มบริการใหม่: ${name} (฿${price})`);
       }
 
-      saveSubscriptionsToStorage();
+      saveSubscriptions();
       closeModal('add-modal');
       renderSubscriptions();
-      checkUpcomingNotifications();
+      updateNotificationBadges();
     }
 
     function editSubscription(id) {
@@ -1178,198 +1131,152 @@
 
     function deleteSubscription(id) {
       const sub = subscriptions.find(s => s.id === id);
-      if (confirm(`คุณแน่ใจหรือไม่ว่าต้องการลบรายการ ${sub ? sub.name : ''}?`)) {
+      if (confirm(`คุณต้องการลบรายการ ${sub ? sub.name : ''} หรือไม่?`)) {
         subscriptions = subscriptions.filter(s => s.id !== id);
-        saveSubscriptionsToStorage();
+        saveSubscriptions();
         renderSubscriptions();
-        checkUpcomingNotifications();
+        updateNotificationBadges();
         showToast('ลบรายการเรียบร้อยแล้ว', 'info');
         if (sub) addNotifLog(`ลบบริการ ${sub.name} ออกจากระบบ`);
       }
     }
 
-    // Check Upcoming Bills and Update Badges
-    function checkUpcomingNotifications() {
+    // Interactive Notification Simulator (Real Web API + Synthesizer Sound)
+    function triggerTestNotification() {
+      const activeSubs = subscriptions.filter(s => s.status === 'Active');
+      const sample = activeSubs[Math.floor(Math.random() * activeSubs.length)] || { name: 'Netflix', price: 419 };
+
+      const title = `แจ้งเตือนค่าบริการ: ${sample.name}`;
+      const body = `ยอดชำระ ฿${sample.price} ครบกำหนดในอีก 3 วันข้างหน้า`;
+
+      // 1. Play Synthesizer Web Audio API Sound
+      playNotificationSound();
+
+      // 2. Real Browser Notification API
+      if ("Notification" in window) {
+        if (Notification.permission === "granted") {
+          new Notification(title, { body, icon: 'https://cdn-icons-png.flaticon.com/512/3602/3602145.png' });
+        } else if (Notification.permission !== "denied") {
+          Notification.requestPermission().then(permission => {
+            if (permission === "granted") {
+              new Notification(title, { body });
+            }
+          });
+        }
+      }
+
+      // 3. Toast Feedback & In-App Log
+      showToast(`[Test Notification] ${sample.name} - ฿${sample.price}`, 'warning');
+      addNotifLog(`ทดสอบแจ้งเตือน: ${sample.name} (฿${sample.price})`);
+    }
+
+    function playNotificationSound() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
+        osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
+        osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.4);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.4);
+      } catch (e) {
+        console.log('Audio synth not supported');
+      }
+    }
+
+    function addNotifLog(msg) {
+      const timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
+      notificationLogs.unshift({ time: timeStr, message: msg });
+      if (notificationLogs.length > 15) notificationLogs.pop();
+      saveNotifLogs();
+      renderNotifLogs();
+    }
+
+    function renderNotifLogs() {
+      const logContainer = document.getElementById('notif-history-log');
+      if (!logContainer) return;
+
+      logContainer.innerHTML = notificationLogs.map(log => `
+        <div class="text-xs bg-slate-900/60 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
+          <span class="text-slate-300">${log.message}</span>
+          <span class="text-[10px] text-slate-500 shrink-0 ml-2">${log.time}</span>
+        </div>
+      `).join('');
+    }
+
+    function clearNotifLogs() {
+      notificationLogs = [];
+      saveNotifLogs();
+      renderNotifLogs();
+      showToast('ล้างประวัติการแจ้งเตือนแล้ว', 'info');
+    }
+
+    function saveNotificationSettings(e) {
+      e.preventDefault();
+      showToast('บันทึกการตั้งค่าระบบแจ้งเตือนสำเร็จ', 'success');
+      addNotifLog('อัปเดตเงื่อนไขการแจ้งเตือนเรียบร้อยแล้ว');
+    }
+
+    function updateNotificationBadges() {
       const upcoming = subscriptions.filter(s => {
         const days = getDaysUntil(s.nextDate);
         return s.status === 'Active' && days <= 7 && days >= 0;
       });
 
       const badge = document.getElementById('nav-notif-badge');
-      const ping = document.getElementById('header-notif-ping');
-      const dot = document.getElementById('header-notif-dot');
-      const mobileDot = document.getElementById('mobile-notif-dot');
-      const mobileBnavBadge = document.getElementById('mobile-bnav-badge');
-      const list = document.getElementById('notif-dropdown-list');
-
       if (badge) badge.innerText = upcoming.length;
-      
+
       const hasUpcoming = upcoming.length > 0;
-      [ping, dot, mobileDot, mobileBnavBadge].forEach(el => {
+      ['header-notif-ping', 'header-notif-dot', 'mobile-notif-dot', 'mobile-bnav-badge'].forEach(id => {
+        const el = document.getElementById(id);
         if (el) {
           if (hasUpcoming) el.classList.remove('hidden');
           else el.classList.add('hidden');
         }
       });
 
-      if (list) {
-        list.innerHTML = '';
+      const dropdownList = document.getElementById('notif-dropdown-list');
+      if (dropdownList) {
+        dropdownList.innerHTML = '';
         if (upcoming.length === 0) {
-          list.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">ไม่มีรายการที่ต้องชำระในเร็วๆ นี้</div>`;
-          return;
+          dropdownList.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">ไม่มีรายการที่ต้องชำระใน 7 วันนี้</div>`;
+        } else {
+          upcoming.forEach(sub => {
+            const days = getDaysUntil(sub.nextDate);
+            const item = document.createElement('div');
+            item.className = "p-2.5 bg-slate-900/80 rounded-xl border border-slate-700/60 flex items-center justify-between";
+            item.innerHTML = `
+              <div class="flex items-center space-x-3">
+                <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-xs shrink-0" style="background-color: ${sub.color}">
+                  ${sub.name.charAt(0)}
+                </div>
+                <div>
+                  <div class="text-xs font-semibold text-slate-200">${sub.name}</div>
+                  <div class="text-[11px] text-amber-400 font-medium">จะเรียกเก็บเงินในอีก ${days === 0 ? 'วันนี้' : days + ' วัน'}</div>
+                </div>
+              </div>
+              <div class="text-xs font-bold text-white">฿${parseFloat(sub.price).toLocaleString()}</div>
+            `;
+            dropdownList.appendChild(item);
+          });
         }
-
-        upcoming.forEach(sub => {
-          const days = getDaysUntil(sub.nextDate);
-          const item = document.createElement('div');
-          item.className = "p-2.5 bg-slate-900/80 rounded-xl border border-slate-700/60 flex items-center justify-between";
-          item.innerHTML = `
-            <div class="flex items-center space-x-3">
-              <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-xs shrink-0" style="background-color: ${sub.color}">
-                ${sub.name.charAt(0)}
-              </div>
-              <div>
-                <div class="text-xs font-semibold text-slate-200">${sub.name}</div>
-                <div class="text-[11px] text-amber-400 font-medium">จะเรียกเก็บเงินในอีก ${days === 0 ? 'วันนี้' : days + ' วัน'}</div>
-              </div>
-            </div>
-            <div class="text-xs font-bold text-white">฿${sub.price.toLocaleString()}</div>
-          `;
-          list.appendChild(item);
-        });
       }
     }
 
     function toggleNotifDropdown() {
-      const dropdown = document.getElementById('notif-dropdown');
-      if (dropdown) dropdown.classList.toggle('hidden');
+      document.getElementById('notif-dropdown').classList.toggle('hidden');
     }
 
-    // Interactive Notification Simulator & Sound Synthesizer
-    function triggerNotificationTest() {
-      // Audio synth beep for HCI Audio Feedback
-      try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(587.33, audioCtx.currentTime); // D5
-        osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.1); // A5
-        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.3);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.3);
-      } catch (e) {
-        console.log('Audio synth not supported or blocked');
-      }
-
-      const sampleSub = subscriptions.find(s => s.status === 'Active') || subscriptions[0];
-      const msg = `[แจ้งเตือนจำลอง] ${sampleSub ? sampleSub.name : 'Netflix'} ครบกำหนดชำระ ฿${sampleSub ? sampleSub.price : 419} ในอีก 3 วัน!`;
-      
-      showToast(msg, 'warning');
-      addNotifLog(msg);
-    }
-
-    function saveNotificationSettings(e) {
-      e.preventDefault();
-      showToast('บันทึกการตั้งค่าการแจ้งเตือนสำเร็จ', 'success');
-      addNotifLog('อัปเดตเงื่อนไขการแจ้งเตือนเรียบร้อยแล้ว');
-    }
-
-    // Chart Rendering (Summary Section)
-    function renderSummaryCharts() {
-      const categories = ['Entertainment', 'Music', 'Productivity', 'Storage', 'AI', 'Utility'];
-      const categoryTotals = categories.map(cat => {
-        return subscriptions
-          .filter(s => s.category === cat && s.status === 'Active')
-          .reduce((sum, s) => sum + (s.cycle === 'Yearly' ? s.price / 12 : s.price), 0);
-      });
-
-      // Doughnut Chart
-      const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-      if (categoryChartInstance) categoryChartInstance.destroy();
-
-      categoryChartInstance = new Chart(categoryCtx, {
-        type: 'doughnut',
-        data: {
-          labels: ['ความบันเทิง', 'เพลง/พอดแคสต์', 'ซอฟต์แวร์/งาน', 'คลาวด์/พื้นที่', 'AI', 'ยูทิลิตี้'],
-          datasets: [{
-            data: categoryTotals,
-            backgroundColor: ['#6366f1', '#10b981', '#f59e0b', '#3b82f6', '#10a37f', '#ec4899'],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { family: 'Prompt', size: 10 } } }
-          }
-        }
-      });
-
-      // Bar Chart Comparison
-      const activeSubs = subscriptions.filter(s => s.status === 'Active');
-      const serviceNames = activeSubs.map(s => s.name);
-      const serviceMonthlyPrices = activeSubs.map(s => s.cycle === 'Yearly' ? s.price / 12 : s.price);
-
-      const barCtx = document.getElementById('barChart').getContext('2d');
-      if (barChartInstance) barChartInstance.destroy();
-
-      barChartInstance = new Chart(barCtx, {
-        type: 'bar',
-        data: {
-          labels: serviceNames,
-          datasets: [{
-            label: 'ค่าใช้จ่ายคิดเป็นรายเดือน (บาท)',
-            data: serviceMonthlyPrices,
-            backgroundColor: '#6366f1',
-            borderRadius: 6
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: { ticks: { color: '#94a3b8', font: { family: 'Prompt', size: 10 } }, grid: { color: '#334155' } },
-            x: { ticks: { color: '#94a3b8', font: { family: 'Prompt', size: 10 } }, grid: { display: false } }
-          },
-          plugins: {
-            legend: { display: false }
-          }
-        }
-      });
-    }
-
-    function renderSummaryTable() {
-      const tbody = document.getElementById('summary-table-body');
-      tbody.innerHTML = '';
-
-      subscriptions.forEach(sub => {
-        const monthly = sub.cycle === 'Yearly' ? (sub.price / 12) : sub.price;
-        const tr = document.createElement('tr');
-        tr.className = "hover:bg-slate-800/40 transition";
-        tr.innerHTML = `
-          <td class="py-3 px-4 sm:px-6 font-medium text-white flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: ${sub.color}"></span>
-            <span class="truncate">${sub.name}</span>
-          </td>
-          <td class="py-3 px-4 sm:px-6">${getCategoryLabel(sub.category)}</td>
-          <td class="py-3 px-4 sm:px-6">${sub.cycle === 'Monthly' ? 'รายเดือน' : 'รายปี'}</td>
-          <td class="py-3 px-4 sm:px-6">${formatThaiDate(sub.nextDate)}</td>
-          <td class="py-3 px-4 sm:px-6 text-right">฿${sub.price.toLocaleString()}</td>
-          <td class="py-3 px-4 sm:px-6 text-right font-semibold text-indigo-400">฿${monthly.toFixed(2)}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    // Calendar Integration View
+    // Calendar Integration & Interactive Date Details
     function renderCalendar() {
-      const calView = document.getElementById('calendar-view');
-      calView.innerHTML = '';
+      const container = document.getElementById('calendar-view');
+      container.innerHTML = '';
 
       const today = new Date();
       const year = today.getFullYear();
@@ -1397,16 +1304,15 @@
       for (let day = 1; day <= daysInMonth; day++) {
         const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
         const daySubs = subscriptions.filter(s => s.nextDate === dateStr && s.status === 'Active');
-
         const isToday = day === today.getDate();
 
         html += `
-          <div class="h-16 sm:h-24 bg-slate-800/60 border ${isToday ? 'border-indigo-500 bg-indigo-950/30' : 'border-slate-700/50'} rounded-xl p-1 sm:p-1.5 flex flex-col justify-between overflow-hidden">
+          <div onclick="showDateDetails('${dateStr}')" class="h-16 sm:h-24 bg-slate-800/60 border ${isToday ? 'border-indigo-500 bg-indigo-950/30' : 'border-slate-700/50'} rounded-xl p-1 sm:p-1.5 flex flex-col justify-between overflow-hidden cursor-pointer hover:border-indigo-400 transition">
             <span class="text-[10px] sm:text-xs font-bold ${isToday ? 'text-indigo-400' : 'text-slate-400'}">${day}</span>
             <div class="space-y-1 overflow-y-auto max-h-12 sm:max-h-16">
               ${daySubs.map(s => `
-                <div class="text-[9px] sm:text-[10px] bg-slate-700 p-0.5 sm:p-1 rounded font-medium text-white truncate" style="border-left: 2px solid ${s.color}" title="${s.name} - ฿${s.price}">
-                  ${s.name} (฿${s.price})
+                <div class="text-[9px] sm:text-[10px] p-0.5 sm:p-1 rounded font-medium text-white truncate shadow-sm" style="background-color: ${s.color}">
+                  ${s.name}
                 </div>
               `).join('')}
             </div>
@@ -1415,17 +1321,39 @@
       }
 
       html += `</div>`;
-      calView.innerHTML = html;
+      container.innerHTML = html;
     }
 
-    // Google Calendar Export Link
+    function showDateDetails(dateStr) {
+      const daySubs = subscriptions.filter(s => s.nextDate === dateStr && s.status === 'Active');
+      const content = document.getElementById('details-modal-content');
+      
+      if (daySubs.length === 0) {
+        content.innerHTML = `<p class="text-slate-400 text-center py-4">ไม่มีรายการชำระเงินในวันที่ ${formatThaiDate(dateStr)}</p>`;
+      } else {
+        content.innerHTML = `
+          <p class="font-semibold text-indigo-400 mb-2">รายการที่ต้องชำระวันที่ ${formatThaiDate(dateStr)}:</p>
+          ${daySubs.map(s => `
+            <div class="p-3 bg-slate-900 rounded-xl border border-slate-700 flex justify-between items-center">
+              <div>
+                <div class="font-bold text-white">${s.name}</div>
+                <div class="text-[11px] text-slate-400">${s.category} (${s.cycle === 'Monthly' ? 'รายเดือน' : 'รายปี'})</div>
+              </div>
+              <div class="text-sm font-bold text-white">฿${s.price.toLocaleString()}</div>
+            </div>
+          `).join('')}
+        `;
+      }
+      openModal('details-modal');
+    }
+
+    // Google Calendar Sync Link
     function addToGoogleCalendar(subId) {
       const sub = subscriptions.find(s => s.id === subId);
       if (!sub) return;
 
-      const title = encodeURIComponent(`ชำระค่าบริการ: ${sub.name}`);
-      const details = encodeURIComponent(`ยอดที่ต้องชำระ: ฿${sub.price} (${sub.cycle === 'Monthly' ? 'รายเดือน' : 'รายปี'})\nหมวดหมู่: ${getCategoryLabel(sub.category)}`);
-      
+      const title = encodeURIComponent(`ชำระค่าบริการ ${sub.name}`);
+      const details = encodeURIComponent(`ยอดชำระ ฿${sub.price} (${sub.cycle === 'Monthly' ? 'รายเดือน' : 'รายปี'})\nหมวดหมู่: ${sub.category}`);
       const startDate = sub.nextDate.replace(/-/g, '');
       const dates = `${startDate}/${startDate}`;
 
@@ -1433,18 +1361,19 @@
       window.open(url, '_blank');
     }
 
-    // Export .ICS File
-    function downloadICSFile() {
-      let icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//SubTrack App//TH\n";
+    // Generate and Download Real .ICS File
+    function exportToICS() {
+      let icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//SubTrack App//TH\nCALSCALE:GREGORIAN\n";
 
       subscriptions.forEach(sub => {
         if (sub.status === 'Active') {
           const dateStr = sub.nextDate.replace(/-/g, '');
           icsContent += "BEGIN:VEVENT\n";
           icsContent += `SUMMARY:ชำระค่าบริการ ${sub.name}\n`;
-          icsContent += `DESCRIPTION:ยอดชำระ ฿${sub.price}\n`;
+          icsContent += `DESCRIPTION:ยอดชำระ ฿${sub.price} (${sub.category})\n`;
           icsContent += `DTSTART;VALUE=DATE:${dateStr}\n`;
           icsContent += `DTEND;VALUE=DATE:${dateStr}\n`;
+          icsContent += "STATUS:CONFIRMED\n";
           icsContent += "END:VEVENT\n";
         }
       });
@@ -1454,97 +1383,224 @@
       const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
       const link = document.createElement('a');
       link.href = window.URL.createObjectURL(blob);
-      link.setAttribute('download', 'subscriptions_schedule.ics');
+      link.setAttribute('download', 'subtrack_billing_schedule.ics');
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
 
-      showToast('ดาวน์โหลดไฟล์ปฏิทิน .ICS เรียบร้อยแล้ว', 'success');
+      showToast('ดาวน์โหลดไฟล์ .ICS สำหรับนำเข้าปฏิทินสำเร็จ', 'success');
+      addNotifLog('Export ไฟล์ปฏิทิน .ICS เรียบร้อย');
     }
 
-    // Cancellation Guides List
-    function renderGuides() {
-      const searchInput = document.getElementById('guide-search');
-      const search = searchInput ? searchInput.value.toLowerCase() : '';
-      const list = document.getElementById('guide-list');
-      if (!list) return;
+    // Interactive Expense Analytics Charts & Category Progress Bars
+    function renderAnalytics() {
+      const categories = ['Entertainment', 'Music', 'Work/SaaS', 'Storage', 'Health', 'Utilities', 'Other'];
+      const categoryTotals = categories.map(cat => {
+        return subscriptions
+          .filter(s => s.category === cat && s.status === 'Active')
+          .reduce((sum, s) => sum + (s.cycle === 'Yearly' ? s.price / 12 : s.price), 0);
+      });
 
-      list.innerHTML = '';
+      const activeTotal = categoryTotals.reduce((a, b) => a + b, 0);
+
+      // Doughnut Chart
+      const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+      if (categoryChartInstance) categoryChartInstance.destroy();
+
+      categoryChartInstance = new Chart(categoryCtx, {
+        type: 'doughnut',
+        data: {
+          labels: categories,
+          datasets: [{
+            data: categoryTotals,
+            backgroundColor: ['#E50914', '#1DB954', '#6366f1', '#007AFF', '#10b981', '#f59e0b', '#64748b'],
+            borderWidth: 0
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { family: 'Prompt', size: 10 } } }
+          }
+        }
+      });
+
+      // 6-Month Projected Bar Chart
+      const months = [];
+      const monthlyProjections = [];
+      const today = new Date();
+
+      for (let i = 0; i < 6; i++) {
+        const d = new Date(today.getFullYear(), today.getMonth() + i, 1);
+        months.push(d.toLocaleDateString('th-TH', { month: 'short', year: '2-digit' }));
+        monthlyProjections.push(activeTotal);
+      }
+
+      const projCtx = document.getElementById('projectionChart').getContext('2d');
+      if (projectionChartInstance) projectionChartInstance.destroy();
+
+      projectionChartInstance = new Chart(projCtx, {
+        type: 'bar',
+        data: {
+          labels: months,
+          datasets: [{
+            label: 'ประมาณการค่าใช้จ่ายรายเดือน (บาท)',
+            data: monthlyProjections,
+            backgroundColor: '#6366f1',
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            y: { ticks: { color: '#94a3b8', font: { family: 'Prompt', size: 10 } }, grid: { color: '#334155' } },
+            x: { ticks: { color: '#94a3b8', font: { family: 'Prompt', size: 10 } }, grid: { display: false } }
+          },
+          plugins: {
+            legend: { display: false }
+          }
+        }
+      });
+
+      // Category Progress Percentage Bars
+      const progressContainer = document.getElementById('category-progress-bars');
+      progressContainer.innerHTML = '';
+
+      categories.forEach((cat, idx) => {
+        const amount = categoryTotals[idx];
+        if (amount > 0) {
+          const percent = activeTotal > 0 ? ((amount / activeTotal) * 100).toFixed(1) : 0;
+          const colors = ['bg-red-500', 'bg-emerald-500', 'bg-indigo-500', 'bg-blue-500', 'bg-teal-500', 'bg-amber-500', 'bg-slate-500'];
+
+          const bar = document.createElement('div');
+          bar.className = 'space-y-1';
+          bar.innerHTML = `
+            <div class="flex justify-between text-xs text-slate-300 font-medium">
+              <span>${cat}</span>
+              <span>฿${amount.toLocaleString()} (${percent}%)</span>
+            </div>
+            <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
+              <div class="h-full ${colors[idx]} transition-all duration-500" style="width: ${percent}%"></div>
+            </div>
+          `;
+          progressContainer.appendChild(bar);
+        }
+      });
+
+      renderSummaryTable();
+    }
+
+    function renderSummaryTable() {
+      const tbody = document.getElementById('summary-table-body');
+      tbody.innerHTML = '';
+
+      subscriptions.forEach(sub => {
+        const monthly = sub.cycle === 'Yearly' ? (sub.price / 12) : sub.price;
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-slate-800/40 transition";
+        tr.innerHTML = `
+          <td class="py-3 px-4 sm:px-6 font-medium text-white flex items-center gap-2">
+            <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: ${sub.color}"></span>
+            <span class="truncate">${sub.name}</span>
+          </td>
+          <td class="py-3 px-4 sm:px-6">${sub.category}</td>
+          <td class="py-3 px-4 sm:px-6">${sub.cycle === 'Monthly' ? 'รายเดือน' : 'รายปี'}</td>
+          <td class="py-3 px-4 sm:px-6">${formatThaiDate(sub.nextDate)}</td>
+          <td class="py-3 px-4 sm:px-6 text-right">฿${parseFloat(sub.price).toLocaleString()}</td>
+          <td class="py-3 px-4 sm:px-6 text-right font-semibold text-indigo-400">฿${monthly.toFixed(2)}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Step-by-Step Cancellation Accordion Guides
+    function renderGuides() {
+      const search = document.getElementById('guide-search').value.toLowerCase();
+      const container = document.getElementById('guide-accordion-list');
+      container.innerHTML = '';
 
       const filtered = CANCELLATION_GUIDES.filter(g => g.name.toLowerCase().includes(search));
 
       filtered.forEach((guide, idx) => {
         const card = document.createElement('div');
-        card.className = "bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:border-slate-600 transition";
+        card.className = "bg-slate-800/80 border border-slate-700/60 rounded-2xl overflow-hidden transition";
         card.innerHTML = `
-          <div>
-            <div class="flex items-center space-x-3 mb-3">
-              <div class="w-10 h-10 rounded-xl flex items-center justify-center font-bold text-white text-base shadow shrink-0" style="background-color: ${guide.color}">
+          <button onclick="toggleAccordion(${idx})" class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-slate-800 transition min-h-[48px]">
+            <div class="flex items-center space-x-3">
+              <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-white text-sm shadow shrink-0" style="background-color: ${guide.color}">
                 ${guide.name.charAt(0)}
               </div>
               <h4 class="font-bold text-white text-sm sm:text-base">${guide.name}</h4>
             </div>
-            <p class="text-xs text-slate-400 mb-4 line-clamp-2">${guide.steps[0]}</p>
-          </div>
-
-          <button onclick="openGuideModal(${idx})" class="w-full py-2.5 bg-slate-700/60 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition flex items-center justify-center gap-1.5 touch-active min-h-[44px]">
-            <span>ดูวิธียกเลิกอย่างละเอียด</span>
-            <i data-lucide="chevron-right" class="w-4 h-4"></i>
+            <i id="acc-icon-${idx}" data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
           </button>
+
+          <div id="acc-content-${idx}" class="accordion-content px-4 sm:px-5">
+            <div class="pb-5 pt-1 border-t border-slate-700/60 space-y-3">
+              <p class="text-xs text-slate-300">ขั้นตอนการยกเลิกตามลำดับ:</p>
+              <ol class="space-y-2 text-xs sm:text-sm text-slate-200 list-decimal list-inside bg-slate-900/80 p-3.5 rounded-xl border border-slate-700/60">
+                ${guide.steps.map(s => `<li>${s}</li>`).join('')}
+              </ol>
+
+              <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
+                <a href="${guide.url}" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 touch-active min-h-[44px]">
+                  <span>Go to Cancel Page (เปิดหน้ายกเลิก)</span>
+                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
+                </a>
+                <button onclick="markCancelledFromGuide('${guide.name}')" class="px-4 py-2.5 bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 rounded-xl text-xs font-semibold transition touch-active min-h-[44px]">
+                  ทำเครื่องหมายว่ายกเลิกแล้ว
+                </button>
+              </div>
+            </div>
+          </div>
         `;
-        list.appendChild(card);
+        container.appendChild(card);
       });
 
       lucide.createIcons();
     }
 
-    function openGuideModal(idx) {
-      const guide = CANCELLATION_GUIDES[idx];
-      document.getElementById('guide-modal-title').innerText = `วิธียกเลิกบริการ ${guide.name}`;
+    function toggleAccordion(idx) {
+      const content = document.getElementById(`acc-content-${idx}`);
+      const icon = document.getElementById(`acc-icon-${idx}`);
       
-      const iconEl = document.getElementById('guide-modal-icon');
-      iconEl.innerText = guide.name.charAt(0);
-      iconEl.style.backgroundColor = guide.color;
-
-      const stepsList = document.getElementById('guide-modal-steps');
-      stepsList.innerHTML = guide.steps.map(s => `<li>${s}</li>`).join('');
-
-      document.getElementById('guide-modal-link').href = guide.link;
-
-      const cancelBtn = document.getElementById('guide-modal-cancel-btn');
-      cancelBtn.onclick = () => {
-        markAsCancelledByName(guide.name);
-        closeModal('guide-modal');
-      };
-
-      openModal('guide-modal');
-    }
-
-    function markAsCancelledByName(serviceName) {
-      const sub = subscriptions.find(s => s.name.toLowerCase().includes(serviceName.toLowerCase()));
-      if (sub) {
-        sub.status = 'Cancelled';
-        saveSubscriptionsToStorage();
-        renderSubscriptions();
-        showToast(`อัปเดตสถานะ ${sub.name} เป็น "ยกเลิกแล้ว"`, 'info');
-        addNotifLog(`ยกเลิกบริการ ${sub.name} เรียบร้อยแล้ว`);
+      const isOpen = content.classList.contains('open');
+      if (isOpen) {
+        content.classList.remove('open');
+        icon.style.transform = 'rotate(0deg)';
       } else {
-        showToast(`ไม่พบการสมัครสมาชิก ${serviceName} ในรายการของคุณ`, 'info');
+        content.classList.add('open');
+        icon.style.transform = 'rotate(180deg)';
       }
     }
 
-    // UI Feedback Banner Toast (HCI Feedback Principle)
+    function markCancelledFromGuide(serviceName) {
+      const sub = subscriptions.find(s => s.name.toLowerCase().includes(serviceName.toLowerCase()));
+      if (sub) {
+        sub.status = 'Cancelled';
+        saveSubscriptions();
+        renderSubscriptions();
+        showToast(`อัปเดตสถานะ ${sub.name} เป็น "ยกเลิกแล้ว" เรียบร้อย`, 'info');
+        addNotifLog(`ยกเลิกบริการ ${sub.name} ผ่านคู่มือ`);
+      } else {
+        showToast(`ไม่พบรายการ ${serviceName} ในการสมัครสมาชิกของคุณ`, 'info');
+      }
+    }
+
+    // UI Toast Feedback
     function showToast(message, type = 'info') {
       const container = document.getElementById('toast-container');
       const toast = document.createElement('div');
-      
-      const bgColors = {
+
+      const bg = {
         success: 'bg-emerald-600 text-white',
         info: 'bg-indigo-600 text-white',
-        warning: 'bg-amber-600 text-white shadow-amber-500/20'
+        warning: 'bg-amber-600 text-white shadow-lg shadow-amber-600/20'
       };
 
-      toast.className = `${bgColors[type]} px-4 py-3 rounded-xl shadow-xl text-xs font-medium flex items-center space-x-2 transition-all duration-300 pointer-events-auto opacity-0 translate-y-2 border border-white/10 backdrop-blur-md`;
+      toast.className = `${bg[type]} px-4 py-3 rounded-xl shadow-xl text-xs font-medium flex items-center space-x-2 transition-all duration-300 pointer-events-auto opacity-0 translate-y-2 border border-white/10 backdrop-blur-md`;
       toast.innerHTML = `
         <i data-lucide="info" class="w-4 h-4 shrink-0"></i>
         <span>${message}</span>
@@ -1553,10 +1609,7 @@
       container.appendChild(toast);
       lucide.createIcons();
 
-      setTimeout(() => {
-        toast.classList.remove('opacity-0', 'translate-y-2');
-      }, 100);
-
+      setTimeout(() => toast.classList.remove('opacity-0', 'translate-y-2'), 100);
       setTimeout(() => {
         toast.classList.add('opacity-0', 'translate-y-2');
         setTimeout(() => toast.remove(), 300);
