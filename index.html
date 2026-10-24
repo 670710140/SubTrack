@@ -1,1620 +1,370 @@
-<!DOCTYPE html>
-<html lang="th" class="h-full bg-slate-900 text-slate-100">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>SubTrack - ระบบจัดการและติดตามค่าบริการสมาชิก (Interactive SubTrack)</title>
-  
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Google Fonts: Prompt & Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
-  <!-- Lucide Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+<!DOCTYPE html><html lang="th" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary-fixed": "#002113", "secondary-fixed-dim": "#4edea3", "error": "#ba1a1a", "surface-container-low": "#eff4ff", "primary-fixed-dim": "#c0c1ff", "error-container": "#ffdad6", "on-primary": "#ffffff", "on-background": "#0b1c30", "inverse-on-surface": "#eaf1ff", "inverse-primary": "#c0c1ff", "surface-bright": "#f8f9ff", "surface-container": "#e5eeff", "background": "#f8f9ff", "on-primary-container": "#fffbff", "tertiary-fixed": "#ffddb8", "on-tertiary-container": "#fffbff", "surface-variant": "#d3e4fe", "on-surface-variant": "#464554", "tertiary": "#825100", "primary-fixed": "#e1e0ff", "on-tertiary-fixed-variant": "#653e00", "tertiary-container": "#a36700", "on-secondary": "#ffffff", "surface-tint": "#494bd6", "surface": "#f8f9ff", "outline": "#767586", "inverse-surface": "#213145", "surface-container-lowest": "#ffffff", "on-error": "#ffffff", "outline-variant": "#c7c4d7", "surface-container-high": "#dce9ff", "primary-container": "#6063ee", "on-tertiary-fixed": "#2a1700", "secondary": "#006c49", "on-secondary-fixed-variant": "#005236", "on-primary-fixed": "#07006c", "surface-dim": "#cbdbf5", "on-surface": "#0b1c30", "secondary-fixed": "#6ffbbe", "primary": "#4648d4", "secondary-container": "#6cf8bb", "on-secondary-container": "#00714d", "surface-container-highest": "#d3e4fe", "on-primary-fixed-variant": "#2f2ebe", "on-tertiary": "#ffffff", "on-error-container": "#93000a", "tertiary-fixed-dim": "#ffb95f" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter": "1rem", "space-xs": "0.25rem", "space-xl": "2rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "margin-mobile": "1rem", "space-md": "1rem", "gutter-sm": "0.75rem", "margin": "1.25rem" }, fontFamily: { "headline-lg-mobile": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"] }, fontSize: { "headline-lg-mobile": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }], "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "700" }], "display-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-sm": ["18px", { lineHeight: "26px", fontWeight: "600" }], "display-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.02em", fontWeight: "600" }], "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "22px", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin-mobile flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="SubWise Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1ViGLfcyTkDsCGqq2IW2SUUX4NRQjwBjdU-ignncoclkBjl_ZiDAbQ_fwVB2Vc2mj4N8nc_ZZ8DWNSGIAt9TFzPrqI19hXBJyc4DwVa4BWX9Kpt-q_VipO60Q-UySgo_xQyjg-QJjok7OzF2va6VMQXGIAZG_aQn1R4W2o7XOA8hi_AX7evMgFgSymbiuxIumy7Z5l5On3Hu1qCe4xv0Tkj7dW1NYQX5r19xC0JSNK6oVrJD2kNK67E"><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">SubWise</span><span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Dashboard</span></div></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors relative"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-error"></span></button><a aria-label="User Profile" class="w-11 h-11 flex items-center justify-center rounded-full hover:opacity-90 transition-opacity p-0.5" data-path="profile-settings" href="./profile-settings.html" target="_self"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARlMT45pggfWE_h-nYqSCW-UNUTEVMuHM6W7j0hiIAAgldVOdKqwgRwyM1djFrehLh29bi5HVAqqOLdRtqvCfsWtOJ1ZmmWaAMqDSDOdzXWI3x6dLDZRqjhpMd86IElEcz5IS7Ybi1WnieGhSdj9vxWbFiONY4QRqN-86bMt0U1m70Df3bekLdm1i8zQG7AgP90SI0yiFhh4PGMFURWepXk1N7PEp-krPAu7qqXxwmCtdyS9mtfp_y"></a></div></div></header><main class="flex-1 w-full pt-16 pb-24 bg-surface flex flex-col"><div class="flex flex-col w-full pb-8">
+<!-- Top Student Persona Greeting & Month Burn Card -->
+<section class="px-margin-mobile pt-space-sm pb-space-xs flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<div class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></div>
+<span class="font-label-md text-label-md text-on-surface-variant">สวัสดี น้องสมัคร&nbsp;</span>
+</div>
 
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Prompt', 'Inter', 'sans-serif'],
-          },
-          colors: {
-            brand: {
-              50: '#eef2ff',
-              100: '#e0e7ff',
-              500: '#6366f1',
-              600: '#4f46e5',
-              700: '#4338ca',
-            }
-          }
-        }
-      }
-    }
-  </script>
+</div>
+<!-- Monthly Summary Primary Card -->
+<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary via-primary to-primary-container text-on-primary p-space-lg shadow-md">
+<!-- Decorative background glow SVG -->
+<svg class="absolute -right-10 -bottom-10 w-44 h-44 text-white/10 pointer-events-none" fill="currentColor" viewBox="0 0 200 200">
+<circle cx="100" cy="100" r="80"></circle>
+</svg>
+<svg class="absolute -right-2 top-2 w-20 h-20 text-white/5 pointer-events-none" fill="currentColor" viewBox="0 0 100 100">
+<polygon points="50,10 90,90 10,90"></polygon>
+</svg>
+<div class="relative z-10 flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-on-primary/80 tracking-wide uppercase">ยอดชำระเดือนนี้</span>
+<span class="font-label-sm text-label-sm bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full text-white font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">pie_chart</span>
+            6 บริการที่ใช้งาน
+          </span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg-mobile text-display-lg-mobile tracking-tight font-bold">฿1,029</span>
+<span class="font-body-sm text-body-sm text-on-primary/75">/ เดือน</span>
+</div>
+<!-- Budget Bar -->
+<div class="flex flex-col gap-1.5 pt-1">
+<div class="flex items-center justify-between text-white/90 font-label-sm text-label-sm">
+<span class="">งบประมาณจำกัดต่อเดือน (฿1,500)</span>
+<span class="font-semibold">ใช้ไป 68.6%</span>
+</div>
+<div class="w-full h-2 rounded-full bg-black/20 overflow-hidden">
+<div class="h-full rounded-full bg-secondary-fixed transition-all duration-700" style="width: 68.6%;"></div>
+</div>
+</div>
+<!-- Metric pill row -->
+<div class="flex items-center gap-2 pt-1">
 
-  <style>
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    ::-webkit-scrollbar-track {
-      background: #0f172a;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #334155;
-      border-radius: 4px;
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #475569;
-    }
-
-    /* HCI Active Touch Feedback States */
-    .touch-active:active {
-      transform: scale(0.97);
-      opacity: 0.9;
-    }
-
-    /* Safe Area Padding for Mobile Bottom Bar */
-    .pb-safe-nav {
-      padding-bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));
-    }
-
-    /* Smooth accordion animation */
-    .accordion-content {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease-out;
-    }
-    .accordion-content.open {
-      max-height: 500px;
-    }
-  </style>
-</head>
-<body class="h-full font-sans antialiased bg-slate-900 text-slate-100 flex flex-col md:flex-row overflow-x-hidden">
-
-  <!-- Toast Container -->
-  <div id="toast-container" class="fixed top-4 right-4 left-4 sm:left-auto sm:w-96 z-50 flex flex-col gap-2.5 pointer-events-none"></div>
-
-  <!-- Mobile Top Header Bar -->
-  <header class="md:hidden bg-slate-950/90 border-b border-slate-800 sticky top-0 z-30 px-4 h-16 flex items-center justify-between backdrop-blur-md">
-    <div class="flex items-center space-x-3">
-      <button onclick="toggleSidebar()" class="p-2 text-slate-300 hover:text-white rounded-lg active:bg-slate-800 min-w-[44px] min-h-[44px] flex items-center justify-center">
-        <i data-lucide="menu" class="w-6 h-6"></i>
-      </button>
-      <div class="flex items-center space-x-2">
-        <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-md">
-          <i data-lucide="repeat" class="w-5 h-5"></i>
-        </div>
-        <span class="font-bold text-base tracking-wide text-white">SubTrack</span>
-      </div>
-    </div>
-
-    <div class="flex items-center space-x-2">
-      <button onclick="toggleNotifDropdown()" class="p-2 text-slate-300 hover:text-white rounded-lg relative min-w-[44px] min-h-[44px] flex items-center justify-center">
-        <i data-lucide="bell" class="w-5 h-5"></i>
-        <span id="mobile-notif-dot" class="absolute top-2 right-2 w-2.5 h-2.5 bg-amber-500 rounded-full hidden"></span>
-      </button>
-
-      <button onclick="openModal('add-modal')" class="bg-indigo-600 hover:bg-indigo-500 text-white p-2 rounded-xl text-xs font-medium flex items-center gap-1 shadow-md touch-active min-h-[44px] px-3">
-        <i data-lucide="plus" class="w-4 h-4"></i>
-        <span class="hidden sm:inline">เพิ่มรายการ</span>
-      </button>
-    </div>
-  </header>
-
-  <!-- Sidebar Overlay -->
-  <div id="sidebar-backdrop" onclick="toggleSidebar()" class="fixed inset-0 bg-slate-950/80 z-40 hidden md:hidden transition-opacity"></div>
-
-  <!-- Responsive Sidebar Drawer -->
-  <aside id="sidebar" class="fixed md:static inset-y-0 left-0 w-72 md:w-64 bg-slate-950 border-r border-slate-800 flex flex-col shrink-0 z-40 -translate-x-full md:translate-x-0 transition-transform duration-300 ease-in-out">
-    <div class="p-5 border-b border-slate-800 hidden md:flex items-center justify-between">
-      <div class="flex items-center space-x-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-violet-500 flex items-center justify-center text-white shadow-lg shadow-indigo-500/30">
-          <i data-lucide="repeat" class="w-6 h-6"></i>
-        </div>
-        <div>
-          <h1 class="font-bold text-lg leading-tight tracking-wide text-white">SubTrack</h1>
-          <p class="text-xs text-slate-400">ระบบจัดการบริการสมาชิก</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mobile Drawer Header -->
-    <div class="p-4 border-b border-slate-800 flex md:hidden items-center justify-between bg-slate-900/50">
-      <div class="flex items-center space-x-2">
-        <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-white">
-          <i data-lucide="repeat" class="w-4 h-4"></i>
-        </div>
-        <span class="font-bold text-slate-200">เมนูหลัก</span>
-      </div>
-      <button onclick="toggleSidebar()" class="text-slate-400 p-2 hover:text-white min-w-[44px] min-h-[44px] flex items-center justify-center">
-        <i data-lucide="x" class="w-5 h-5"></i>
-      </button>
-    </div>
-
-    <!-- Navigation Links -->
-    <nav class="flex-1 p-4 space-y-1.5 overflow-y-auto">
-      <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] bg-indigo-600/10 text-indigo-400 border border-indigo-500/20">
-        <i data-lucide="layout-dashboard" class="w-5 h-5 shrink-0"></i>
-        <span>ภาพรวม (Dashboard)</span>
-      </button>
-
-      <button onclick="switchTab('summary')" id="nav-summary" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
-        <i data-lucide="pie-chart" class="w-5 h-5 shrink-0"></i>
-        <span>สรุปและวิเคราะห์ค่าใช้จ่าย</span>
-      </button>
-
-      <button onclick="switchTab('calendar')" id="nav-calendar" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
-        <i data-lucide="calendar" class="w-5 h-5 shrink-0"></i>
-        <span>ปฏิทินรอบชำระ</span>
-      </button>
-
-      <button onclick="switchTab('notifications')" id="nav-notifications" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
-        <i data-lucide="bell" class="w-5 h-5 shrink-0"></i>
-        <span class="flex-1 text-left">ระบบแจ้งเตือน</span>
-        <span id="nav-notif-badge" class="bg-amber-500/20 text-amber-400 text-xs px-2 py-0.5 rounded-full font-semibold border border-amber-500/30">0</span>
-      </button>
-
-      <button onclick="switchTab('guide')" id="nav-guide" class="nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] text-slate-400 hover:bg-slate-800/60 hover:text-slate-200">
-        <i data-lucide="book-open" class="w-5 h-5 shrink-0"></i>
-        <span>คู่มือยกเลิกบริการ</span>
-      </button>
-    </nav>
-
-    <!-- Desktop Sidebar Add Button -->
-    <div class="p-4 border-t border-slate-800 bg-slate-950/50 hidden md:block">
-      <button onclick="openModal('add-modal')" class="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-medium py-3 px-4 rounded-xl transition shadow-lg shadow-indigo-600/20 touch-active min-h-[44px]">
-        <i data-lucide="plus-circle" class="w-5 h-5"></i>
-        <span>เพิ่มรายการใหม่</span>
-      </button>
-    </div>
-  </aside>
-
-  <!-- Mobile Bottom Navigation Bar -->
-  <div class="md:hidden fixed bottom-0 left-0 right-0 bg-slate-950/95 border-t border-slate-800 z-30 backdrop-blur-lg px-2 py-1 flex items-center justify-around shadow-2xl">
-    <button onclick="switchTab('dashboard')" id="bnav-dashboard" class="bnav-item flex flex-col items-center justify-center py-2 px-3 text-indigo-400 min-w-[60px] min-h-[50px]">
-      <i data-lucide="layout-dashboard" class="w-5 h-5"></i>
-      <span class="text-[10px] mt-1 font-medium">ภาพรวม</span>
-    </button>
-    <button onclick="switchTab('summary')" id="bnav-summary" class="bnav-item flex flex-col items-center justify-center py-2 px-3 text-slate-400 min-w-[60px] min-h-[50px]">
-      <i data-lucide="pie-chart" class="w-5 h-5"></i>
-      <span class="text-[10px] mt-1 font-medium">สรุปค่าใช้จ่าย</span>
-    </button>
-    <button onclick="openModal('add-modal')" class="flex flex-col items-center justify-center -mt-5 bg-gradient-to-r from-indigo-600 to-violet-600 text-white p-3 rounded-full shadow-lg shadow-indigo-600/40 touch-active min-w-[50px] min-h-[50px]">
-      <i data-lucide="plus" class="w-6 h-6"></i>
-    </button>
-    <button onclick="switchTab('calendar')" id="bnav-calendar" class="bnav-item flex flex-col items-center justify-center py-2 px-3 text-slate-400 min-w-[60px] min-h-[50px]">
-      <i data-lucide="calendar" class="w-5 h-5"></i>
-      <span class="text-[10px] mt-1 font-medium">ปฏิทิน</span>
-    </button>
-    <button onclick="switchTab('notifications')" id="bnav-notifications" class="bnav-item flex flex-col items-center justify-center py-2 px-3 text-slate-400 min-w-[60px] min-h-[50px] relative">
-      <i data-lucide="bell" class="w-5 h-5"></i>
-      <span class="text-[10px] mt-1 font-medium">แจ้งเตือน</span>
-      <span id="mobile-bnav-badge" class="absolute top-1 right-3 w-2 h-2 bg-amber-500 rounded-full hidden"></span>
-    </button>
-  </div>
-
-  <!-- Main Content Area -->
-  <main class="flex-1 flex flex-col min-w-0 h-screen overflow-y-auto bg-slate-900 pb-safe-nav md:pb-0">
-    
-    <!-- Desktop Header -->
-    <header class="hidden md:flex h-16 border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-20 px-6 items-center justify-between">
-      <div class="flex items-center gap-3">
-        <h2 id="page-title" class="text-xl font-bold text-white">ภาพรวมบริการสมาชิก</h2>
-        <span class="text-xs text-slate-400 border-l border-slate-700 pl-3 hidden lg:inline" id="current-date-display">--</span>
-      </div>
-
-      <div class="flex items-center space-x-4">
-        <!-- Notification Dropdown -->
-        <div class="relative">
-          <button onclick="toggleNotifDropdown()" class="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 relative transition min-w-[44px] min-h-[44px] flex items-center justify-center">
-            <i data-lucide="bell" class="w-5 h-5"></i>
-            <span id="header-notif-ping" class="absolute top-2 right-2 w-2.5 h-2.5 bg-amber-500 rounded-full animate-ping hidden"></span>
-            <span id="header-notif-dot" class="absolute top-2 right-2 w-2.5 h-2.5 bg-amber-500 rounded-full hidden"></span>
+</div>
+</div>
+</div>
+</section>
+<!-- Urgent Alert Banner -->
+<section class="px-margin-mobile pt-space-xs">
+<div class="rounded-xl bg-error-container text-on-error-container p-space-md shadow-sm flex items-start gap-3">
+<div class="w-9 h-9 rounded-full bg-error text-on-error flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+<span class="material-symbols-outlined text-[20px]">notifications_active</span>
+</div>
+<div class="flex flex-col flex-1 min-w-0">
+<div class="flex items-center justify-between gap-1">
+<span class="font-label-lg text-label-lg font-bold text-error">⚠️ แจ้งเตือนยอดตัดเงินเร็วๆ นี้</span>
+<span class="font-label-sm text-label-sm bg-error/10 text-error px-2 py-0.5 rounded-full font-bold">สำคัญ</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-error-container mt-1 leading-relaxed">
+<span class="font-semibold">Netflix</span> จะตัดเงินในอีก <strong class="text-error font-bold underline decoration-error/50">2 วัน</strong> (฿169 ผ่าน TrueMoney Wallet) และ <span class="font-semibold">YouTube Premium</span> ในอีก <strong class="text-error font-bold">5 วัน</strong>
+</p>
+<div class="flex items-center gap-2 mt-2.5">
+<button class="px-3 py-1 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-sm active:scale-95 transition-transform flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px] text-secondary">account_balance_wallet</span>
+            เช็คเงิน TrueMoney
           </button>
-
-          <!-- Dropdown Menu -->
-          <div id="notif-dropdown" class="hidden absolute right-0 mt-2 w-80 md:w-96 bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl z-50 p-4">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-700">
-              <h4 class="font-semibold text-sm text-white">ยอดชำระที่ใกล้ถึงใน 7 วัน</h4>
-              <button onclick="switchTab('notifications'); toggleNotifDropdown()" class="text-xs text-indigo-400 hover:underline">ตั้งค่าการแจ้งเตือน</button>
-            </div>
-            <div id="notif-dropdown-list" class="space-y-2 mt-3 max-h-64 overflow-y-auto pr-1">
-              <!-- Dynamic content -->
-            </div>
-          </div>
-        </div>
-
-        <div class="flex items-center space-x-3 border-l border-slate-800 pl-4">
-          <div class="w-9 h-9 rounded-full bg-indigo-600 flex items-center justify-center text-white font-bold text-sm">
-            ST
-          </div>
-          <div class="hidden lg:block text-left">
-            <div class="text-xs font-semibold text-slate-200">ผู้ใช้งาน SubTrack</div>
-            <div class="text-[10px] text-slate-400">Pro Subscription</div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Page Contents -->
-    <div class="p-4 sm:p-6 md:p-8 flex-1 space-y-6">
-
-      <!-- ================= 1. DASHBOARD VIEW ================= -->
-      <section id="tab-dashboard" class="space-y-6">
-        
-        <!-- Metrics Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5 sm:gap-4">
-          <div class="bg-slate-800/80 border border-slate-700/60 p-4 sm:p-5 rounded-2xl shadow-sm">
-            <div class="flex items-center justify-between text-slate-400 mb-2">
-              <span class="text-xs font-medium">ค่าใช้จ่ายรวมรายเดือน</span>
-              <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg"><i data-lucide="wallet" class="w-4 h-4"></i></div>
-            </div>
-            <div class="text-2xl font-bold text-white" id="stat-monthly-total">฿0.00</div>
-            <p class="text-[11px] text-slate-400 mt-1">จากบริการที่มีสถานะใช้งานเปิดอยู่</p>
-          </div>
-
-          <div class="bg-slate-800/80 border border-slate-700/60 p-4 sm:p-5 rounded-2xl shadow-sm">
-            <div class="flex items-center justify-between text-slate-400 mb-2">
-              <span class="text-xs font-medium">ประมาณการรายปี</span>
-              <div class="p-2 bg-violet-500/10 text-violet-400 rounded-lg"><i data-lucide="trending-up" class="w-4 h-4"></i></div>
-            </div>
-            <div class="text-2xl font-bold text-white" id="stat-yearly-total">฿0.00</div>
-            <p class="text-[11px] text-slate-400 mt-1">ประมาณการรวม 12 เดือน</p>
-          </div>
-
-          <div class="bg-slate-800/80 border border-slate-700/60 p-4 sm:p-5 rounded-2xl shadow-sm">
-            <div class="flex items-center justify-between text-slate-400 mb-2">
-              <span class="text-xs font-medium">ต้องชำระใน 7 วันนี้</span>
-              <div class="p-2 bg-amber-500/10 text-amber-400 rounded-lg"><i data-lucide="clock" class="w-4 h-4"></i></div>
-            </div>
-            <div class="text-2xl font-bold text-amber-400" id="stat-due-soon">0 รายการ</div>
-            <p class="text-[11px] text-slate-400 mt-1" id="stat-due-soon-amount">ยอดรวม ฿0.00</p>
-          </div>
-
-          <div class="bg-slate-800/80 border border-slate-700/60 p-4 sm:p-5 rounded-2xl shadow-sm">
-            <div class="flex items-center justify-between text-slate-400 mb-2">
-              <span class="text-xs font-medium">จำนวนบริการที่เปิดใช้</span>
-              <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg"><i data-lucide="check-circle" class="w-4 h-4"></i></div>
-            </div>
-            <div class="text-2xl font-bold text-white" id="stat-active-count">0 รายการ</div>
-            <p class="text-[11px] text-slate-400 mt-1">Active Subscriptions</p>
-          </div>
-        </div>
-
-        <!-- Toolbar Filter & Search -->
-        <div class="flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between bg-slate-800/40 p-3.5 sm:p-4 rounded-2xl border border-slate-800">
-          <div class="relative w-full md:w-72">
-            <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 text-slate-400"></i>
-            <input type="text" id="search-input" oninput="renderSubscriptions()" placeholder="ค้นหาชื่อบริการ..." class="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-          </div>
-
-          <div class="grid grid-cols-2 sm:flex sm:flex-wrap items-center gap-2.5 w-full md:w-auto">
-            <select id="category-filter" onchange="renderSubscriptions()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-              <option value="ALL">ทุกหมวดหมู่</option>
-              <option value="Entertainment">Entertainment (ความบันเทิง)</option>
-              <option value="Music">Music (เพลง)</option>
-              <option value="Work/SaaS">Work/SaaS (ทำงาน)</option>
-              <option value="Storage">Storage (คลาวด์)</option>
-              <option value="Health">Health (สุขภาพ)</option>
-              <option value="Utilities">Utilities (ยูทิลิตี้)</option>
-              <option value="Other">Other (อื่นๆ)</option>
-            </select>
-
-            <select id="status-filter" onchange="renderSubscriptions()" class="bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs sm:text-sm text-slate-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-              <option value="ALL">ทุกสถานะ</option>
-              <option value="Active">เปิดใช้งาน (Active)</option>
-              <option value="Due Soon">ใกล้ชำระใน 7 วัน</option>
-              <option value="Cancelled">ยกเลิกแล้ว (Cancelled)</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Subscriptions Grid -->
-        <div id="subscriptions-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-          <!-- Populated via JavaScript -->
-        </div>
-
-        <!-- Empty State -->
-        <div id="empty-state" class="hidden text-center py-12 bg-slate-800/30 rounded-2xl border border-dashed border-slate-700">
-          <i data-lucide="inbox" class="w-12 h-12 text-slate-500 mx-auto mb-3"></i>
-          <h3 class="text-slate-300 font-semibold">ไม่พบรายการสมัครสมาชิก</h3>
-          <p class="text-slate-500 text-xs mt-1">ลองเปลี่ยนคำค้นหาหรือเพิ่มรายการสมาชิกใหม่</p>
-        </div>
-
-      </section>
-
-      <!-- ================= 2. NOTIFICATION CENTER & SIMULATOR ================= -->
-      <section id="tab-notifications" class="hidden space-y-6">
-        <div class="max-w-4xl mx-auto space-y-6">
-          
-          <!-- Interactive Simulator Box -->
-          <div class="bg-gradient-to-r from-indigo-900/60 to-violet-900/60 border border-indigo-500/40 p-5 rounded-2xl shadow-lg">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div>
-                <div class="flex items-center space-x-2">
-                  <span class="px-2.5 py-0.5 bg-indigo-500/20 text-indigo-300 text-xs rounded-full font-semibold border border-indigo-500/30">Interactive Simulator</span>
-                  <h3 class="font-bold text-base text-white">ทดสอบการส่งสัญญาณแจ้งเตือนระบบ</h3>
-                </div>
-                <p class="text-xs text-slate-300 mt-1">ระบบจะส่งสัญญาณผ่าน **Web Browser Notification API** (ขอ Permission) + เสียง Synthesizer สังเคราะห์ + เพิ่มลง In-App Notification Log</p>
-              </div>
-              <button onclick="triggerTestNotification()" class="bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white text-xs font-bold px-5 py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-lg touch-active min-h-[44px] shrink-0">
-                <i data-lucide="bell-ring" class="w-4 h-4"></i>
-                <span>Test Notification Now</span>
-              </button>
-            </div>
-          </div>
-
-          <!-- Notification Settings Form -->
-          <div class="bg-slate-800/80 border border-slate-700/60 p-5 sm:p-6 rounded-2xl">
-            <h3 class="font-bold text-lg text-white mb-1">ตั้งค่าการแจ้งเตือนล่วงหน้า</h3>
-            <p class="text-xs text-slate-400 mb-6">กำหนดระยะเวลาการเตือนเพื่อป้องกันการลืมชำระเงินและการถูกหักเงินโดยไม่ตั้งใจ</p>
-
-            <form id="notif-settings-form" onsubmit="saveNotificationSettings(event)" class="space-y-6">
-              
-              <div>
-                <label class="block text-sm font-semibold text-slate-200 mb-2">แจ้งเตือนล่วงหน้ากี่วัน?</label>
-                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-                  <label class="cursor-pointer">
-                    <input type="radio" name="lead-days" value="1" class="peer hidden">
-                    <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl text-center text-xs font-medium peer-checked:border-indigo-500 peer-checked:bg-indigo-600/20 peer-checked:text-indigo-400 hover:bg-slate-800 transition min-h-[44px] flex items-center justify-center">1 วันล่วงหน้า</div>
-                  </label>
-                  <label class="cursor-pointer">
-                    <input type="radio" name="lead-days" value="3" checked class="peer hidden">
-                    <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl text-center text-xs font-medium peer-checked:border-indigo-500 peer-checked:bg-indigo-600/20 peer-checked:text-indigo-400 hover:bg-slate-800 transition min-h-[44px] flex items-center justify-center">3 วันล่วงหน้า</div>
-                  </label>
-                  <label class="cursor-pointer">
-                    <input type="radio" name="lead-days" value="5" class="peer hidden">
-                    <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl text-center text-xs font-medium peer-checked:border-indigo-500 peer-checked:bg-indigo-600/20 peer-checked:text-indigo-400 hover:bg-slate-800 transition min-h-[44px] flex items-center justify-center">5 วันล่วงหน้า</div>
-                  </label>
-                  <label class="cursor-pointer">
-                    <input type="radio" name="lead-days" value="7" class="peer hidden">
-                    <div class="p-3 bg-slate-900 border border-slate-700 rounded-xl text-center text-xs font-medium peer-checked:border-indigo-500 peer-checked:bg-indigo-600/20 peer-checked:text-indigo-400 hover:bg-slate-800 transition min-h-[44px] flex items-center justify-center">7 วันล่วงหน้า</div>
-                  </label>
-                </div>
-              </div>
-
-              <div>
-                <label class="block text-sm font-semibold text-slate-200 mb-2">เวลาที่ต้องการให้แจ้งเตือน</label>
-                <input type="time" id="notif-time" value="09:00" class="bg-slate-900 border border-slate-700 rounded-xl px-4 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-              </div>
-
-              <div class="space-y-3 pt-4 border-t border-slate-700">
-                <h4 class="text-sm font-semibold text-slate-200">ช่องทางการแจ้งเตือนที่รองรับ</h4>
-                
-                <div class="flex items-center justify-between p-3.5 bg-slate-900/60 rounded-xl border border-slate-800">
-                  <div class="flex items-center space-x-3">
-                    <div class="p-2 bg-indigo-500/10 text-indigo-400 rounded-lg"><i data-lucide="bell" class="w-5 h-5"></i></div>
-                    <div>
-                      <div class="text-sm font-medium text-slate-200">In-App Notification</div>
-                      <div class="text-[11px] text-slate-400">แสดงรายการแจ้งเตือนภายในหน้าเว็บและ Dropdown</div>
-                    </div>
-                  </div>
-                  <input type="checkbox" id="chk-inapp" checked class="w-5 h-5 accent-indigo-600 rounded cursor-pointer min-w-[24px]">
-                </div>
-
-                <div class="flex items-center justify-between p-3.5 bg-slate-900/60 rounded-xl border border-slate-800">
-                  <div class="flex items-center space-x-3">
-                    <div class="p-2 bg-violet-500/10 text-violet-400 rounded-lg"><i data-lucide="smartphone" class="w-5 h-5"></i></div>
-                    <div>
-                      <div class="text-sm font-medium text-slate-200">Browser / Push Notification</div>
-                      <div class="text-[11px] text-slate-400">ส่งแจ้งเตือนเด้งระดับระบบปฏิบัติการ (OS Notification)</div>
-                    </div>
-                  </div>
-                  <input type="checkbox" id="chk-push" checked class="w-5 h-5 accent-indigo-600 rounded cursor-pointer min-w-[24px]">
-                </div>
-
-                <div class="flex items-center justify-between p-3.5 bg-slate-900/60 rounded-xl border border-slate-800">
-                  <div class="flex items-center space-x-3">
-                    <div class="p-2 bg-emerald-500/10 text-emerald-400 rounded-lg"><i data-lucide="mail" class="w-5 h-5"></i></div>
-                    <div>
-                      <div class="text-sm font-medium text-slate-200">E-mail Notification</div>
-                      <div class="text-[11px] text-slate-400">จำลองส่งสรุปรายการเตือนไปยังอีเมลของคุณ</div>
-                    </div>
-                  </div>
-                  <input type="checkbox" id="chk-email" checked class="w-5 h-5 accent-indigo-600 rounded cursor-pointer min-w-[24px]">
-                </div>
-              </div>
-
-              <div class="flex justify-end pt-2">
-                <button type="submit" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-500 text-white font-medium px-6 py-2.5 rounded-xl transition shadow-md touch-active min-h-[44px]">
-                  บันทึกการตั้งค่า
-                </button>
-              </div>
-
-            </form>
-          </div>
-
-          <!-- Notification History Log -->
-          <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl">
-            <div class="flex items-center justify-between mb-3">
-              <h4 class="font-bold text-sm text-slate-200">ประวัติการแจ้งเตือนในระบบ (In-App Log)</h4>
-              <button onclick="clearNotifLogs()" class="text-xs text-slate-400 hover:text-red-400 transition">ล้างประวัติ</button>
-            </div>
-            <div id="notif-history-log" class="space-y-2 max-h-56 overflow-y-auto pr-1">
-              <!-- JS Injected -->
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-      <!-- ================= 3. CALENDAR & EXPORT ================= -->
-      <section id="tab-calendar" class="hidden space-y-6">
-        <div class="bg-slate-800/80 border border-slate-700/60 p-4 sm:p-6 rounded-2xl">
-          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-            <div>
-              <h3 class="font-bold text-lg text-white">ปฏิทินรอบชำระเงินประจำเดือน</h3>
-              <p class="text-xs text-slate-400 mt-1">แสดงวันครบกำหนดชำระพร้อม Badge บริการ และ Export ไฟล์ .ICS สำหรับ Google / Apple Calendar</p>
-            </div>
-            
-            <button onclick="exportToICS()" class="w-full sm:w-auto bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-2 shadow-lg touch-active min-h-[44px]">
-              <i data-lucide="download" class="w-4 h-4"></i>
-              <span>Export to .ics (iCalendar)</span>
-            </button>
-          </div>
-
-          <!-- Responsive Calendar Grid -->
-          <div id="calendar-view" class="bg-slate-900/80 rounded-2xl p-3 sm:p-5 border border-slate-800">
-            <!-- Calendar JS Rendered -->
-          </div>
-        </div>
-      </section>
-
-      <!-- ================= 4. EXPENSE SUMMARY & ANALYTICS ================= -->
-      <section id="tab-summary" class="hidden space-y-6">
-        
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          <!-- Category Chart -->
-          <div class="lg:col-span-1 bg-slate-800/80 border border-slate-700/60 p-5 sm:p-6 rounded-2xl flex flex-col justify-between">
-            <div>
-              <h3 class="font-bold text-base text-white mb-1">สัดส่วนตามหมวดหมู่</h3>
-              <p class="text-xs text-slate-400 mb-4">ค่าใช้จ่ายต่อเดือนแบ่งตามหมวดหมู่ (บาท)</p>
-            </div>
-            <div class="relative flex items-center justify-center min-h-[220px] max-h-[260px]">
-              <canvas id="categoryChart"></canvas>
-            </div>
-          </div>
-
-          <!-- 6-Month Projected Bar Chart -->
-          <div class="lg:col-span-2 bg-slate-800/80 border border-slate-700/60 p-5 sm:p-6 rounded-2xl flex flex-col justify-between">
-            <div>
-              <h3 class="font-bold text-base text-white mb-1">ประมาณการค่าใช้จ่าย 6 เดือนข้างหน้า</h3>
-              <p class="text-xs text-slate-400 mb-4">6-Month Projected Spending Trend (THB)</p>
-            </div>
-            <div class="relative w-full h-64 sm:h-72">
-              <canvas id="projectionChart"></canvas>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Category Progress Percentage Breakdown -->
-        <div class="bg-slate-800/80 border border-slate-700/60 p-5 rounded-2xl">
-          <h3 class="font-bold text-sm text-white mb-4">เปอร์เซ็นต์ค่าใช้จ่ายตามหมวดหมู่</h3>
-          <div id="category-progress-bars" class="space-y-3">
-            <!-- Dynamic progress bars -->
-          </div>
-        </div>
-
-        <!-- Detailed Breakdown Table -->
-        <div class="bg-slate-800/80 border border-slate-700/60 rounded-2xl overflow-hidden shadow-lg">
-          <div class="p-4 sm:p-5 border-b border-slate-700/80 flex items-center justify-between">
-            <h3 class="font-bold text-sm sm:text-base text-white">ตารางสรุปรายละเอียดทุกบริการ</h3>
-            <span class="text-[11px] text-slate-400">คำนวณอัตโนมัติ</span>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs sm:text-sm text-slate-300 min-w-[600px]">
-              <thead class="bg-slate-900/80 text-[11px] text-slate-400 uppercase tracking-wider">
-                <tr>
-                  <th class="py-3 px-4 sm:px-6">ชื่อบริการ</th>
-                  <th class="py-3 px-4 sm:px-6">หมวดหมู่</th>
-                  <th class="py-3 px-4 sm:px-6">รอบบิล</th>
-                  <th class="py-3 px-4 sm:px-6">วันชำระถัดไป</th>
-                  <th class="py-3 px-4 sm:px-6 text-right">ราคา/รอบ</th>
-                  <th class="py-3 px-4 sm:px-6 text-right">เฉลี่ย/เดือน</th>
-                </tr>
-              </thead>
-              <tbody id="summary-table-body" class="divide-y divide-slate-700/50">
-                <!-- Dynamic Content -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- ================= 5. CANCELLATION GUIDES ================= -->
-      <section id="tab-guide" class="hidden space-y-6">
-        <div class="bg-slate-800/80 border border-slate-700/60 p-4 sm:p-6 rounded-2xl">
-          <div class="mb-6">
-            <h3 class="font-bold text-lg text-white">คู่มือแนะนำขั้นตอนการยกเลิกบริการ (Step-by-Step Cancellation Guide)</h3>
-            <p class="text-xs text-slate-400 mt-1">แนะนำขั้นตอนการยกเลิกบริการที่ใช้งานบ่อยเพื่อป้องกันการถูกตัดเงินในรอบถัดไป</p>
-          </div>
-
-          <!-- Guide Search Bar -->
-          <div class="mb-5">
-            <div class="relative max-w-md">
-              <i data-lucide="search" class="w-4 h-4 absolute left-3.5 top-3.5 text-slate-400"></i>
-              <input type="text" id="guide-search" oninput="renderGuides()" placeholder="ค้นหาคู่มือนามบริการ เช่น Netflix, Spotify..." class="w-full pl-10 pr-4 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-            </div>
-          </div>
-
-          <!-- Expandable Accordion Guides List -->
-          <div id="guide-accordion-list" class="space-y-3">
-            <!-- Dynamic guides accordion -->
-          </div>
-        </div>
-      </section>
-
-    </div>
-  </main>
-
-  <!-- ================= MODAL: ADD / EDIT SUBSCRIPTION ================= -->
-  <div id="add-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
-    <div class="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-md shadow-2xl p-5 sm:p-6 relative my-auto">
-      
-      <div class="flex items-center justify-between pb-3 border-b border-slate-700">
-        <h3 id="modal-title" class="font-bold text-base sm:text-lg text-white">เพิ่มรายการสมัครสมาชิกใหม่</h3>
-        <button onclick="closeModal('add-modal')" class="text-slate-400 hover:text-white p-2 rounded-lg min-w-[44px] min-h-[44px] flex items-center justify-center">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <!-- Quick Preset Selection Buttons -->
-      <div class="mt-4">
-        <label class="block text-xs font-semibold text-slate-400 mb-1.5">เลือกบริการยอดนิยมแบบรวดเร็ว</label>
-        <div class="flex gap-2 overflow-x-auto pb-2 scrollbar-none">
-          <button type="button" onclick="applyPreset('Netflix', 'Entertainment', 419, '#E50914')" class="shrink-0 text-xs px-3 py-2 bg-slate-700/60 hover:bg-slate-700 rounded-xl text-slate-200 flex items-center gap-1.5 min-h-[36px]">
-            <span class="w-2.5 h-2.5 rounded-full bg-red-600"></span> Netflix
+<button class="px-2.5 py-1 rounded-lg text-on-error-container/80 hover:text-on-error-container font-label-sm text-label-sm">
+            รับทราบแล้ว
           </button>
-          <button type="button" onclick="applyPreset('Spotify', 'Music', 139, '#1DB954')" class="shrink-0 text-xs px-3 py-2 bg-slate-700/60 hover:bg-slate-700 rounded-xl text-slate-200 flex items-center gap-1.5 min-h-[36px]">
-            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Spotify
+</div>
+</div>
+</div>
+</section>
+<!-- Quick Action Strip -->
+<section class="px-margin-mobile pt-space-md">
+<div class="grid grid-cols-3 gap-space-sm">
+
+
+
+</div>
+</section>
+<!-- Filter Pills (Interactive feel) -->
+<section class="px-margin-mobile pt-space-lg">
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+<button class="px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm shrink-0 flex items-center gap-1.5 font-medium">
+<span class="">ทั้งหมด</span>
+<span class="px-1.5 py-0.2 rounded-full bg-on-primary/20 text-on-primary font-bold text-[10px]">6</span>
+</button>
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md shadow-sm shrink-0 flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-error"></span>
+<span class="">ตัดเงินเร็วๆ นี้</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container text-on-surface-variant font-bold text-[10px]">2</span>
+</button>
+
+<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md shadow-sm shrink-0 flex items-center gap-1.5">
+<span class="">รายปี</span>
+<span class="px-1.5 py-0.2 rounded-full bg-surface-container text-on-surface-variant font-bold text-[10px]">1</span>
+</button>
+</div>
+</section>
+<!-- Section 1: Upcoming Renewals -->
+<section class="px-margin-mobile pt-space-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-error">pace</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">กำลังจะเรียกเก็บเงิน</h2>
+</div>
+<span class="font-label-sm text-label-sm text-primary font-semibold">ดูตารางเวลา</span>
+</div>
+<!-- Renewal Card 1: Netflix Standard -->
+<div class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-black text-white flex items-center justify-center shrink-0 font-bold text-lg shadow-sm">
+<span class="text-error font-display-lg-mobile text-[24px]">N</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-2">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Netflix Standard</h3>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">หารกลุ่มบ้านเพื่อน (4 คน)</span>
+</div>
+</div>
+<!-- Urgent countdown chip -->
+<span class="shrink-0 px-2.5 py-1 rounded-full bg-error-container text-error font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">hourglass_bottom</span>
+          อีก 2 วัน
+        </span>
+</div>
+<!-- Mid breakdown details -->
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-lg bg-surface-container text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-secondary">account_balance_wallet</span>
+            TrueMoney Wallet
+          </span>
+<span class="px-2 py-0.5 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
+            ใช้งานประจำ
+          </span>
+</div>
+<div class="text-right">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">฿169.00</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">ครบกำหนด 28 ต.ค.</div>
+</div>
+</div>
+<!-- Split details sub-strip -->
+
+</div>
+<!-- Renewal Card 2: YouTube Premium Family -->
+<div class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-12 h-12 rounded-xl bg-error text-on-error flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[26px]">play_arrow</span>
+</div>
+<div class="flex flex-col min-w-0">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">YouTube Premium</h3>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Family Plan (ส่วนแบ่งรายคน)</span>
+</div>
+</div>
+<!-- Countdown badge -->
+<span class="shrink-0 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-[14px]">event</span>
+          อีก 5 วัน
+        </span>
+</div>
+<div class="flex items-center justify-between pt-1">
+<div class="flex items-center gap-2">
+<span class="px-2 py-0.5 rounded-lg bg-surface-container text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[13px] text-primary">credit_card</span>
+            KBank เดบิต ••4021
+          </span>
+<span class="px-2 py-0.5 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
+            คุ้มค่ามาก
+          </span>
+</div>
+<div class="text-right">
+<div class="font-headline-sm text-headline-sm font-bold text-on-surface">฿75.00</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">ครบกำหนด 31 ต.ค.</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Smart Student Insights -->
+<section class="px-margin-mobile pt-space-lg">
+<div class="rounded-xl bg-surface-container text-on-surface p-space-md shadow-sm relative overflow-hidden flex flex-col gap-space-sm">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">lightbulb</span>
+</div>
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold">SubWise Smart Insight</span>
+<span class="ml-auto px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">แนะนำ</span>
+</div>
+<!-- Detail Card with Image Context -->
+<div class="rounded-xl bg-surface-container-lowest p-space-md flex flex-col gap-2.5 shadow-sm">
+<div class="flex items-start gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary shrink-0">
+<span class="material-symbols-outlined text-[24px]">smart_toy</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm font-bold text-error">ตรวจพบค่าใช้จ่ายที่ไม่ค่อยได้ใช้!</span>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1 leading-normal">
+              คุณไม่ได้เปิดใช้ <strong class="text-on-surface">ChatGPT Plus</strong> มานานกว่า <span class="text-error font-bold underline">12 วันแล้ว</span> หากยกเลิกตอนนี้จะประหยัดเงินได้ถึง <strong class="text-primary font-bold">฿690 / เดือน</strong> (คิดเป็น 67% ของค่าใช้จ่ายสมาชิกทั้งหมด)
+            </p>
+</div>
+</div>
+<!-- Student Photo Visual Context -->
+<div class="relative w-full h-24 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" data-alt="A candid photo of a stylish Thai university student sitting at a vibrant cafe study desk with laptop and matcha latte, feeling relaxed and stress-free about finances, soft warm morning daylight, cinematic editorial photography, modern pastel palette" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzW33Jls7x6D5cANUd1VZuLE-Dv2b0f0cLmkfOawnJC0KugtEl9QbIU6wliuHOlcZtMG8Zs48e0ipXufC3-3QzlRQlFdv5t-HTc_0Rom1OQ07DLYdTzBLLPbUN8eEJ24kduf8WBnzzkCCT8E2NhcK67WsvQPeVFAV1UunRFD518-KggbawX0r_j64WYqW4Sy0J_5icOg8Qe1RSLJxva9ImzIjR76YM5afuGxUIZjXXkG7Yutb7zo28">
+<div class="absolute inset-0 bg-gradient-to-r from-on-background/70 via-on-background/40 to-transparent flex items-center px-3">
+<span class="text-white font-label-md text-label-md font-medium">เซฟเงิน ฿690 ไปกินชาบูกับเพื่อนได้ 2 มื้อ 🍲</span>
+</div>
+</div>
+<div class="flex items-center gap-2 pt-1">
+<button class="flex-1 h-10 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-transform">
+<span class="material-symbols-outlined text-[16px]">menu_book</span>
+            ดูวิธียกเลิก ChatGPT Plus
           </button>
-          <button type="button" onclick="applyPreset('Adobe CC', 'Work/SaaS', 1150, '#FF0000')" class="shrink-0 text-xs px-3 py-2 bg-slate-700/60 hover:bg-slate-700 rounded-xl text-slate-200 flex items-center gap-1.5 min-h-[36px]">
-            <span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> Adobe CC
+<button class="px-3 h-10 rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md">
+            เตือนภายหลัง
           </button>
-          <button type="button" onclick="applyPreset('iCloud+', 'Storage', 99, '#007AFF')" class="shrink-0 text-xs px-3 py-2 bg-slate-700/60 hover:bg-slate-700 rounded-xl text-slate-200 flex items-center gap-1.5 min-h-[36px]">
-            <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span> iCloud+
-          </button>
-        </div>
-      </div>
-
-      <form id="subscription-form" onsubmit="handleFormSubmit(event)" class="space-y-3.5 mt-3">
-        <input type="hidden" id="sub-id">
-
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">ชื่อบริการ <span class="text-red-400">*</span></label>
-          <input type="text" id="sub-name" required placeholder="เช่น Netflix, Adobe, Fitness Gym" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-        </div>
-
-        <div class="grid grid-cols-2 gap-2.5">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">หมวดหมู่</label>
-            <select id="sub-category" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs sm:text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-              <option value="Entertainment">Entertainment</option>
-              <option value="Music">Music</option>
-              <option value="Work/SaaS">Work/SaaS</option>
-              <option value="Storage">Storage</option>
-              <option value="Health">Health</option>
-              <option value="Utilities">Utilities</option>
-              <option value="Other">Other</option>
-            </select>
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">รอบการเรียกเก็บเงิน</label>
-            <select id="sub-cycle" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs sm:text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-              <option value="Monthly">รายเดือน (Monthly)</option>
-              <option value="Yearly">รายปี (Yearly)</option>
-            </select>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2.5">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">ราคาค่าสมัคร (บาท) <span class="text-red-400">*</span></label>
-            <input type="number" id="sub-price" required step="0.01" min="0" placeholder="0.00" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-          </div>
-
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">วันชำระเงินถัดไป <span class="text-red-400">*</span></label>
-            <input type="date" id="sub-next-date" required class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs sm:text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2.5">
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">สีประจำบริการ</label>
-            <input type="color" id="sub-color" value="#6366f1" class="w-full h-11 p-1 bg-slate-900 border border-slate-700 rounded-xl cursor-pointer">
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-300 mb-1">สถานะสมาชิก</label>
-            <select id="sub-status" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-xl text-xs sm:text-sm text-slate-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-              <option value="Active">เปิดใช้งานอยู่ (Active)</option>
-              <option value="Cancelled">ยกเลิกแล้ว (Cancelled)</option>
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label class="block text-xs font-semibold text-slate-300 mb-1">หมายเหตุเพิ่มเติม (ถ้ามี)</label>
-          <input type="text" id="sub-notes" placeholder="เช่น บัตรเครดิต KBank / แชร์กับเพื่อน 4 คน" class="w-full px-3.5 py-2 bg-slate-900 border border-slate-700 rounded-xl text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 min-h-[44px]">
-        </div>
-
-        <div class="flex justify-end gap-2.5 pt-3 border-t border-slate-700">
-          <button type="button" onclick="closeModal('add-modal')" class="px-4 py-2.5 bg-slate-700 hover:bg-slate-600 rounded-xl text-xs font-medium text-slate-200 transition min-h-[44px]">ยกเลิก</button>
-          <button type="submit" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-xl text-xs font-medium text-white transition shadow-lg touch-active min-h-[44px]">บันทึกข้อมูล</button>
-        </div>
-      </form>
-
-    </div>
-  </div>
-
-  <!-- ================= MODAL: EVENT DETAILS ================= -->
-  <div id="details-modal" class="hidden fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4">
-    <div class="bg-slate-800 border border-slate-700 rounded-2xl w-full max-w-sm shadow-2xl p-5 relative my-auto">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-700">
-        <h3 class="font-bold text-base text-white">รายละเอียดการชำระเงิน</h3>
-        <button onclick="closeModal('details-modal')" class="text-slate-400 hover:text-white p-2 min-w-[44px] min-h-[44px] flex items-center justify-center">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-      <div id="details-modal-content" class="mt-4 space-y-3 text-xs sm:text-sm text-slate-200">
-        <!-- JS Injected -->
-      </div>
-      <div class="mt-5 pt-3 border-t border-slate-700 flex justify-end">
-        <button onclick="closeModal('details-modal')" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-semibold touch-active min-h-[44px]">ตกลง</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- JAVASCRIPT APPLICATION LOGIC -->
-  <script>
-    // Initial Default Mock Data
-    const DEFAULT_SUBSCRIPTIONS = [
-      {
-        id: 'sub-1',
-        name: 'Netflix',
-        category: 'Entertainment',
-        price: 419,
-        cycle: 'Monthly',
-        nextDate: getFutureDate(3),
-        status: 'Active',
-        color: '#E50914',
-        notes: 'แพ็กเกจ Ultra HD 4K'
-      },
-      {
-        id: 'sub-2',
-        name: 'Spotify Premium',
-        category: 'Music',
-        price: 139,
-        cycle: 'Monthly',
-        nextDate: getFutureDate(12),
-        status: 'Active',
-        color: '#1DB954',
-        notes: 'ฟังเพลงแบบไม่มีโฆษณา'
-      },
-      {
-        id: 'sub-3',
-        name: 'Adobe Creative Cloud',
-        category: 'Work/SaaS',
-        price: 1150,
-        cycle: 'Monthly',
-        nextDate: getFutureDate(1),
-        status: 'Active',
-        color: '#FF0000',
-        notes: 'รวม Photoshop & Illustrator'
-      },
-      {
-        id: 'sub-4',
-        name: 'iCloud+ 200GB',
-        category: 'Storage',
-        price: 99,
-        cycle: 'Monthly',
-        nextDate: getFutureDate(18),
-        status: 'Active',
-        color: '#007AFF',
-        notes: 'สำรองรูปภาพ iPhone'
-      },
-      {
-        id: 'sub-5',
-        name: 'YouTube Premium',
-        category: 'Entertainment',
-        price: 179,
-        cycle: 'Monthly',
-        nextDate: getFutureDate(25),
-        status: 'Active',
-        color: '#FF0000',
-        notes: 'ดูวิดีโอแบบไม่มีโฆษณาแทรก'
-      }
-    ];
-
-    // Master Cancellation Guides Data
-    const CANCELLATION_GUIDES = [
-      {
-        name: 'Netflix',
-        category: 'Entertainment',
-        color: '#E50914',
-        url: 'https://www.netflix.com/youraccount',
-        steps: [
-          'เข้าสู่ระบบที่ netflix.com บนเว็บเบราว์เซอร์',
-          'คลิกไอคอนโปรไฟล์ที่มุมขวาบน เลือก "บัญชี" (Account)',
-          'ใต้หัวข้อ "การสมัครสมาชิกและการชำระเงิน" ให้คลิกปุ่ม "ยกเลิกการเป็นสมาชิก"',
-          'กดยืนยันเพื่อทำรายการยกเลิก'
-        ]
-      },
-      {
-        name: 'Spotify',
-        category: 'Music',
-        color: '#1DB954',
-        url: 'https://www.spotify.com/account/overview/',
-        steps: [
-          'เข้าสู่ระบบที่ spotify.com/account',
-          'ในหัวข้อ "แผนของคุณ" คลิก "เปลี่ยนแผน" (Change plan)',
-          'เลื่อนลงมาด้านล่างสุด แล้วเลือก "ยกเลิก Spotify Premium"',
-          'กดยืนยันการยกเลิกจนเสร็จสิ้นขั้นตอน'
-        ]
-      },
-      {
-        name: 'Adobe Creative Cloud',
-        category: 'Work/SaaS',
-        color: '#FF0000',
-        url: 'https://account.adobe.com/plans',
-        steps: [
-          'เข้าสู่ระบบที่ account.adobe.com/plans',
-          'เลือก "จัดการแผน" (Manage plan) สำหรับแพ็กเกจที่ต้องการยกเลิก',
-          'เลือก "ยกเลิกแผนของคุณ" (Cancel your plan)',
-          'ระบุเหตุผลและกดยืนยันตามขั้นตอนบนหน้าจอ'
-        ]
-      },
-      {
-        name: 'Apple / iCloud+',
-        category: 'Storage',
-        color: '#007AFF',
-        url: 'https://support.apple.com/HT202039',
-        steps: [
-          'เปิดแอป "การตั้งค่า" (Settings) บนอุปกรณ์ iOS/Mac',
-          'แตะที่ชื่อบัญชี Apple ID ของคุณด้านบนสุด',
-          'เลือก "การสมัครรับ" (Subscriptions)',
-          'เลือกบริการ iCloud+ หรือแอปที่ต้องการ แล้วแตะ "ยกเลิกการสมัครรับ"'
-        ]
-      },
-      {
-        name: 'YouTube Premium',
-        category: 'Entertainment',
-        color: '#FF0000',
-        url: 'https://www.youtube.com/paid_memberships',
-        steps: [
-          'เปิดแอป YouTube หรือเข้าเว็บไซต์ youtube.com/paid_memberships',
-          'เลือกการสมัครสมาชิก YouTube Premium',
-          'แตะ "ปิดการใช้งาน" (Deactivate)',
-          'เลือกเหตุผลและกดยืนยันการยกเลิก'
-        ]
-      },
-      {
-        name: 'Disney+ Hotstar',
-        category: 'Entertainment',
-        color: '#113CCF',
-        url: 'https://www.hotstar.com/th',
-        steps: [
-          'เข้าสู่ระบบที่ disneyplus.com หรือแอป Disney+',
-          'ไปที่หน้าโปรไฟล์ เลือก "บัญชี" (Account)',
-          'เลือกรายละเอียดการสมัครสมาชิก แล้วคลิก "ยกเลิกการสมัครสมาชิก"',
-          'กดยืนยันการทำรายการ'
-        ]
-      }
-    ];
-
-    // Global State
-    let subscriptions = loadSubscriptions();
-    let notificationLogs = loadNotifLogs();
-    let categoryChartInstance = null;
-    let projectionChartInstance = null;
-
-    // Helper Functions: Dates & LocalStorage
-    function loadSubscriptions() {
-      const saved = localStorage.getItem('subtrack_subscriptions');
-      return saved ? JSON.parse(saved) : DEFAULT_SUBSCRIPTIONS;
-    }
-
-    function saveSubscriptions() {
-      localStorage.setItem('subtrack_subscriptions', JSON.stringify(subscriptions));
-    }
-
-    function loadNotifLogs() {
-      const saved = localStorage.getItem('subtrack_notif_logs');
-      return saved ? JSON.parse(saved) : [
-        { time: new Date().toLocaleTimeString('th-TH', {hour:'2-digit', minute:'2-digit'}), message: 'ยินดีต้อนรับสู่ SubTrack ระบบพร้อมใช้งาน' }
-      ];
-    }
-
-    function saveNotifLogs() {
-      localStorage.setItem('subtrack_notif_logs', JSON.stringify(notificationLogs));
-    }
-
-    function getFutureDate(days) {
-      const d = new Date();
-      d.setDate(d.getDate() + days);
-      return d.toISOString().split('T')[0];
-    }
-
-    function formatTHB(amount) {
-      return new Intl.NumberFormat('th-TH', { style: 'currency', currency: 'THB', maximumFractionDigits: 2 }).format(amount);
-    }
-
-    function getDaysUntil(dateStr) {
-      const target = new Date(dateStr);
-      const today = new Date();
-      today.setHours(0,0,0,0);
-      target.setHours(0,0,0,0);
-      return Math.ceil((target - today) / (1000 * 60 * 60 * 24));
-    }
-
-    function formatThaiDate(dateStr) {
-      const d = new Date(dateStr);
-      return d.toLocaleDateString('th-TH', { day: 'numeric', month: 'short', year: '2-digit' });
-    }
-
-    // App Initialization
-    document.addEventListener('DOMContentLoaded', () => {
-      lucide.createIcons();
-      updateDateHeader();
-      renderSubscriptions();
-      renderGuides();
-      renderNotifLogs();
-      updateNotificationBadges();
-
-      // Set default input date
-      document.getElementById('sub-next-date').value = new Date().toISOString().split('T')[0];
-    });
-
-    function updateDateHeader() {
-      const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', calendar: 'buddhist' };
-      const display = document.getElementById('current-date-display');
-      if (display) display.innerText = new Date().toLocaleDateString('th-TH', options);
-    }
-
-    // Responsive Sidebar Toggle
-    function toggleSidebar() {
-      const sidebar = document.getElementById('sidebar');
-      const backdrop = document.getElementById('sidebar-backdrop');
-      sidebar.classList.toggle('-translate-x-full');
-      backdrop.classList.toggle('hidden');
-    }
-
-    // Navigation Switcher
-    function switchTab(tabId) {
-      const tabs = ['dashboard', 'summary', 'calendar', 'notifications', 'guide'];
-      tabs.forEach(id => {
-        const page = document.getElementById(`tab-${id}`);
-        const nav = document.getElementById(`nav-${id}`);
-        const bnav = document.getElementById(`bnav-${id}`);
-
-        if (id === tabId) {
-          page.classList.remove('hidden');
-          if (nav) nav.className = "nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] bg-indigo-600/10 text-indigo-400 border border-indigo-500/20";
-          if (bnav) bnav.className = "bnav-item flex flex-col items-center justify-center py-2 px-3 text-indigo-400 min-w-[60px] min-h-[50px]";
-        } else {
-          page.classList.add('hidden');
-          if (nav) nav.className = "nav-item w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium transition-all min-h-[48px] text-slate-400 hover:bg-slate-800/60 hover:text-slate-200";
-          if (bnav) bnav.className = "bnav-item flex flex-col items-center justify-center py-2 px-3 text-slate-400 min-w-[60px] min-h-[50px]";
-        }
-      });
-
-      // Auto hide mobile sidebar after clicking tab
-      if (window.innerWidth < 768 && !document.getElementById('sidebar').classList.contains('-translate-x-full')) {
-        toggleSidebar();
-      }
-
-      // Tab Specific Renders
-      if (tabId === 'summary') renderAnalytics();
-      if (tabId === 'calendar') renderCalendar();
-
-      // Update Page Title
-      const titles = {
-        dashboard: 'ภาพรวมบริการสมาชิก',
-        summary: 'สรุปและวิเคราะห์ค่าใช้จ่าย',
-        calendar: 'ปฏิทินรอบชำระเงิน',
-        notifications: 'ระบบแจ้งเตือนการชำระเงิน',
-        guide: 'คู่มือแนะนำขั้นตอนการยกเลิกบริการ'
-      };
-      document.getElementById('page-title').innerText = titles[tabId];
-    }
-
-    // Render Dashboard Subscriptions
-    function renderSubscriptions() {
-      const search = document.getElementById('search-input').value.toLowerCase();
-      const catFilter = document.getElementById('category-filter').value;
-      const statusFilter = document.getElementById('status-filter').value;
-
-      const grid = document.getElementById('subscriptions-grid');
-      const emptyState = document.getElementById('empty-state');
-      grid.innerHTML = '';
-
-      const filtered = subscriptions.filter(sub => {
-        const matchesSearch = sub.name.toLowerCase().includes(search);
-        const matchesCat = catFilter === 'ALL' || sub.category === catFilter;
-
-        const days = getDaysUntil(sub.nextDate);
-        let currentStatus = sub.status;
-        if (sub.status === 'Active' && days <= 7 && days >= 0) {
-          currentStatus = 'Due Soon';
-        }
-
-        const matchesStatus = statusFilter === 'ALL' || 
-          (statusFilter === 'Due Soon' ? (sub.status === 'Active' && days <= 7 && days >= 0) : sub.status === statusFilter);
-
-        return matchesSearch && matchesCat && matchesStatus;
-      });
-
-      if (filtered.length === 0) emptyState.classList.remove('hidden');
-      else emptyState.classList.add('hidden');
-
-      filtered.forEach(sub => {
-        const daysLeft = getDaysUntil(sub.nextDate);
-        let badgeHTML = '';
-
-        if (sub.status === 'Cancelled') {
-          badgeHTML = `<span class="bg-slate-700/60 text-slate-400 border border-slate-600 text-[11px] px-2.5 py-0.5 rounded-full font-medium">ยกเลิกแล้ว</span>`;
-        } else if (daysLeft <= 7 && daysLeft >= 0) {
-          badgeHTML = `<span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-[11px] px-2.5 py-0.5 rounded-full font-semibold flex items-center gap-1"><i data-lucide="clock" class="w-3 h-3"></i> อีก ${daysLeft === 0 ? 'วันนี้' : daysLeft + ' วัน'}</span>`;
-        } else {
-          badgeHTML = `<span class="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px] px-2.5 py-0.5 rounded-full font-medium">เปิดใช้งาน</span>`;
-        }
-
-        const card = document.createElement('div');
-        card.className = "bg-slate-800/80 border border-slate-700/60 rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:border-slate-600 transition shadow-sm group";
-        card.innerHTML = `
-          <div>
-            <div class="flex items-start justify-between gap-2 mb-3">
-              <div class="flex items-center space-x-3 min-w-0">
-                <div class="w-11 h-11 rounded-xl flex items-center justify-center font-bold text-white text-lg shadow-md shrink-0" style="background-color: ${sub.color}">
-                  ${sub.name.charAt(0)}
-                </div>
-                <div class="truncate">
-                  <h4 class="font-bold text-slate-100 text-base group-hover:text-indigo-400 transition truncate">${sub.name}</h4>
-                  <span class="text-[11px] text-slate-400">${sub.category}</span>
-                </div>
-              </div>
-              <div class="shrink-0">${badgeHTML}</div>
-            </div>
-
-            <div class="mt-4 pt-3 border-t border-slate-700/50 space-y-1.5">
-              <div class="flex justify-between items-baseline">
-                <span class="text-xs text-slate-400">ค่าบริการ (${sub.cycle === 'Monthly' ? 'รายเดือน' : 'รายปี'})</span>
-                <span class="text-lg font-extrabold text-white">฿${parseFloat(sub.price).toLocaleString()}</span>
-              </div>
-              
-              <div class="flex justify-between text-xs pt-1">
-                <span class="text-slate-400">วันชำระถัดไป:</span>
-                <span class="font-medium text-slate-200">${formatThaiDate(sub.nextDate)}</span>
-              </div>
-              ${sub.notes ? `<div class="text-xs text-slate-400 bg-slate-900/40 p-2 rounded-lg mt-2 italic line-clamp-2">"${sub.notes}"</div>` : ''}
-            </div>
-          </div>
-
-          <div class="mt-4 pt-3 border-t border-slate-700/40 flex items-center justify-between text-xs">
-            <button onclick="addToGoogleCalendar('${sub.id}')" class="text-slate-400 hover:text-indigo-400 transition flex items-center gap-1.5 min-h-[36px] px-1">
-              <i data-lucide="calendar-plus" class="w-4 h-4"></i>
-              <span>ลง Google Calendar</span>
-            </button>
-            <div class="flex items-center space-x-1">
-              <button onclick="editSubscription('${sub.id}')" class="p-2 text-slate-400 hover:text-slate-200 hover:bg-slate-700 rounded-lg transition min-w-[36px] min-h-[36px] flex items-center justify-center" title="แก้ไข">
-                <i data-lucide="edit-2" class="w-4 h-4"></i>
-              </button>
-              <button onclick="deleteSubscription('${sub.id}')" class="p-2 text-slate-400 hover:text-red-400 hover:bg-slate-700 rounded-lg transition min-w-[36px] min-h-[36px] flex items-center justify-center" title="ลบ">
-                <i data-lucide="trash-2" class="w-4 h-4"></i>
-              </button>
-            </div>
-          </div>
-        `;
-        grid.appendChild(card);
-      });
-
-      lucide.createIcons();
-      updateDashboardStats();
-    }
-
-    // Calculate Dashboard Summary Metrics
-    function updateDashboardStats() {
-      let monthlyTotal = 0;
-      let activeCount = 0;
-      let dueSoonCount = 0;
-      let dueSoonTotal = 0;
-
-      subscriptions.forEach(sub => {
-        if (sub.status === 'Active') {
-          activeCount++;
-          const monthlyPrice = sub.cycle === 'Yearly' ? sub.price / 12 : sub.price;
-          monthlyTotal += monthlyPrice;
-
-          const daysLeft = getDaysUntil(sub.nextDate);
-          if (daysLeft <= 7 && daysLeft >= 0) {
-            dueSoonCount++;
-            dueSoonTotal += sub.price;
-          }
-        }
-      });
-
-      document.getElementById('stat-monthly-total').innerText = formatTHB(monthlyTotal);
-      document.getElementById('stat-yearly-total').innerText = formatTHB(monthlyTotal * 12);
-      document.getElementById('stat-due-soon').innerText = `${dueSoonCount} รายการ`;
-      document.getElementById('stat-due-soon-amount').innerText = `ยอดรวม ${formatTHB(dueSoonTotal)}`;
-      document.getElementById('stat-active-count').innerText = `${activeCount} รายการ`;
-    }
-
-    // Modal Operations
-    function openModal(id) {
-      document.getElementById(id).classList.remove('hidden');
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).classList.add('hidden');
-      if (id === 'add-modal') {
-        document.getElementById('subscription-form').reset();
-        document.getElementById('sub-id').value = '';
-        document.getElementById('modal-title').innerText = 'เพิ่มรายการสมัครสมาชิกใหม่';
-      }
-    }
-
-    function applyPreset(name, category, price, color) {
-      document.getElementById('sub-name').value = name;
-      document.getElementById('sub-category').value = category;
-      document.getElementById('sub-price').value = price;
-      document.getElementById('sub-color').value = color;
-    }
-
-    // Form Submit (CRUD Persistence)
-    function handleFormSubmit(e) {
-      e.preventDefault();
-      const id = document.getElementById('sub-id').value;
-      const name = document.getElementById('sub-name').value;
-      const category = document.getElementById('sub-category').value;
-      const cycle = document.getElementById('sub-cycle').value;
-      const price = parseFloat(document.getElementById('sub-price').value);
-      const nextDate = document.getElementById('sub-next-date').value;
-      const color = document.getElementById('sub-color').value;
-      const status = document.getElementById('sub-status').value;
-      const notes = document.getElementById('sub-notes').value;
-
-      if (id) {
-        const idx = subscriptions.findIndex(s => s.id === id);
-        if (idx !== -1) {
-          subscriptions[idx] = { id, name, category, cycle, price, nextDate, color, status, notes };
-          showToast('แก้ไขข้อมูลบริการเรียบร้อย', 'success');
-          addNotifLog(`แก้ไขบริการ ${name}`);
-        }
-      } else {
-        const newSub = {
-          id: 'sub-' + Date.now(),
-          name, category, cycle, price, nextDate, color, status, notes
-        };
-        subscriptions.push(newSub);
-        showToast('เพิ่มบริการใหม่เรียบร้อยแล้ว', 'success');
-        addNotifLog(`เพิ่มบริการใหม่: ${name} (฿${price})`);
-      }
-
-      saveSubscriptions();
-      closeModal('add-modal');
-      renderSubscriptions();
-      updateNotificationBadges();
-    }
-
-    function editSubscription(id) {
-      const sub = subscriptions.find(s => s.id === id);
-      if (!sub) return;
-
-      document.getElementById('sub-id').value = sub.id;
-      document.getElementById('sub-name').value = sub.name;
-      document.getElementById('sub-category').value = sub.category;
-      document.getElementById('sub-cycle').value = sub.cycle;
-      document.getElementById('sub-price').value = sub.price;
-      document.getElementById('sub-next-date').value = sub.nextDate;
-      document.getElementById('sub-color').value = sub.color;
-      document.getElementById('sub-status').value = sub.status;
-      document.getElementById('sub-notes').value = sub.notes || '';
-
-      document.getElementById('modal-title').innerText = 'แก้ไขรายการสมาชิก';
-      openModal('add-modal');
-    }
-
-    function deleteSubscription(id) {
-      const sub = subscriptions.find(s => s.id === id);
-      if (confirm(`คุณต้องการลบรายการ ${sub ? sub.name : ''} หรือไม่?`)) {
-        subscriptions = subscriptions.filter(s => s.id !== id);
-        saveSubscriptions();
-        renderSubscriptions();
-        updateNotificationBadges();
-        showToast('ลบรายการเรียบร้อยแล้ว', 'info');
-        if (sub) addNotifLog(`ลบบริการ ${sub.name} ออกจากระบบ`);
-      }
-    }
-
-    // Interactive Notification Simulator (Real Web API + Synthesizer Sound)
-    function triggerTestNotification() {
-      const activeSubs = subscriptions.filter(s => s.status === 'Active');
-      const sample = activeSubs[Math.floor(Math.random() * activeSubs.length)] || { name: 'Netflix', price: 419 };
-
-      const title = `แจ้งเตือนค่าบริการ: ${sample.name}`;
-      const body = `ยอดชำระ ฿${sample.price} ครบกำหนดในอีก 3 วันข้างหน้า`;
-
-      // 1. Play Synthesizer Web Audio API Sound
-      playNotificationSound();
-
-      // 2. Real Browser Notification API
-      if ("Notification" in window) {
-        if (Notification.permission === "granted") {
-          new Notification(title, { body, icon: 'https://cdn-icons-png.flaticon.com/512/3602/3602145.png' });
-        } else if (Notification.permission !== "denied") {
-          Notification.requestPermission().then(permission => {
-            if (permission === "granted") {
-              new Notification(title, { body });
-            }
-          });
-        }
-      }
-
-      // 3. Toast Feedback & In-App Log
-      showToast(`[Test Notification] ${sample.name} - ฿${sample.price}`, 'warning');
-      addNotifLog(`ทดสอบแจ้งเตือน: ${sample.name} (฿${sample.price})`);
-    }
-
-    function playNotificationSound() {
-      try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime); // C5
-        osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1); // E5
-        osc.frequency.setValueAtTime(783.99, audioCtx.currentTime + 0.2); // G5
-        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 0.4);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start();
-        osc.stop(audioCtx.currentTime + 0.4);
-      } catch (e) {
-        console.log('Audio synth not supported');
-      }
-    }
-
-    function addNotifLog(msg) {
-      const timeStr = new Date().toLocaleTimeString('th-TH', { hour: '2-digit', minute: '2-digit' });
-      notificationLogs.unshift({ time: timeStr, message: msg });
-      if (notificationLogs.length > 15) notificationLogs.pop();
-      saveNotifLogs();
-      renderNotifLogs();
-    }
-
-    function renderNotifLogs() {
-      const logContainer = document.getElementById('notif-history-log');
-      if (!logContainer) return;
-
-      logContainer.innerHTML = notificationLogs.map(log => `
-        <div class="text-xs bg-slate-900/60 p-2.5 rounded-xl border border-slate-800 flex justify-between items-center">
-          <span class="text-slate-300">${log.message}</span>
-          <span class="text-[10px] text-slate-500 shrink-0 ml-2">${log.time}</span>
-        </div>
-      `).join('');
-    }
-
-    function clearNotifLogs() {
-      notificationLogs = [];
-      saveNotifLogs();
-      renderNotifLogs();
-      showToast('ล้างประวัติการแจ้งเตือนแล้ว', 'info');
-    }
-
-    function saveNotificationSettings(e) {
-      e.preventDefault();
-      showToast('บันทึกการตั้งค่าระบบแจ้งเตือนสำเร็จ', 'success');
-      addNotifLog('อัปเดตเงื่อนไขการแจ้งเตือนเรียบร้อยแล้ว');
-    }
-
-    function updateNotificationBadges() {
-      const upcoming = subscriptions.filter(s => {
-        const days = getDaysUntil(s.nextDate);
-        return s.status === 'Active' && days <= 7 && days >= 0;
-      });
-
-      const badge = document.getElementById('nav-notif-badge');
-      if (badge) badge.innerText = upcoming.length;
-
-      const hasUpcoming = upcoming.length > 0;
-      ['header-notif-ping', 'header-notif-dot', 'mobile-notif-dot', 'mobile-bnav-badge'].forEach(id => {
-        const el = document.getElementById(id);
-        if (el) {
-          if (hasUpcoming) el.classList.remove('hidden');
-          else el.classList.add('hidden');
-        }
-      });
-
-      const dropdownList = document.getElementById('notif-dropdown-list');
-      if (dropdownList) {
-        dropdownList.innerHTML = '';
-        if (upcoming.length === 0) {
-          dropdownList.innerHTML = `<div class="text-center py-6 text-slate-400 text-xs">ไม่มีรายการที่ต้องชำระใน 7 วันนี้</div>`;
-        } else {
-          upcoming.forEach(sub => {
-            const days = getDaysUntil(sub.nextDate);
-            const item = document.createElement('div');
-            item.className = "p-2.5 bg-slate-900/80 rounded-xl border border-slate-700/60 flex items-center justify-between";
-            item.innerHTML = `
-              <div class="flex items-center space-x-3">
-                <div class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-white text-xs shrink-0" style="background-color: ${sub.color}">
-                  ${sub.name.charAt(0)}
-                </div>
-                <div>
-                  <div class="text-xs font-semibold text-slate-200">${sub.name}</div>
-                  <div class="text-[11px] text-amber-400 font-medium">จะเรียกเก็บเงินในอีก ${days === 0 ? 'วันนี้' : days + ' วัน'}</div>
-                </div>
-              </div>
-              <div class="text-xs font-bold text-white">฿${parseFloat(sub.price).toLocaleString()}</div>
-            `;
-            dropdownList.appendChild(item);
-          });
-        }
-      }
-    }
-
-    function toggleNotifDropdown() {
-      document.getElementById('notif-dropdown').classList.toggle('hidden');
-    }
-
-    // Calendar Integration & Interactive Date Details
-    function renderCalendar() {
-      const container = document.getElementById('calendar-view');
-      container.innerHTML = '';
-
-      const today = new Date();
-      const year = today.getFullYear();
-      const month = today.getMonth();
-
-      const firstDay = new Date(year, month, 1).getDay();
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-      const monthNames = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"];
-
-      let html = `
-        <div class="text-center font-bold text-white text-base mb-4">
-          ${monthNames[month]} ${year + 543}
-        </div>
-        <div class="grid grid-cols-7 gap-1 sm:gap-2 text-center text-[11px] font-semibold text-slate-400 mb-2">
-          <div>อา</div><div>จ</div><div>อ</div><div>พ</div><div>พฤ</div><div>ศ</div><div>ส</div>
-        </div>
-        <div class="grid grid-cols-7 gap-1 sm:gap-2">
-      `;
-
-      for (let i = 0; i < firstDay; i++) {
-        html += `<div class="h-16 sm:h-24 bg-slate-950/30 rounded-xl"></div>`;
-      }
-
-      for (let day = 1; day <= daysInMonth; day++) {
-        const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
-        const daySubs = subscriptions.filter(s => s.nextDate === dateStr && s.status === 'Active');
-        const isToday = day === today.getDate();
-
-        html += `
-          <div onclick="showDateDetails('${dateStr}')" class="h-16 sm:h-24 bg-slate-800/60 border ${isToday ? 'border-indigo-500 bg-indigo-950/30' : 'border-slate-700/50'} rounded-xl p-1 sm:p-1.5 flex flex-col justify-between overflow-hidden cursor-pointer hover:border-indigo-400 transition">
-            <span class="text-[10px] sm:text-xs font-bold ${isToday ? 'text-indigo-400' : 'text-slate-400'}">${day}</span>
-            <div class="space-y-1 overflow-y-auto max-h-12 sm:max-h-16">
-              ${daySubs.map(s => `
-                <div class="text-[9px] sm:text-[10px] p-0.5 sm:p-1 rounded font-medium text-white truncate shadow-sm" style="background-color: ${s.color}">
-                  ${s.name}
-                </div>
-              `).join('')}
-            </div>
-          </div>
-        `;
-      }
-
-      html += `</div>`;
-      container.innerHTML = html;
-    }
-
-    function showDateDetails(dateStr) {
-      const daySubs = subscriptions.filter(s => s.nextDate === dateStr && s.status === 'Active');
-      const content = document.getElementById('details-modal-content');
-      
-      if (daySubs.length === 0) {
-        content.innerHTML = `<p class="text-slate-400 text-center py-4">ไม่มีรายการชำระเงินในวันที่ ${formatThaiDate(dateStr)}</p>`;
-      } else {
-        content.innerHTML = `
-          <p class="font-semibold text-indigo-400 mb-2">รายการที่ต้องชำระวันที่ ${formatThaiDate(dateStr)}:</p>
-          ${daySubs.map(s => `
-            <div class="p-3 bg-slate-900 rounded-xl border border-slate-700 flex justify-between items-center">
-              <div>
-                <div class="font-bold text-white">${s.name}</div>
-                <div class="text-[11px] text-slate-400">${s.category} (${s.cycle === 'Monthly' ? 'รายเดือน' : 'รายปี'})</div>
-              </div>
-              <div class="text-sm font-bold text-white">฿${s.price.toLocaleString()}</div>
-            </div>
-          `).join('')}
-        `;
-      }
-      openModal('details-modal');
-    }
-
-    // Google Calendar Sync Link
-    function addToGoogleCalendar(subId) {
-      const sub = subscriptions.find(s => s.id === subId);
-      if (!sub) return;
-
-      const title = encodeURIComponent(`ชำระค่าบริการ ${sub.name}`);
-      const details = encodeURIComponent(`ยอดชำระ ฿${sub.price} (${sub.cycle === 'Monthly' ? 'รายเดือน' : 'รายปี'})\nหมวดหมู่: ${sub.category}`);
-      const startDate = sub.nextDate.replace(/-/g, '');
-      const dates = `${startDate}/${startDate}`;
-
-      const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${dates}`;
-      window.open(url, '_blank');
-    }
-
-    // Generate and Download Real .ICS File
-    function exportToICS() {
-      let icsContent = "BEGIN:VCALENDAR\nVERSION:2.0\nPRODID:-//SubTrack App//TH\nCALSCALE:GREGORIAN\n";
-
-      subscriptions.forEach(sub => {
-        if (sub.status === 'Active') {
-          const dateStr = sub.nextDate.replace(/-/g, '');
-          icsContent += "BEGIN:VEVENT\n";
-          icsContent += `SUMMARY:ชำระค่าบริการ ${sub.name}\n`;
-          icsContent += `DESCRIPTION:ยอดชำระ ฿${sub.price} (${sub.category})\n`;
-          icsContent += `DTSTART;VALUE=DATE:${dateStr}\n`;
-          icsContent += `DTEND;VALUE=DATE:${dateStr}\n`;
-          icsContent += "STATUS:CONFIRMED\n";
-          icsContent += "END:VEVENT\n";
-        }
-      });
-
-      icsContent += "END:VCALENDAR";
-
-      const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-      const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(blob);
-      link.setAttribute('download', 'subtrack_billing_schedule.ics');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      showToast('ดาวน์โหลดไฟล์ .ICS สำหรับนำเข้าปฏิทินสำเร็จ', 'success');
-      addNotifLog('Export ไฟล์ปฏิทิน .ICS เรียบร้อย');
-    }
-
-    // Interactive Expense Analytics Charts & Category Progress Bars
-    function renderAnalytics() {
-      const categories = ['Entertainment', 'Music', 'Work/SaaS', 'Storage', 'Health', 'Utilities', 'Other'];
-      const categoryTotals = categories.map(cat => {
-        return subscriptions
-          .filter(s => s.category === cat && s.status === 'Active')
-          .reduce((sum, s) => sum + (s.cycle === 'Yearly' ? s.price / 12 : s.price), 0);
-      });
-
-      const activeTotal = categoryTotals.reduce((a, b) => a + b, 0);
-
-      // Doughnut Chart
-      const categoryCtx = document.getElementById('categoryChart').getContext('2d');
-      if (categoryChartInstance) categoryChartInstance.destroy();
-
-      categoryChartInstance = new Chart(categoryCtx, {
-        type: 'doughnut',
-        data: {
-          labels: categories,
-          datasets: [{
-            data: categoryTotals,
-            backgroundColor: ['#E50914', '#1DB954', '#6366f1', '#007AFF', '#10b981', '#f59e0b', '#64748b'],
-            borderWidth: 0
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { position: 'bottom', labels: { color: '#94a3b8', font: { family: 'Prompt', size: 10 } } }
-          }
-        }
-      });
-
-      // 6-Month Projected Bar Chart
-      const months = [];
-      const monthlyProjections = [];
-      const today = new Date();
-
-      for (let i = 0; i < 6; i++) {
-        const d = new Date(today.getFullYear(), today.getMonth() + i, 1);
-        months.push(d.toLocaleDateString('th-TH', { month: 'short', year: '2-digit' }));
-        monthlyProjections.push(activeTotal);
-      }
-
-      const projCtx = document.getElementById('projectionChart').getContext('2d');
-      if (projectionChartInstance) projectionChartInstance.destroy();
-
-      projectionChartInstance = new Chart(projCtx, {
-        type: 'bar',
-        data: {
-          labels: months,
-          datasets: [{
-            label: 'ประมาณการค่าใช้จ่ายรายเดือน (บาท)',
-            data: monthlyProjections,
-            backgroundColor: '#6366f1',
-            borderRadius: 8
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          scales: {
-            y: { ticks: { color: '#94a3b8', font: { family: 'Prompt', size: 10 } }, grid: { color: '#334155' } },
-            x: { ticks: { color: '#94a3b8', font: { family: 'Prompt', size: 10 } }, grid: { display: false } }
-          },
-          plugins: {
-            legend: { display: false }
-          }
-        }
-      });
-
-      // Category Progress Percentage Bars
-      const progressContainer = document.getElementById('category-progress-bars');
-      progressContainer.innerHTML = '';
-
-      categories.forEach((cat, idx) => {
-        const amount = categoryTotals[idx];
-        if (amount > 0) {
-          const percent = activeTotal > 0 ? ((amount / activeTotal) * 100).toFixed(1) : 0;
-          const colors = ['bg-red-500', 'bg-emerald-500', 'bg-indigo-500', 'bg-blue-500', 'bg-teal-500', 'bg-amber-500', 'bg-slate-500'];
-
-          const bar = document.createElement('div');
-          bar.className = 'space-y-1';
-          bar.innerHTML = `
-            <div class="flex justify-between text-xs text-slate-300 font-medium">
-              <span>${cat}</span>
-              <span>฿${amount.toLocaleString()} (${percent}%)</span>
-            </div>
-            <div class="w-full h-2 bg-slate-900 rounded-full overflow-hidden">
-              <div class="h-full ${colors[idx]} transition-all duration-500" style="width: ${percent}%"></div>
-            </div>
-          `;
-          progressContainer.appendChild(bar);
-        }
-      });
-
-      renderSummaryTable();
-    }
-
-    function renderSummaryTable() {
-      const tbody = document.getElementById('summary-table-body');
-      tbody.innerHTML = '';
-
-      subscriptions.forEach(sub => {
-        const monthly = sub.cycle === 'Yearly' ? (sub.price / 12) : sub.price;
-        const tr = document.createElement('tr');
-        tr.className = "hover:bg-slate-800/40 transition";
-        tr.innerHTML = `
-          <td class="py-3 px-4 sm:px-6 font-medium text-white flex items-center gap-2">
-            <span class="w-2.5 h-2.5 rounded-full shrink-0" style="background-color: ${sub.color}"></span>
-            <span class="truncate">${sub.name}</span>
-          </td>
-          <td class="py-3 px-4 sm:px-6">${sub.category}</td>
-          <td class="py-3 px-4 sm:px-6">${sub.cycle === 'Monthly' ? 'รายเดือน' : 'รายปี'}</td>
-          <td class="py-3 px-4 sm:px-6">${formatThaiDate(sub.nextDate)}</td>
-          <td class="py-3 px-4 sm:px-6 text-right">฿${parseFloat(sub.price).toLocaleString()}</td>
-          <td class="py-3 px-4 sm:px-6 text-right font-semibold text-indigo-400">฿${monthly.toFixed(2)}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    // Step-by-Step Cancellation Accordion Guides
-    function renderGuides() {
-      const search = document.getElementById('guide-search').value.toLowerCase();
-      const container = document.getElementById('guide-accordion-list');
-      container.innerHTML = '';
-
-      const filtered = CANCELLATION_GUIDES.filter(g => g.name.toLowerCase().includes(search));
-
-      filtered.forEach((guide, idx) => {
-        const card = document.createElement('div');
-        card.className = "bg-slate-800/80 border border-slate-700/60 rounded-2xl overflow-hidden transition";
-        card.innerHTML = `
-          <button onclick="toggleAccordion(${idx})" class="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-slate-800 transition min-h-[48px]">
-            <div class="flex items-center space-x-3">
-              <div class="w-9 h-9 rounded-xl flex items-center justify-center font-bold text-white text-sm shadow shrink-0" style="background-color: ${guide.color}">
-                ${guide.name.charAt(0)}
-              </div>
-              <h4 class="font-bold text-white text-sm sm:text-base">${guide.name}</h4>
-            </div>
-            <i id="acc-icon-${idx}" data-lucide="chevron-down" class="w-5 h-5 text-slate-400 transition-transform"></i>
-          </button>
-
-          <div id="acc-content-${idx}" class="accordion-content px-4 sm:px-5">
-            <div class="pb-5 pt-1 border-t border-slate-700/60 space-y-3">
-              <p class="text-xs text-slate-300">ขั้นตอนการยกเลิกตามลำดับ:</p>
-              <ol class="space-y-2 text-xs sm:text-sm text-slate-200 list-decimal list-inside bg-slate-900/80 p-3.5 rounded-xl border border-slate-700/60">
-                ${guide.steps.map(s => `<li>${s}</li>`).join('')}
-              </ol>
-
-              <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 pt-2">
-                <a href="${guide.url}" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition flex items-center justify-center gap-1.5 touch-active min-h-[44px]">
-                  <span>Go to Cancel Page (เปิดหน้ายกเลิก)</span>
-                  <i data-lucide="external-link" class="w-3.5 h-3.5"></i>
-                </a>
-                <button onclick="markCancelledFromGuide('${guide.name}')" class="px-4 py-2.5 bg-red-600/20 hover:bg-red-600/30 text-red-400 border border-red-500/30 rounded-xl text-xs font-semibold transition touch-active min-h-[44px]">
-                  ทำเครื่องหมายว่ายกเลิกแล้ว
-                </button>
-              </div>
-            </div>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-
-      lucide.createIcons();
-    }
-
-    function toggleAccordion(idx) {
-      const content = document.getElementById(`acc-content-${idx}`);
-      const icon = document.getElementById(`acc-icon-${idx}`);
-      
-      const isOpen = content.classList.contains('open');
-      if (isOpen) {
-        content.classList.remove('open');
-        icon.style.transform = 'rotate(0deg)';
-      } else {
-        content.classList.add('open');
-        icon.style.transform = 'rotate(180deg)';
-      }
-    }
-
-    function markCancelledFromGuide(serviceName) {
-      const sub = subscriptions.find(s => s.name.toLowerCase().includes(serviceName.toLowerCase()));
-      if (sub) {
-        sub.status = 'Cancelled';
-        saveSubscriptions();
-        renderSubscriptions();
-        showToast(`อัปเดตสถานะ ${sub.name} เป็น "ยกเลิกแล้ว" เรียบร้อย`, 'info');
-        addNotifLog(`ยกเลิกบริการ ${sub.name} ผ่านคู่มือ`);
-      } else {
-        showToast(`ไม่พบรายการ ${serviceName} ในการสมัครสมาชิกของคุณ`, 'info');
-      }
-    }
-
-    // UI Toast Feedback
-    function showToast(message, type = 'info') {
-      const container = document.getElementById('toast-container');
-      const toast = document.createElement('div');
-
-      const bg = {
-        success: 'bg-emerald-600 text-white',
-        info: 'bg-indigo-600 text-white',
-        warning: 'bg-amber-600 text-white shadow-lg shadow-amber-600/20'
-      };
-
-      toast.className = `${bg[type]} px-4 py-3 rounded-xl shadow-xl text-xs font-medium flex items-center space-x-2 transition-all duration-300 pointer-events-auto opacity-0 translate-y-2 border border-white/10 backdrop-blur-md`;
-      toast.innerHTML = `
-        <i data-lucide="info" class="w-4 h-4 shrink-0"></i>
-        <span>${message}</span>
-      `;
-
-      container.appendChild(toast);
-      lucide.createIcons();
-
-      setTimeout(() => toast.classList.remove('opacity-0', 'translate-y-2'), 100);
-      setTimeout(() => {
-        toast.classList.add('opacity-0', 'translate-y-2');
-        setTimeout(() => toast.remove(), 300);
-      }, 3500);
-    }
-  </script>
-</body>
-</html>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 3: Active Subscriptions List -->
+<section class="px-margin-mobile pt-space-lg flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px] text-primary">apps</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">รายการสมาชิกทั้งหมด</h2>
+</div>
+<span class="font-label-sm text-label-sm text-on-surface-variant">เรียงตามวันชำระ</span>
+</div>
+<!-- Active List Container -->
+<div class="flex flex-col gap-2.5">
+<!-- Item 1: Spotify Student -->
+<div class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-xl bg-secondary text-on-secondary flex items-center justify-center shrink-0 shadow-sm font-bold">
+<span class="material-symbols-outlined text-[24px]">graphic_eq</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Spotify</h3>
+<span class="px-1.5 py-0.2 rounded-md bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold text-[10px]">Student 50%</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-0.5 truncate">
+<span class="">ต่ออายุ 12 พ.ย.</span>
+<span class="">•</span>
+<span class="truncate">KBank Student</span>
+</div>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">฿65</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">/ เดือน</span>
+</div>
+</div>
+<!-- Item 2: iCloud+ 50GB -->
+<div class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-container-high text-primary flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">cloud</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">iCloud+ 50GB</h3>
+<span class="px-1.5 py-0.2 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm text-[10px]">สำรองข้อมูล</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-0.5 truncate">
+<span class="">ต่ออายุ 15 พ.ย.</span>
+<span class="">•</span>
+<span class="truncate">Apple ID / TrueMoney</span>
+</div>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">฿35</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">/ เดือน</span>
+</div>
+</div>
+<!-- Item 3: ChatGPT Plus (High cost flagged) -->
+<div class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-2">
+<div class="flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-xl bg-surface-variant text-on-surface flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px] text-primary">psychology</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">ChatGPT Plus</h3>
+<span class="px-1.5 py-0.2 rounded-md bg-error-container text-error font-label-sm text-label-sm font-bold text-[10px]">ไม่ได้ใช้นาน</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-0.5 truncate">
+<span class="">ต่ออายุ 18 พ.ย.</span>
+<span class="">•</span>
+<span class="truncate">บัตรเดบิต KBank</span>
+</div>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-headline-sm text-headline-sm font-bold text-error">฿690</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">/ เดือน</span>
+</div>
+</div>
+<div class="flex items-center justify-between bg-error-container/40 rounded-lg px-2.5 py-1.5 text-error font-label-sm text-label-sm">
+<span class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+            ไม่ได้เปิดใช้นาน 12 วัน
+          </span>
+<a class="font-bold underline text-error hover:opacity-80" href="./cancel-guide.html">พิจารณายกเลิก</a>
+</div>
+</div>
+<!-- Item 4: Canva Pro -->
+<div class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center justify-between gap-3">
+<div class="flex items-center gap-3 min-w-0">
+<div class="w-11 h-11 rounded-xl bg-primary-fixed-dim text-on-primary-fixed flex items-center justify-center shrink-0 shadow-sm">
+<span class="material-symbols-outlined text-[24px]">palette</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1.5">
+<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Canva Pro</h3>
+<span class="px-1.5 py-0.2 rounded-md bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm text-[10px]">Education Team</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-0.5 truncate">
+<span class="">ต่ออายุ 24 พ.ย.</span>
+<span class="">•</span>
+<span class="truncate">หารกลุ่มภาควิชา</span>
+</div>
+</div>
+</div>
+<div class="text-right shrink-0">
+<span class="font-headline-sm text-headline-sm font-bold text-on-surface">฿119</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant block">/ เดือน</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Empty state / Add discovery prompt for Student Persona -->
+<section class="px-margin-mobile pt-space-lg">
+
+</section>
+</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-4px_16px_rgba(11,28,48,0.06)]" data-active-classes="bg-primary text-on-primary shadow-sm"><div class="h-16 px-space-xs flex items-center justify-around"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[68px] h-12 rounded-xl transition-all gap-0.5 bg-primary text-on-primary shadow-sm" data-path="dashboard" href="./index.html" target="_self"><span class="material-symbols-outlined text-[22px]">grid_view</span><span class="font-label-sm text-label-sm tracking-tight">แดชบอร์ด</span></a><a class="flex flex-col items-center justify-center min-w-[68px] h-12 rounded-xl text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="calendar-reminders" href="./calendar-reminders.html" target="_self"><span class="material-symbols-outlined text-[22px]">event_upcoming</span><span class="font-label-sm text-label-sm tracking-tight">ปฏิทินเตือน</span></a><a class="flex flex-col items-center justify-center min-w-[68px] h-12 rounded-xl text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="expense-analytics" href="./expense-analytics.html" target="_self"><span class="material-symbols-outlined text-[22px]">query_stats</span><span class="font-label-sm text-label-sm tracking-tight">วิเคราะห์</span></a><a class="flex flex-col items-center justify-center min-w-[68px] h-12 rounded-xl text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="manage-cancel-guide" href="./cancel-guide.html" target="_self"><span class="material-symbols-outlined text-[22px]">verified_user</span><span class="font-label-sm text-label-sm tracking-tight">ยกเลิก&amp;จัดการ</span></a></div></nav>
+
+
+
+
+<script id="subwise-navigation-fix">
+(function () {
+  var pages = {
+    "dashboard": "index.html",
+    "calendar-reminders": "calendar-reminders.html",
+    "expense-analytics": "expense-analytics.html",
+    "manage-cancel-guide": "cancel-guide.html",
+    "profile-settings": "profile-settings.html"
+  };
+  document.addEventListener("click", function (event) {
+    var link = event.target && event.target.closest ? event.target.closest("a[data-path]") : null;
+    if (!link) return;
+    var page = pages[link.getAttribute("data-path")];
+    if (!page) return;
+    event.preventDefault();
+    window.location.href = new URL("./" + page, window.location.href).href;
+  });
+})();
+</script>
+</body></html>
