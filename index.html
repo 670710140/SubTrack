@@ -1,370 +1,504 @@
-<!DOCTYPE html><html lang="th" style=""><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_tab" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{width:100%;margin:0;padding:0;}body{overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary-fixed": "#002113", "secondary-fixed-dim": "#4edea3", "error": "#ba1a1a", "surface-container-low": "#eff4ff", "primary-fixed-dim": "#c0c1ff", "error-container": "#ffdad6", "on-primary": "#ffffff", "on-background": "#0b1c30", "inverse-on-surface": "#eaf1ff", "inverse-primary": "#c0c1ff", "surface-bright": "#f8f9ff", "surface-container": "#e5eeff", "background": "#f8f9ff", "on-primary-container": "#fffbff", "tertiary-fixed": "#ffddb8", "on-tertiary-container": "#fffbff", "surface-variant": "#d3e4fe", "on-surface-variant": "#464554", "tertiary": "#825100", "primary-fixed": "#e1e0ff", "on-tertiary-fixed-variant": "#653e00", "tertiary-container": "#a36700", "on-secondary": "#ffffff", "surface-tint": "#494bd6", "surface": "#f8f9ff", "outline": "#767586", "inverse-surface": "#213145", "surface-container-lowest": "#ffffff", "on-error": "#ffffff", "outline-variant": "#c7c4d7", "surface-container-high": "#dce9ff", "primary-container": "#6063ee", "on-tertiary-fixed": "#2a1700", "secondary": "#006c49", "on-secondary-fixed-variant": "#005236", "on-primary-fixed": "#07006c", "surface-dim": "#cbdbf5", "on-surface": "#0b1c30", "secondary-fixed": "#6ffbbe", "primary": "#4648d4", "secondary-container": "#6cf8bb", "on-secondary-container": "#00714d", "surface-container-highest": "#d3e4fe", "on-primary-fixed-variant": "#2f2ebe", "on-tertiary": "#ffffff", "on-error-container": "#93000a", "tertiary-fixed-dim": "#ffb95f" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter": "1rem", "space-xs": "0.25rem", "space-xl": "2rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "margin-mobile": "1rem", "space-md": "1rem", "gutter-sm": "0.75rem", "margin": "1.25rem" }, fontFamily: { "headline-lg-mobile": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"] }, fontSize: { "headline-lg-mobile": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }], "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "700" }], "display-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-sm": ["18px", { lineHeight: "26px", fontWeight: "600" }], "display-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.02em", fontWeight: "600" }], "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "22px", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }] } } } };</script></head><body class="bg-surface font-body-md text-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-fixed selection:text-on-primary-fixed"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 px-margin-mobile flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="SubWise Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1ViGLfcyTkDsCGqq2IW2SUUX4NRQjwBjdU-ignncoclkBjl_ZiDAbQ_fwVB2Vc2mj4N8nc_ZZ8DWNSGIAt9TFzPrqI19hXBJyc4DwVa4BWX9Kpt-q_VipO60Q-UySgo_xQyjg-QJjok7OzF2va6VMQXGIAZG_aQn1R4W2o7XOA8hi_AX7evMgFgSymbiuxIumy7Z5l5On3Hu1qCe4xv0Tkj7dW1NYQX5r19xC0JSNK6oVrJD2kNK67E"><div class="flex flex-col"><span class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">SubWise</span><span class="font-label-sm text-label-sm text-on-surface-variant font-medium">Dashboard</span></div></div><div class="flex items-center gap-space-xs"><button aria-label="Notifications" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors relative"><span class="material-symbols-outlined text-[22px]">notifications</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-error"></span></button><a aria-label="User Profile" class="w-11 h-11 flex items-center justify-center rounded-full hover:opacity-90 transition-opacity p-0.5" data-path="profile-settings" href="./profile-settings.html" target="_self"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuARlMT45pggfWE_h-nYqSCW-UNUTEVMuHM6W7j0hiIAAgldVOdKqwgRwyM1djFrehLh29bi5HVAqqOLdRtqvCfsWtOJ1ZmmWaAMqDSDOdzXWI3x6dLDZRqjhpMd86IElEcz5IS7Ybi1WnieGhSdj9vxWbFiONY4QRqN-86bMt0U1m70Df3bekLdm1i8zQG7AgP90SI0yiFhh4PGMFURWepXk1N7PEp-krPAu7qqXxwmCtdyS9mtfp_y"></a></div></div></header><main class="flex-1 w-full pt-16 pb-24 bg-surface flex flex-col"><div class="flex flex-col w-full pb-8">
-<!-- Top Student Persona Greeting & Month Burn Card -->
-<section class="px-margin-mobile pt-space-sm pb-space-xs flex flex-col gap-space-sm">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-2">
-<div class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></div>
-<span class="font-label-md text-label-md text-on-surface-variant">สวัสดี น้องสมัคร&nbsp;</span>
-</div>
+<!DOCTYPE html>
+<html lang="th" style="">
 
-</div>
-<!-- Monthly Summary Primary Card -->
-<div class="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary via-primary to-primary-container text-on-primary p-space-lg shadow-md">
-<!-- Decorative background glow SVG -->
-<svg class="absolute -right-10 -bottom-10 w-44 h-44 text-white/10 pointer-events-none" fill="currentColor" viewBox="0 0 200 200">
-<circle cx="100" cy="100" r="80"></circle>
-</svg>
-<svg class="absolute -right-2 top-2 w-20 h-20 text-white/5 pointer-events-none" fill="currentColor" viewBox="0 0 100 100">
-<polygon points="50,10 90,90 10,90"></polygon>
-</svg>
-<div class="relative z-10 flex flex-col gap-space-sm">
-<div class="flex items-center justify-between">
-<span class="font-label-md text-label-md text-on-primary/80 tracking-wide uppercase">ยอดชำระเดือนนี้</span>
-<span class="font-label-sm text-label-sm bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full text-white font-medium flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">pie_chart</span>
-            6 บริการที่ใช้งาน
-          </span>
-</div>
-<div class="flex items-baseline gap-2">
-<span class="font-display-lg-mobile text-display-lg-mobile tracking-tight font-bold">฿1,029</span>
-<span class="font-body-sm text-body-sm text-on-primary/75">/ เดือน</span>
-</div>
-<!-- Budget Bar -->
-<div class="flex flex-col gap-1.5 pt-1">
-<div class="flex items-center justify-between text-white/90 font-label-sm text-label-sm">
-<span class="">งบประมาณจำกัดต่อเดือน (฿1,500)</span>
-<span class="font-semibold">ใช้ไป 68.6%</span>
-</div>
-<div class="w-full h-2 rounded-full bg-black/20 overflow-hidden">
-<div class="h-full rounded-full bg-secondary-fixed transition-all duration-700" style="width: 68.6%;"></div>
-</div>
-</div>
-<!-- Metric pill row -->
-<div class="flex items-center gap-2 pt-1">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    name="viewport">
+  <meta content="mobile_tab" name="shell-type">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;display=swap"
+    rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0"
+    rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+    rel="stylesheet">
+  <style>
+    @layer base {
 
-</div>
-</div>
-</div>
-</section>
-<!-- Urgent Alert Banner -->
-<section class="px-margin-mobile pt-space-xs">
-<div class="rounded-xl bg-error-container text-on-error-container p-space-md shadow-sm flex items-start gap-3">
-<div class="w-9 h-9 rounded-full bg-error text-on-error flex items-center justify-center shrink-0 shadow-sm mt-0.5">
-<span class="material-symbols-outlined text-[20px]">notifications_active</span>
-</div>
-<div class="flex flex-col flex-1 min-w-0">
-<div class="flex items-center justify-between gap-1">
-<span class="font-label-lg text-label-lg font-bold text-error">⚠️ แจ้งเตือนยอดตัดเงินเร็วๆ นี้</span>
-<span class="font-label-sm text-label-sm bg-error/10 text-error px-2 py-0.5 rounded-full font-bold">สำคัญ</span>
-</div>
-<p class="font-body-sm text-body-sm text-on-error-container mt-1 leading-relaxed">
-<span class="font-semibold">Netflix</span> จะตัดเงินในอีก <strong class="text-error font-bold underline decoration-error/50">2 วัน</strong> (฿169 ผ่าน TrueMoney Wallet) และ <span class="font-semibold">YouTube Premium</span> ในอีก <strong class="text-error font-bold">5 วัน</strong>
-</p>
-<div class="flex items-center gap-2 mt-2.5">
-<button class="px-3 py-1 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-sm active:scale-95 transition-transform flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px] text-secondary">account_balance_wallet</span>
-            เช็คเงิน TrueMoney
-          </button>
-<button class="px-2.5 py-1 rounded-lg text-on-error-container/80 hover:text-on-error-container font-label-sm text-label-sm">
-            รับทราบแล้ว
-          </button>
-</div>
-</div>
-</div>
-</section>
-<!-- Quick Action Strip -->
-<section class="px-margin-mobile pt-space-md">
-<div class="grid grid-cols-3 gap-space-sm">
+      html,
+      body {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
+      body {
+        overscroll-behavior-y: none;
+        -webkit-tap-highlight-color: transparent;
+      }
 
+      .pb-safe {
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
 
-</div>
-</section>
-<!-- Filter Pills (Interactive feel) -->
-<section class="px-margin-mobile pt-space-lg">
-<div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-<button class="px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm shrink-0 flex items-center gap-1.5 font-medium">
-<span class="">ทั้งหมด</span>
-<span class="px-1.5 py-0.2 rounded-full bg-on-primary/20 text-on-primary font-bold text-[10px]">6</span>
-</button>
-<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md shadow-sm shrink-0 flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-error"></span>
-<span class="">ตัดเงินเร็วๆ นี้</span>
-<span class="px-1.5 py-0.2 rounded-full bg-surface-container text-on-surface-variant font-bold text-[10px]">2</span>
-</button>
+      .pt-safe {
+        padding-top: env(safe-area-inset-top, 0px);
+      }
 
-<button class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md shadow-sm shrink-0 flex items-center gap-1.5">
-<span class="">รายปี</span>
-<span class="px-1.5 py-0.2 rounded-full bg-surface-container text-on-surface-variant font-bold text-[10px]">1</span>
-</button>
-</div>
-</section>
-<!-- Section 1: Upcoming Renewals -->
-<section class="px-margin-mobile pt-space-lg flex flex-col gap-space-sm">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-[20px] text-error">pace</span>
-<h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">กำลังจะเรียกเก็บเงิน</h2>
-</div>
-<span class="font-label-sm text-label-sm text-primary font-semibold">ดูตารางเวลา</span>
-</div>
-<!-- Renewal Card 1: Netflix Standard -->
-<div class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-space-sm">
-<div class="flex items-start justify-between gap-3">
-<div class="flex items-center gap-3 min-w-0">
-<div class="w-12 h-12 rounded-xl bg-black text-white flex items-center justify-center shrink-0 font-bold text-lg shadow-sm">
-<span class="text-error font-display-lg-mobile text-[24px]">N</span>
-</div>
-<div class="flex flex-col min-w-0">
-<div class="flex items-center gap-2">
-<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Netflix Standard</h3>
-</div>
-<span class="font-body-sm text-body-sm text-on-surface-variant truncate">หารกลุ่มบ้านเพื่อน (4 คน)</span>
-</div>
-</div>
-<!-- Urgent countdown chip -->
-<span class="shrink-0 px-2.5 py-1 rounded-full bg-error-container text-error font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
-<span class="material-symbols-outlined text-[14px]">hourglass_bottom</span>
-          อีก 2 วัน
-        </span>
-</div>
-<!-- Mid breakdown details -->
-<div class="flex items-center justify-between pt-1">
-<div class="flex items-center gap-2">
-<span class="px-2 py-0.5 rounded-lg bg-surface-container text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
-<span class="material-symbols-outlined text-[13px] text-secondary">account_balance_wallet</span>
-            TrueMoney Wallet
-          </span>
-<span class="px-2 py-0.5 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
-            ใช้งานประจำ
-          </span>
-</div>
-<div class="text-right">
-<div class="font-headline-sm text-headline-sm font-bold text-on-surface">฿169.00</div>
-<div class="font-label-sm text-label-sm text-on-surface-variant">ครบกำหนด 28 ต.ค.</div>
-</div>
-</div>
-<!-- Split details sub-strip -->
+      main>:first-child {
+        margin-top: 0 !important;
+      }
 
-</div>
-<!-- Renewal Card 2: YouTube Premium Family -->
-<div class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-space-sm">
-<div class="flex items-start justify-between gap-3">
-<div class="flex items-center gap-3 min-w-0">
-<div class="w-12 h-12 rounded-xl bg-error text-on-error flex items-center justify-center shrink-0 shadow-sm">
-<span class="material-symbols-outlined text-[26px]">play_arrow</span>
-</div>
-<div class="flex flex-col min-w-0">
-<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">YouTube Premium</h3>
-<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Family Plan (ส่วนแบ่งรายคน)</span>
-</div>
-</div>
-<!-- Countdown badge -->
-<span class="shrink-0 px-2.5 py-1 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold flex items-center gap-1 shadow-sm">
-<span class="material-symbols-outlined text-[14px]">event</span>
-          อีก 5 วัน
-        </span>
-</div>
-<div class="flex items-center justify-between pt-1">
-<div class="flex items-center gap-2">
-<span class="px-2 py-0.5 rounded-lg bg-surface-container text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
-<span class="material-symbols-outlined text-[13px] text-primary">credit_card</span>
-            KBank เดบิต ••4021
-          </span>
-<span class="px-2 py-0.5 rounded-lg bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-semibold">
-            คุ้มค่ามาก
-          </span>
-</div>
-<div class="text-right">
-<div class="font-headline-sm text-headline-sm font-bold text-on-surface">฿75.00</div>
-<div class="font-label-sm text-label-sm text-on-surface-variant">ครบกำหนด 31 ต.ค.</div>
-</div>
-</div>
-</div>
-</section>
-<!-- Section 2: Smart Student Insights -->
-<section class="px-margin-mobile pt-space-lg">
-<div class="rounded-xl bg-surface-container text-on-surface p-space-md shadow-sm relative overflow-hidden flex flex-col gap-space-sm">
-<div class="flex items-center gap-2">
-<div class="w-7 h-7 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
-<span class="material-symbols-outlined text-[18px]">lightbulb</span>
-</div>
-<span class="font-headline-sm text-headline-sm text-on-surface font-bold">SubWise Smart Insight</span>
-<span class="ml-auto px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">แนะนำ</span>
-</div>
-<!-- Detail Card with Image Context -->
-<div class="rounded-xl bg-surface-container-lowest p-space-md flex flex-col gap-2.5 shadow-sm">
-<div class="flex items-start gap-3">
-<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary shrink-0">
-<span class="material-symbols-outlined text-[24px]">smart_toy</span>
-</div>
-<div class="flex flex-col">
-<span class="font-headline-sm text-headline-sm font-bold text-error">ตรวจพบค่าใช้จ่ายที่ไม่ค่อยได้ใช้!</span>
-<p class="font-body-md text-body-md text-on-surface-variant mt-1 leading-normal">
-              คุณไม่ได้เปิดใช้ <strong class="text-on-surface">ChatGPT Plus</strong> มานานกว่า <span class="text-error font-bold underline">12 วันแล้ว</span> หากยกเลิกตอนนี้จะประหยัดเงินได้ถึง <strong class="text-primary font-bold">฿690 / เดือน</strong> (คิดเป็น 67% ของค่าใช้จ่ายสมาชิกทั้งหมด)
+      main>:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+
+    ::-webkit-scrollbar {
+      display: none;
+    }
+  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script
+    id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary-fixed": "#002113", "secondary-fixed-dim": "#4edea3", "error": "#ba1a1a", "surface-container-low": "#eff4ff", "primary-fixed-dim": "#c0c1ff", "error-container": "#ffdad6", "on-primary": "#ffffff", "on-background": "#0b1c30", "inverse-on-surface": "#eaf1ff", "inverse-primary": "#c0c1ff", "surface-bright": "#f8f9ff", "surface-container": "#e5eeff", "background": "#f8f9ff", "on-primary-container": "#fffbff", "tertiary-fixed": "#ffddb8", "on-tertiary-container": "#fffbff", "surface-variant": "#d3e4fe", "on-surface-variant": "#464554", "tertiary": "#825100", "primary-fixed": "#e1e0ff", "on-tertiary-fixed-variant": "#653e00", "tertiary-container": "#a36700", "on-secondary": "#ffffff", "surface-tint": "#494bd6", "surface": "#f8f9ff", "outline": "#767586", "inverse-surface": "#213145", "surface-container-lowest": "#ffffff", "on-error": "#ffffff", "outline-variant": "#c7c4d7", "surface-container-high": "#dce9ff", "primary-container": "#6063ee", "on-tertiary-fixed": "#2a1700", "secondary": "#006c49", "on-secondary-fixed-variant": "#005236", "on-primary-fixed": "#07006c", "surface-dim": "#cbdbf5", "on-surface": "#0b1c30", "secondary-fixed": "#6ffbbe", "primary": "#4648d4", "secondary-container": "#6cf8bb", "on-secondary-container": "#00714d", "surface-container-highest": "#d3e4fe", "on-primary-fixed-variant": "#2f2ebe", "on-tertiary": "#ffffff", "on-error-container": "#93000a", "tertiary-fixed-dim": "#ffb95f" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter": "1rem", "space-xs": "0.25rem", "space-xl": "2rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "margin-mobile": "1rem", "space-md": "1rem", "gutter-sm": "0.75rem", "margin": "1.25rem" }, fontFamily: { "headline-lg-mobile": ["Plus Jakarta Sans"], "label-md": ["Plus Jakarta Sans"], "headline-lg": ["Plus Jakarta Sans"], "display-lg-mobile": ["Plus Jakarta Sans"], "headline-sm": ["Plus Jakarta Sans"], "display-lg": ["Plus Jakarta Sans"], "label-sm": ["Plus Jakarta Sans"], "body-sm": ["Plus Jakarta Sans"], "body-md": ["Plus Jakarta Sans"], "body-lg": ["Plus Jakarta Sans"], "headline-md": ["Plus Jakarta Sans"], "label-lg": ["Plus Jakarta Sans"] }, fontSize: { "headline-lg-mobile": ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }], "label-md": ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "600" }], "headline-lg": ["28px", { lineHeight: "36px", letterSpacing: "-0.01em", fontWeight: "700" }], "display-lg-mobile": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-sm": ["18px", { lineHeight: "26px", fontWeight: "600" }], "display-lg": ["40px", { lineHeight: "48px", letterSpacing: "-0.02em", fontWeight: "700" }], "label-sm": ["11px", { lineHeight: "14px", letterSpacing: "0.02em", fontWeight: "600" }], "body-sm": ["12px", { lineHeight: "18px", fontWeight: "400" }], "body-md": ["14px", { lineHeight: "22px", fontWeight: "400" }], "body-lg": ["16px", { lineHeight: "24px", fontWeight: "400" }], "headline-md": ["20px", { lineHeight: "28px", fontWeight: "600" }], "label-lg": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "600" }] } } } };</script>
+</head>
+
+<body
+  class="bg-surface font-body-md text-body-md text-on-surface min-h-screen flex flex-col antialiased selection:bg-primary-fixed selection:text-on-primary-fixed">
+  <header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.04)]">
+    <div class="h-16 px-margin-mobile flex items-center justify-between">
+      <div class="flex items-center gap-space-sm"><img alt="SubWise Logo" class="h-8 w-auto object-contain"
+          src="https://lh3.googleusercontent.com/aida/AEtjO1ViGLfcyTkDsCGqq2IW2SUUX4NRQjwBjdU-ignncoclkBjl_ZiDAbQ_fwVB2Vc2mj4N8nc_ZZ8DWNSGIAt9TFzPrqI19hXBJyc4DwVa4BWX9Kpt-q_VipO60Q-UySgo_xQyjg-QJjok7OzF2va6VMQXGIAZG_aQn1R4W2o7XOA8hi_AX7evMgFgSymbiuxIumy7Z5l5On3Hu1qCe4xv0Tkj7dW1NYQX5r19xC0JSNK6oVrJD2kNK67E">
+        <div class="flex flex-col"><span
+            class="font-headline-sm text-headline-sm text-on-surface tracking-tight leading-none">SubWise</span><span
+            class="font-label-sm text-label-sm text-on-surface-variant font-medium">Dashboard</span></div>
+      </div>
+      <div class="flex items-center gap-space-xs"><button aria-label="Notifications"
+          class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-colors relative"><span
+            class="material-symbols-outlined text-[22px]">notifications</span><span
+            class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-error"></span></button><a
+          aria-label="User Profile"
+          class="w-11 h-11 flex items-center justify-center rounded-full hover:opacity-90 transition-opacity p-0.5"
+          data-path="profile-settings" href="profile-settings.html"><img alt="Profile"
+            class="w-8 h-8 rounded-full object-cover ring-2 ring-primary/20"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuARlMT45pggfWE_h-nYqSCW-UNUTEVMuHM6W7j0hiIAAgldVOdKqwgRwyM1djFrehLh29bi5HVAqqOLdRtqvCfsWtOJ1ZmmWaAMqDSDOdzXWI3x6dLDZRqjhpMd86IElEcz5IS7Ybi1WnieGhSdj9vxWbFiONY4QRqN-86bMt0U1m70Df3bekLdm1i8zQG7AgP90SI0yiFhh4PGMFURWepXk1N7PEp-krPAu7qqXxwmCtdyS9mtfp_y"></a>
+      </div>
+    </div>
+  </header>
+  <main class="flex-1 w-full pt-16 pb-24 bg-surface flex flex-col">
+    <div class="flex flex-col w-full pb-8">
+      <!-- Top Student Persona Greeting & Month Burn Card -->
+      <section class="px-margin-mobile pt-space-sm pb-space-xs flex flex-col gap-space-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></div>
+            <span class="font-label-md text-label-md text-on-surface-variant">สวัสดี น้องสมัคร&nbsp;</span>
+          </div>
+
+        </div>
+        <!-- Monthly Summary Primary Card -->
+        <div
+          class="relative overflow-hidden rounded-xl bg-gradient-to-br from-primary via-primary to-primary-container text-on-primary p-space-lg shadow-md">
+          <!-- Decorative background glow SVG -->
+          <svg class="absolute -right-10 -bottom-10 w-44 h-44 text-white/10 pointer-events-none" fill="currentColor"
+            viewBox="0 0 200 200">
+            <circle cx="100" cy="100" r="80"></circle>
+          </svg>
+          <svg class="absolute -right-2 top-2 w-20 h-20 text-white/5 pointer-events-none" fill="currentColor"
+            viewBox="0 0 100 100">
+            <polygon points="50,10 90,90 10,90"></polygon>
+          </svg>
+          <div class="relative z-10 flex flex-col gap-space-sm">
+            <div class="flex items-center justify-between">
+              <span
+                class="font-label-md text-label-md text-on-primary/80 tracking-wide uppercase">ยอดชำระเดือนนี้</span>
+              <span
+                class="font-label-sm text-label-sm bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full text-white font-medium flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">pie_chart</span>
+                <span id="monthlyServiceCount">6 บริการที่ใช้งาน</span>
+              </span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span id="monthlyTotal" class="font-display-lg-mobile text-display-lg-mobile tracking-tight font-bold">฿1,153</span>
+              <span class="font-body-sm text-body-sm text-on-primary/75">/ เดือน</span>
+            </div>
+            <!-- Budget Bar -->
+            <div class="flex flex-col gap-1.5 pt-1">
+              <div class="flex items-center justify-between text-white/90 font-label-sm text-label-sm">
+                <span id="monthlyBudgetLabel">งบประมาณจำกัดต่อเดือน (฿1,500)</span>
+                <span id="monthlyBudgetPercent" class="font-semibold">ใช้ไป 76.9%</span>
+              </div>
+              <div class="w-full h-2 rounded-full bg-black/20 overflow-hidden">
+                <div id="monthlyBudgetBar" class="h-full rounded-full bg-secondary-fixed transition-all duration-700" style="width: 76.9%;">
+                </div>
+              </div>
+            </div>
+            <!-- Metric pill row -->
+            <div class="flex items-center gap-2 pt-1">
+
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Urgent Alert Banner -->
+      <section id="urgentAlertSection" class="px-margin-mobile pt-space-xs">
+        <div class="rounded-xl bg-error-container text-on-error-container p-space-md shadow-sm flex items-start gap-3">
+          <div
+            class="w-9 h-9 rounded-full bg-error text-on-error flex items-center justify-center shrink-0 shadow-sm mt-0.5">
+            <span class="material-symbols-outlined text-[20px]">notifications_active</span>
+          </div>
+          <div class="flex flex-col flex-1 min-w-0">
+            <div class="flex items-center justify-between gap-1">
+              <span class="font-label-lg text-label-lg font-bold text-error">⚠️ แจ้งเตือนยอดตัดเงินเร็วๆ นี้</span>
+              <span
+                class="font-label-sm text-label-sm bg-error/10 text-error px-2 py-0.5 rounded-full font-bold">สำคัญ</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-error-container mt-1 leading-relaxed">
+              <span class="font-semibold">Netflix</span> จะตัดเงินในอีก <strong
+                class="text-error font-bold underline decoration-error/50">2 วัน</strong> (฿169 ผ่าน TrueMoney Wallet)
+              และ <span class="font-semibold">YouTube Premium</span> ในอีก <strong class="text-error font-bold">5
+                วัน</strong>
             </p>
-</div>
-</div>
-<!-- Student Photo Visual Context -->
-<div class="relative w-full h-24 rounded-lg overflow-hidden bg-surface-container">
-<img class="w-full h-full object-cover" data-alt="A candid photo of a stylish Thai university student sitting at a vibrant cafe study desk with laptop and matcha latte, feeling relaxed and stress-free about finances, soft warm morning daylight, cinematic editorial photography, modern pastel palette" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzW33Jls7x6D5cANUd1VZuLE-Dv2b0f0cLmkfOawnJC0KugtEl9QbIU6wliuHOlcZtMG8Zs48e0ipXufC3-3QzlRQlFdv5t-HTc_0Rom1OQ07DLYdTzBLLPbUN8eEJ24kduf8WBnzzkCCT8E2NhcK67WsvQPeVFAV1UunRFD518-KggbawX0r_j64WYqW4Sy0J_5icOg8Qe1RSLJxva9ImzIjR76YM5afuGxUIZjXXkG7Yutb7zo28">
-<div class="absolute inset-0 bg-gradient-to-r from-on-background/70 via-on-background/40 to-transparent flex items-center px-3">
-<span class="text-white font-label-md text-label-md font-medium">เซฟเงิน ฿690 ไปกินชาบูกับเพื่อนได้ 2 มื้อ 🍲</span>
-</div>
-</div>
-<div class="flex items-center gap-2 pt-1">
-<button class="flex-1 h-10 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-transform">
-<span class="material-symbols-outlined text-[16px]">menu_book</span>
-            ดูวิธียกเลิก ChatGPT Plus
+            <div class="flex items-center gap-2 mt-2.5">
+              <button
+                class="px-3 py-1 rounded-lg bg-surface-container-lowest text-on-surface font-label-sm text-label-sm shadow-sm active:scale-95 transition-transform flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px] text-secondary">account_balance_wallet</span>
+                เช็คเงิน TrueMoney
+              </button>
+              <button id="dismissUrgentAlert" type="button"
+                class="px-2.5 py-1 rounded-lg text-on-error-container/80 hover:text-on-error-container font-label-sm text-label-sm">
+                รับทราบแล้ว
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Subscription Management Quick Actions -->
+      <section class="px-margin-mobile pt-space-md">
+        <div class="flex justify-center py-1">
+          <div class="flex items-center justify-center gap-2 w-full max-w-md mx-auto">
+
+            <button id="addSubscriptionBtn" type="button"
+              class="flex-[3] min-h-8 rounded-xl bg-primary text-on-primary font-label-lg text-label-lg flex items-center justify-center gap-2 shadow-sm active:scale-[.98] transition-transform">
+              <span class="material-symbols-outlined">add_circle</span>
+              เพิ่มแอปใหม่
+            </button>
+
+            <button id="manageSubscriptionsBtn" type="button"
+              class="flex-1 min-h-8 rounded-xl bg-surface-container text-on-surface font-label-md text-label-md flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined text-[18px]">edit_note</span>
+              ลบ / จัดการ
+            </button>
+
+          </div>
+        </div>
+      </section>
+      <!-- Filter Pills (Interactive feel) -->
+      <section class="px-margin-mobile pt-space-lg">
+        <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
+          <button
+            class="px-3.5 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md shadow-sm shrink-0 flex items-center gap-1.5 font-medium">
+            <span class="">ทั้งหมด</span>
+            <span class="px-1.5 py-0.2 rounded-full bg-on-primary/20 text-on-primary font-bold text-[10px]">6</span>
           </button>
-<button class="px-3 h-10 rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md">
-            เตือนภายหลัง
+          <!-- <button
+            class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md shadow-sm shrink-0 flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-error"></span>
+            <span class="">ตัดเงินเร็วๆ นี้</span>
+            <span
+              class="px-1.5 py-0.2 rounded-full bg-surface-container text-on-surface-variant font-bold text-[10px]">2</span>
+          </button> -->
+
+          <button
+            class="px-3.5 py-1.5 rounded-full bg-surface-container-lowest text-on-surface-variant hover:text-on-surface font-label-md text-label-md shadow-sm shrink-0 flex items-center gap-1.5">
+            <span class="">รายปี</span>
+            <span
+              class="px-1.5 py-0.2 rounded-full bg-surface-container text-on-surface-variant font-bold text-[10px]">1</span>
           </button>
-</div>
-</div>
-</div>
-</section>
-<!-- Section 3: Active Subscriptions List -->
-<section class="px-margin-mobile pt-space-lg flex flex-col gap-space-sm">
-<div class="flex items-center justify-between">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-[20px] text-primary">apps</span>
-<h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">รายการสมาชิกทั้งหมด</h2>
-</div>
-<span class="font-label-sm text-label-sm text-on-surface-variant">เรียงตามวันชำระ</span>
-</div>
-<!-- Active List Container -->
-<div class="flex flex-col gap-2.5">
-<!-- Item 1: Spotify Student -->
-<div class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center justify-between gap-3">
-<div class="flex items-center gap-3 min-w-0">
-<div class="w-11 h-11 rounded-xl bg-secondary text-on-secondary flex items-center justify-center shrink-0 shadow-sm font-bold">
-<span class="material-symbols-outlined text-[24px]">graphic_eq</span>
-</div>
-<div class="flex flex-col min-w-0">
-<div class="flex items-center gap-1.5">
-<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Spotify</h3>
-<span class="px-1.5 py-0.2 rounded-md bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold text-[10px]">Student 50%</span>
-</div>
-<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-0.5 truncate">
-<span class="">ต่ออายุ 12 พ.ย.</span>
-<span class="">•</span>
-<span class="truncate">KBank Student</span>
-</div>
-</div>
-</div>
-<div class="text-right shrink-0">
-<span class="font-headline-sm text-headline-sm font-bold text-on-surface">฿65</span>
-<span class="font-label-sm text-label-sm text-on-surface-variant block">/ เดือน</span>
-</div>
-</div>
-<!-- Item 2: iCloud+ 50GB -->
-<div class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center justify-between gap-3">
-<div class="flex items-center gap-3 min-w-0">
-<div class="w-11 h-11 rounded-xl bg-surface-container-high text-primary flex items-center justify-center shrink-0 shadow-sm">
-<span class="material-symbols-outlined text-[24px]">cloud</span>
-</div>
-<div class="flex flex-col min-w-0">
-<div class="flex items-center gap-1.5">
-<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">iCloud+ 50GB</h3>
-<span class="px-1.5 py-0.2 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm text-[10px]">สำรองข้อมูล</span>
-</div>
-<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-0.5 truncate">
-<span class="">ต่ออายุ 15 พ.ย.</span>
-<span class="">•</span>
-<span class="truncate">Apple ID / TrueMoney</span>
-</div>
-</div>
-</div>
-<div class="text-right shrink-0">
-<span class="font-headline-sm text-headline-sm font-bold text-on-surface">฿35</span>
-<span class="font-label-sm text-label-sm text-on-surface-variant block">/ เดือน</span>
-</div>
-</div>
-<!-- Item 3: ChatGPT Plus (High cost flagged) -->
-<div class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-2">
-<div class="flex items-center justify-between gap-3">
-<div class="flex items-center gap-3 min-w-0">
-<div class="w-11 h-11 rounded-xl bg-surface-variant text-on-surface flex items-center justify-center shrink-0 shadow-sm">
-<span class="material-symbols-outlined text-[24px] text-primary">psychology</span>
-</div>
-<div class="flex flex-col min-w-0">
-<div class="flex items-center gap-1.5">
-<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">ChatGPT Plus</h3>
-<span class="px-1.5 py-0.2 rounded-md bg-error-container text-error font-label-sm text-label-sm font-bold text-[10px]">ไม่ได้ใช้นาน</span>
-</div>
-<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-0.5 truncate">
-<span class="">ต่ออายุ 18 พ.ย.</span>
-<span class="">•</span>
-<span class="truncate">บัตรเดบิต KBank</span>
-</div>
-</div>
-</div>
-<div class="text-right shrink-0">
-<span class="font-headline-sm text-headline-sm font-bold text-error">฿690</span>
-<span class="font-label-sm text-label-sm text-on-surface-variant block">/ เดือน</span>
-</div>
-</div>
-<div class="flex items-center justify-between bg-error-container/40 rounded-lg px-2.5 py-1.5 text-error font-label-sm text-label-sm">
-<span class="flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">warning</span>
-            ไม่ได้เปิดใช้นาน 12 วัน
-          </span>
-<a class="font-bold underline text-error hover:opacity-80" href="./cancel-guide.html">พิจารณายกเลิก</a>
-</div>
-</div>
-<!-- Item 4: Canva Pro -->
-<div class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center justify-between gap-3">
-<div class="flex items-center gap-3 min-w-0">
-<div class="w-11 h-11 rounded-xl bg-primary-fixed-dim text-on-primary-fixed flex items-center justify-center shrink-0 shadow-sm">
-<span class="material-symbols-outlined text-[24px]">palette</span>
-</div>
-<div class="flex flex-col min-w-0">
-<div class="flex items-center gap-1.5">
-<h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Canva Pro</h3>
-<span class="px-1.5 py-0.2 rounded-md bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm text-[10px]">Education Team</span>
-</div>
-<div class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-0.5 truncate">
-<span class="">ต่ออายุ 24 พ.ย.</span>
-<span class="">•</span>
-<span class="truncate">หารกลุ่มภาควิชา</span>
-</div>
-</div>
-</div>
-<div class="text-right shrink-0">
-<span class="font-headline-sm text-headline-sm font-bold text-on-surface">฿119</span>
-<span class="font-label-sm text-label-sm text-on-surface-variant block">/ เดือน</span>
-</div>
-</div>
-</div>
-</section>
-<!-- Empty state / Add discovery prompt for Student Persona -->
-<section class="px-margin-mobile pt-space-lg">
+        </div>
+      </section>
+      <!-- Section 1: Upcoming Renewals -->
+      <section class="px-margin-mobile pt-space-lg flex flex-col gap-space-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[20px] text-error">pace</span>
+            <h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">กำลังจะเรียกเก็บเงิน</h2>
+          </div>
+          <a href="calendar-reminders.html" class="cursor-pointer">
+            <span class="font-label-sm text-label-sm text-primary font-semibold">ดูตารางเวลา</span>
+          </a>
+        </div>
+        <div id="upcomingRenewalsList" class="flex flex-col gap-space-sm" aria-live="polite">
+          <p class="text-sm text-on-surface-variant">กำลังโหลดรายการต่ออายุ…</p>
+        </div>
+      </section>
+      <!-- Section 2: Smart Student Insights -->
+      <section id="smartInsightSection" class="px-margin-mobile pt-space-lg">
+        <div
+          class="rounded-xl bg-surface-container text-on-surface p-space-md shadow-sm relative overflow-hidden flex flex-col gap-space-sm">
+          <div class="flex items-center gap-2">
+            <div
+              class="w-7 h-7 rounded-full bg-tertiary-container text-on-tertiary-container flex items-center justify-center">
+              <span class="material-symbols-outlined text-[18px]">lightbulb</span>
+            </div>
+            <span class="font-headline-sm text-headline-sm text-on-surface font-bold">SubWise Smart Insight</span>
+            <span
+              class="ml-auto px-2 py-0.5 rounded-full bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold">แนะนำ</span>
+          </div>
+          <!-- Detail Card with Image Context -->
+          <div class="rounded-xl bg-surface-container-lowest p-space-md flex flex-col gap-2.5 shadow-sm">
+            <div class="flex items-start gap-3">
+              <div
+                class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center text-primary shrink-0">
+                <span class="material-symbols-outlined text-[24px]">smart_toy</span>
+              </div>
+              <div class="flex flex-col">
+                <span
+                  class="font-headline-sm text-headline-sm font-bold text-error">ตรวจพบค่าใช้จ่ายที่ไม่ค่อยได้ใช้!</span>
+                <p class="font-body-md text-body-md text-on-surface-variant mt-1 leading-normal">
+                  คุณไม่ได้เปิดใช้ <strong class="text-on-surface" data-smart-app>ChatGPT Plus</strong> ล่าสุด: <span data-smart-note class="text-error font-bold underline">ไม่ได้เปิดใช้นาน 12 วัน</span> หากยกเลิกตอนนี้จะประหยัดเงินได้ถึง <strong class="text-primary font-bold"><span data-smart-price>฿690</span> / เดือน</strong> (คิดเป็น <span data-smart-percent>67%</span> ของค่าใช้จ่ายสมาชิกทั้งหมด)
+                </p>
+              </div>
+            </div>
+            <!-- Student Photo Visual Context -->
+            <div class="relative w-full h-24 rounded-lg overflow-hidden bg-surface-container">
+              <img class="w-full h-full object-cover"
+                data-alt="A candid photo of a stylish Thai university student sitting at a vibrant cafe study desk with laptop and matcha latte, feeling relaxed and stress-free about finances, soft warm morning daylight, cinematic editorial photography, modern pastel palette"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzW33Jls7x6D5cANUd1VZuLE-Dv2b0f0cLmkfOawnJC0KugtEl9QbIU6wliuHOlcZtMG8Zs48e0ipXufC3-3QzlRQlFdv5t-HTc_0Rom1OQ07DLYdTzBLLPbUN8eEJ24kduf8WBnzzkCCT8E2NhcK67WsvQPeVFAV1UunRFD518-KggbawX0r_j64WYqW4Sy0J_5icOg8Qe1RSLJxva9ImzIjR76YM5afuGxUIZjXXkG7Yutb7zo28">
+              <div
+                class="absolute inset-0 bg-gradient-to-r from-on-background/70 via-on-background/40 to-transparent flex items-center px-3">
+                <span class="text-white font-label-md text-label-md font-medium">เซฟเงิน ฿690 ไปกินชาบูกับเพื่อนได้ 2
+                  มื้อ 🍲</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 pt-1">
+              <a href="cancel-guide.html" data-smart-cancel-link
+                class="flex-1 h-10 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold flex items-center justify-center gap-1.5 shadow-sm active:scale-95 transition-transform">
+                <span class="material-symbols-outlined text-[16px]">menu_book</span>
+                ดูวิธียกเลิก ChatGPT Plus
+              </a>
+              <button id="dismissSmartInsight" type="button"
+                class="px-3 h-10 rounded-lg bg-surface-container text-on-surface-variant font-label-md text-label-md">
+                เตือนภายหลัง
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Section 3: Active Subscriptions List -->
+      <section class="px-margin-mobile pt-space-lg flex flex-col gap-space-sm">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[20px] text-primary">apps</span>
+            <h2 class="font-headline-sm text-headline-sm text-on-surface tracking-tight">รายการสมาชิกทั้งหมด</h2>
+          </div>
+          <span class="font-label-sm text-label-sm text-on-surface-variant">เรียงตามวันชำระ</span>
+        </div>
+        <!-- Active List Container -->
+        <div id="subscriptionList" class="flex flex-col gap-2.5">
+          <!-- Item 1: Spotify Student -->
+          <div
+            class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div
+                class="w-11 h-11 rounded-xl bg-secondary text-on-secondary flex items-center justify-center shrink-0 shadow-sm font-bold">
+                <span class="material-symbols-outlined text-[24px]">graphic_eq</span>
+              </div>
+              <div class="flex flex-col min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Spotify</h3>
+                  <span
+                    class="px-1.5 py-0.2 rounded-md bg-secondary-fixed text-on-secondary-fixed font-label-sm text-label-sm font-bold text-[10px]">Student
+                    50%</span>
+                </div>
+                <div
+                  class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-0.5 truncate">
+                  <span class="">ต่ออายุ 12 พ.ย.</span>
+                  <span class="">•</span>
+                  <span class="truncate">KBank Student</span>
+                </div>
+              </div>
+            </div>
+            <div class="text-right shrink-0">
+              <span class="font-headline-sm text-headline-sm font-bold text-on-surface">฿65</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant block">/ เดือน</span>
+            </div>
+          </div>
+          <!-- Item 2: iCloud+ 50GB -->
+          <div
+            class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div
+                class="w-11 h-11 rounded-xl bg-surface-container-high text-primary flex items-center justify-center shrink-0 shadow-sm">
+                <span class="material-symbols-outlined text-[24px]">cloud</span>
+              </div>
+              <div class="flex flex-col min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface truncate">iCloud+ 50GB</h3>
+                  <span
+                    class="px-1.5 py-0.2 rounded-md bg-surface-container text-on-surface-variant font-label-sm text-label-sm text-[10px]">สำรองข้อมูล</span>
+                </div>
+                <div
+                  class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-0.5 truncate">
+                  <span class="">ต่ออายุ 15 พ.ย.</span>
+                  <span class="">•</span>
+                  <span class="truncate">Apple ID / TrueMoney</span>
+                </div>
+              </div>
+            </div>
+            <div class="text-right shrink-0">
+              <span class="font-headline-sm text-headline-sm font-bold text-on-surface">฿35</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant block">/ เดือน</span>
+            </div>
+          </div>
+          <!-- Item 3: ChatGPT Plus (High cost flagged) -->
+          <div class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex flex-col gap-2">
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex items-center gap-3 min-w-0">
+                <div
+                  class="w-11 h-11 rounded-xl bg-surface-variant text-on-surface flex items-center justify-center shrink-0 shadow-sm">
+                  <span class="material-symbols-outlined text-[24px] text-primary">psychology</span>
+                </div>
+                <div class="flex flex-col min-w-0">
+                  <div class="flex items-center gap-1.5">
+                    <h3 class="font-headline-sm text-headline-sm text-on-surface truncate">ChatGPT Plus</h3>
+                    <span
+                      class="px-1.5 py-0.2 rounded-md bg-error-container text-error font-label-sm text-label-sm font-bold text-[10px]">ไม่ได้ใช้นาน</span>
+                  </div>
+                  <div
+                    class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-0.5 truncate">
+                    <span class="">ต่ออายุ 18 พ.ย.</span>
+                    <span class="">•</span>
+                    <span class="truncate">บัตรเดบิต KBank</span>
+                  </div>
+                </div>
+              </div>
+              <div class="text-right shrink-0">
+                <span class="font-headline-sm text-headline-sm font-bold text-error">฿690</span>
+                <span class="font-label-sm text-label-sm text-on-surface-variant block">/ เดือน</span>
+              </div>
+            </div>
+            <div
+              class="flex items-center justify-between bg-error-container/40 rounded-lg px-2.5 py-1.5 text-error font-label-sm text-label-sm">
+              <span class="flex items-center gap-1">
+                <span class="material-symbols-outlined text-[14px]">warning</span>
+                ไม่ได้เปิดใช้นาน 12 วัน
+              </span>
+              <a class="font-bold underline text-error hover:opacity-80" href="#">พิจารณายกเลิก</a>
+            </div>
+          </div>
+          <!-- Item 4: Canva Pro -->
+          <div
+            class="w-full rounded-xl bg-surface-container-lowest p-space-md shadow-sm flex items-center justify-between gap-3">
+            <div class="flex items-center gap-3 min-w-0">
+              <div
+                class="w-11 h-11 rounded-xl bg-primary-fixed-dim text-on-primary-fixed flex items-center justify-center shrink-0 shadow-sm">
+                <span class="material-symbols-outlined text-[24px]">palette</span>
+              </div>
+              <div class="flex flex-col min-w-0">
+                <div class="flex items-center gap-1.5">
+                  <h3 class="font-headline-sm text-headline-sm text-on-surface truncate">Canva Pro</h3>
+                  <span
+                    class="px-1.5 py-0.2 rounded-md bg-primary-fixed text-on-primary-fixed font-label-sm text-label-sm text-[10px]">Education
+                    Team</span>
+                </div>
+                <div
+                  class="flex items-center gap-1.5 text-on-surface-variant font-body-sm text-body-sm mt-0.5 truncate">
+                  <span class="">ต่ออายุ 24 พ.ย.</span>
+                  <span class="">•</span>
+                  <span class="truncate">หารกลุ่มภาควิชา</span>
+                </div>
+              </div>
+            </div>
+            <div class="text-right shrink-0">
+              <span class="font-headline-sm text-headline-sm font-bold text-on-surface">฿119</span>
+              <span class="font-label-sm text-label-sm text-on-surface-variant block">/ เดือน</span>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Empty state / Add discovery prompt for Student Persona -->
+      <section class="px-margin-mobile pt-space-lg">
 
-</section>
-</div></main><nav class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-4px_16px_rgba(11,28,48,0.06)]" data-active-classes="bg-primary text-on-primary shadow-sm"><div class="h-16 px-space-xs flex items-center justify-around"><a aria-current="page" class="flex flex-col items-center justify-center min-w-[68px] h-12 rounded-xl transition-all gap-0.5 bg-primary text-on-primary shadow-sm" data-path="dashboard" href="./index.html" target="_self"><span class="material-symbols-outlined text-[22px]">grid_view</span><span class="font-label-sm text-label-sm tracking-tight">แดชบอร์ด</span></a><a class="flex flex-col items-center justify-center min-w-[68px] h-12 rounded-xl text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="calendar-reminders" href="./calendar-reminders.html" target="_self"><span class="material-symbols-outlined text-[22px]">event_upcoming</span><span class="font-label-sm text-label-sm tracking-tight">ปฏิทินเตือน</span></a><a class="flex flex-col items-center justify-center min-w-[68px] h-12 rounded-xl text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="expense-analytics" href="./expense-analytics.html" target="_self"><span class="material-symbols-outlined text-[22px]">query_stats</span><span class="font-label-sm text-label-sm tracking-tight">วิเคราะห์</span></a><a class="flex flex-col items-center justify-center min-w-[68px] h-12 rounded-xl text-on-surface-variant hover:text-on-surface transition-all gap-0.5" data-path="manage-cancel-guide" href="./cancel-guide.html" target="_self"><span class="material-symbols-outlined text-[22px]">verified_user</span><span class="font-label-sm text-label-sm tracking-tight">ยกเลิก&amp;จัดการ</span></a></div></nav>
+      </section>
+    </div>
+  </main>
+
+  <!-- Add / Edit Subscription Modal -->
+  <div id="subscriptionModal"
+    class="fixed inset-0 z-[100] hidden items-end sm:items-center justify-center bg-on-background/50 p-3" role="dialog"
+    aria-modal="true" aria-labelledby="subscriptionModalTitle">
+    <div class="w-full max-w-md rounded-2xl bg-surface p-5 shadow-2xl max-h-[90vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-4">
+        <h2 id="subscriptionModalTitle" class="font-headline-sm text-headline-sm">เพิ่มสมาชิกใหม่</h2>
+        <button type="button" id="closeSubscriptionModal" aria-label="ปิด"
+          class="w-9 h-9 rounded-full bg-surface-container flex items-center justify-center"><span
+            class="material-symbols-outlined">close</span></button>
+      </div>
+      <form id="subscriptionForm" class="flex flex-col gap-3">
+        <label class="font-label-md">ชื่อบริการ<input required name="name" maxlength="50"
+            placeholder="เช่น Netflix, Spotify"
+            class="mt-1 w-full rounded-lg border border-outline-variant bg-surface-container-lowest p-3 text-on-surface"></label>
+        <div class="grid grid-cols-2 gap-3">
+          <label class="font-label-md">ราคา (บาท)<input required name="price" type="number" min="0" step="0.01"
+              placeholder="เช่น 169"
+              class="mt-1 w-full rounded-lg border border-outline-variant bg-surface-container-lowest p-3"></label>
+          <label class="font-label-md">รอบชำระ<select name="cycle"
+              class="mt-1 w-full rounded-lg border border-outline-variant bg-surface-container-lowest p-3">
+              <option value="monthly">รายเดือน</option>
+              <option value="yearly">รายปี</option>
+              <option value="weekly">รายสัปดาห์</option>
+            </select></label>
+        </div>
+        <label class="font-label-md">วันตัดเงิน / วันต่ออายุ<input required name="date" type="date"
+            class="mt-1 w-full rounded-lg border border-outline-variant bg-surface-container-lowest p-3"></label>
+        <label class="font-label-md">ช่องทางชำระเงิน (ไม่บังคับ)<input name="payment" maxlength="40"
+            placeholder="เช่น บัตรเดบิต, TrueMoney"
+            class="mt-1 w-full rounded-lg border border-outline-variant bg-surface-container-lowest p-3"></label>
+        <label class="font-label-md">หมายเหตุ (ไม่บังคับ)<textarea name="note" rows="2" maxlength="120"
+            placeholder="รายละเอียดเพิ่มเติม"
+            class="mt-1 w-full rounded-lg border border-outline-variant bg-surface-container-lowest p-3"></textarea></label>
+        <button type="submit"
+          class="w-full min-h-12 rounded-xl bg-primary text-on-primary font-label-lg">บันทึกสมาชิก</button>
+      </form>
+    </div>
+  </div>
+  <div id="manageModal"
+    class="fixed inset-0 z-[100] hidden items-end sm:items-center justify-center bg-on-background/50 p-3" role="dialog"
+    aria-modal="true" aria-labelledby="manageModalTitle">
+    <div class="w-full max-w-md rounded-2xl bg-surface p-5 shadow-2xl max-h-[85vh] overflow-y-auto">
+      <div class="flex items-center justify-between mb-3">
+        <h2 id="manageModalTitle" class="font-headline-sm text-headline-sm">จัดการสมาชิก</h2><button
+          id="closeManageModal" class="w-9 h-9 rounded-full bg-surface-container"><span
+            class="material-symbols-outlined">close</span></button>
+      </div>
+      <p class="font-body-sm text-on-surface-variant mb-3">เลือกลบรายการที่ไม่ต้องการติดตาม
+        การลบจะนำรายการออกจากปฏิทินด้วย</p>
+      <div id="manageSubscriptionList" class="flex flex-col gap-2"></div>
+    </div>
+  </div>
+  <div id="subwiseToast"
+    class="fixed bottom-20 left-1/2 -translate-x-1/2 z-[120] hidden rounded-full bg-on-background text-white px-4 py-2 text-sm shadow-lg">
+  </div>
+  <script src="subscriptions.js"></script>
+  <nav
+    class="fixed bottom-0 w-full z-50 pb-safe bg-surface/90 backdrop-blur-xl shadow-[0_-4px_16px_rgba(11,28,48,0.06)]"
+    data-active-classes="bg-primary text-on-primary shadow-sm">
+    <div class="h-16 px-space-xs flex items-center justify-around"><a aria-current="page"
+        class="flex flex-col items-center justify-center min-w-[68px] h-12 rounded-xl transition-all gap-0.5 bg-primary text-on-primary shadow-sm"
+        data-path="dashboard" href="index.html"><span
+          class="material-symbols-outlined text-[22px]">grid_view</span><span
+          class="font-label-sm text-label-sm tracking-tight">แดชบอร์ด</span></a><a
+        class="flex flex-col items-center justify-center min-w-[68px] h-12 rounded-xl text-on-surface-variant hover:text-on-surface transition-all gap-0.5"
+        data-path="calendar-reminders" href="calendar-reminders.html"><span
+          class="material-symbols-outlined text-[22px]">event_upcoming</span><span
+          class="font-label-sm text-label-sm tracking-tight">ปฏิทินเตือน</span></a><a
+        class="flex flex-col items-center justify-center min-w-[68px] h-12 rounded-xl text-on-surface-variant hover:text-on-surface transition-all gap-0.5"
+        data-path="expense-analytics" href="expense-analytics.html"><span
+          class="material-symbols-outlined text-[22px]">query_stats</span><span
+          class="font-label-sm text-label-sm tracking-tight">สรุปรายเดือน</span></a><a
+        class="flex flex-col items-center justify-center min-w-[68px] h-12 rounded-xl text-on-surface-variant hover:text-on-surface transition-all gap-0.5"
+        data-path="manage-cancel-guide" href="cancel-guide.html"><span
+          class="material-symbols-outlined text-[22px]">verified_user</span><span
+          class="font-label-sm text-label-sm tracking-tight">ยกเลิก&amp;จัดการ</span></a></div>
+  </nav>
 
 
 
+  <script src="notifications.js"></script>
+</body>
 
-<script id="subwise-navigation-fix">
-(function () {
-  var pages = {
-    "dashboard": "index.html",
-    "calendar-reminders": "calendar-reminders.html",
-    "expense-analytics": "expense-analytics.html",
-    "manage-cancel-guide": "cancel-guide.html",
-    "profile-settings": "profile-settings.html"
-  };
-  document.addEventListener("click", function (event) {
-    var link = event.target && event.target.closest ? event.target.closest("a[data-path]") : null;
-    if (!link) return;
-    var page = pages[link.getAttribute("data-path")];
-    if (!page) return;
-    event.preventDefault();
-    window.location.href = new URL("./" + page, window.location.href).href;
-  });
-})();
-</script>
-</body></html>
+</html>
